@@ -1,6 +1,5 @@
 .ipynb_checkpoints/
 *.ipynb_checkpoints
-/eda_src/__pycache__/
 *.py[cod]
 *$py.class
 *.so

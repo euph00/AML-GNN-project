@@ -30,4 +30,4 @@ ENV/
 *~
 .DS_Store
 Thumbs.db
-.cache/
+.cache/path/to/large_file

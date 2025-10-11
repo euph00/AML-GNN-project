@@ -401,7 +401,7 @@ def plot_hourly_distribution(transactions_df: pd.DataFrame) -> plt.Figure:
     hour_of_day = transactions_df['timestamp'].dt.hour
     hour_counts = hour_of_day.value_counts().sort_index()
 
-    ax.bar(range(24), [hour_counts.get(h, 0) for h in range(24)])
+    ax.bar(range(24), [hour_counts.get(h, 0) for h in range(0,24)])
     ax.set_xlabel('Hour of Day')
     ax.set_ylabel('Number of Transactions')
     ax.set_title('Transaction Distribution by Hour of Day')

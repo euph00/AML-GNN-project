@@ -1,4 +1,44 @@
-.ipynb_checkpoints/
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore temporary files created by the interpreter
+*.pyd
+*.pyo
+
+# Ignore virtual environments
+venv/
+.venv/
+env/
+
+# Ignore editor-specific and IDE files
+.vscode/        # VS Code
+.idea/          # PyCharm
+*.sublime-* # Sublime Text
+
+# Ignore operating system generated files
+.DS_Store       # macOS
+.Trash-1000/    # Linux
+
+# Ignore build artifacts and distribution files
+dist/
+build/
+*.egg-info/
+
+# Ignore log files and temporary data
+*.log
+*.tmp
+*.temp
+
+# Ignore sensitive information and local configuration
+.env            # Environment variables
+.env.local
+*.json.local
+
+# ----- Project-Specific Ignored Files -----
+# Add your specific large files or folders here.
+# For example, ignore the large CSV file you mentioned.
+Feature_Engineering/Dataset/HI-Small_Trans.csv.ipynb_checkpoints/
 *.ipynb_checkpoints
 /eda_src/__pycache__/
 *.py[cod]
@@ -30,4 +70,4 @@ ENV/
 *~
 .DS_Store
 Thumbs.db
-.cache/
+.cache/path/to/large_file

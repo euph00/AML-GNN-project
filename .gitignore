@@ -31,3 +31,8 @@ ENV/
 .DS_Store
 Thumbs.db
 .cache/
+
+./00_data/*00_data/*.parquet
+supervised_graph_src/*.dgl
+00_data/trans_df.parquet
+supervised_graph_src/trasaction_graph.dgl

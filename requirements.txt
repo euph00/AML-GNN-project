@@ -9,3 +9,5 @@ ipykernel>=6.0.0
 scikit-learn>=1.1.0
 tqdm>=4.64.0
 kagglehub>=0.1.0
+fastparquet>=2024.11.0
+dgl==2.2.1

@@ -1,0 +1,23 @@
+name: cs5284_project
+channels:
+  - microsoft
+  - conda-forge
+  - defaults
+dependencies:
+  - matplotlib
+  - networkx
+  - numpy
+  - pandas
+  - plotly
+  - python=3.9
+  - scikit-learn
+  - seaborn
+  - tqdm
+  - pytorch-cuda=11.8
+  - pytorch==2.4.1
+  - torchaudio==2.4.1
+  - torchvision==0.19.1
+  - dgl
+  - ipykernel
+  - pydantic
+prefix: /home/bernard/miniconda3/envs/cs5284_project

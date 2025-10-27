@@ -38,3 +38,5 @@ dependencies:
 # if dataset needs to be downloaded run pip install kagglehub
 
 # pip install xgboost
+
+# pip install dgl

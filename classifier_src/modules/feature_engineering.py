@@ -175,7 +175,7 @@ def encode_payment_format_ids(trans_df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def encode_account_ids(trans_df: pd.DataFrame) -> tuple[pd.DataFrame, dict, dict]:
+def encode_account_ids(trans_df: pd.DataFrame) -> tuple:
     """
     Encode account identifiers as numerical IDs.
 
@@ -221,7 +221,7 @@ def decode_account_ids(account_ids: np.ndarray, id_to_account: dict) -> list:
     return [id_to_account[account_id] for account_id in account_ids]
 
 
-def temporal_train_test_split(trans_df: pd.DataFrame, train_ratio: float = 0.8) -> tuple[pd.DataFrame, pd.DataFrame]:
+def temporal_train_test_split(trans_df: pd.DataFrame, train_ratio: float = 0.8) -> tuple:
     """
     Split transactions into train and test sets based on temporal ordering.
     The first train_ratio of transactions (by time) go to train, rest to test.

@@ -71,3 +71,4 @@ ENV/
 .DS_Store
 Thumbs.db
 .cache/path/to/large_file
+*.pt

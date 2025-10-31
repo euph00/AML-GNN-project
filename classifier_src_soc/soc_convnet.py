@@ -56,9 +56,12 @@ def build_graph_from_df(df):
     avg_log_indegree = log_indegrees.mean()
     avg_log_outdegree = log_outdegrees.mean()
 
+    std_log_indegree = log_indegrees.std()
+    std_log_outdegree = log_outdegrees.std()
+
     # zc and normalize
-    normalized_indegree = (log_indegrees - avg_log_indegree) / avg_log_indegree
-    normalized_outdegree = (log_outdegrees - avg_log_outdegree) / avg_log_outdegree
+    normalized_indegree = (log_indegrees - avg_log_indegree) / std_log_indegree
+    normalized_outdegree = (log_outdegrees - avg_log_outdegree) / std_log_outdegree
 
     node_features = torch.stack([normalized_indegree, normalized_outdegree], dim=1)
 

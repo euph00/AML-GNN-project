@@ -292,7 +292,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
 
     # Build graphs
     training_graph = build_graph_from_df(train_df)
-    # test_graph = build_graph_from_df(test_df)
+    test_graph = build_graph_from_df(test_df)
 
     # Setup model and loss
     training_graph = training_graph.to(DEVICE)
@@ -376,7 +376,18 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     print("TRAINING COMPLETE")
     print("="*60)
 
-    pass
+    print("\n" + "="*60)
+    print("EVALUATION")
+    print("="*60)
+
+    metrics, preds, probs = evaluate(model, test_graph)
+    print("Metrics: ", metrics)
+    print("Predictions: ", preds)
+    print("Probabilities: ", probs)
+
+    print("\n" + "="*60)
+    print("EVALUATION COMPLETE")
+    print("="*60)
 
 if __name__ == "__main__":
 

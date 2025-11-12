@@ -12,7 +12,6 @@ from sklearn.metrics import precision_recall_fscore_support, roc_auc_score, conf
 import numpy as np
 import kagglehub
 import argparse
-from dgl.nn.pytorch import GINEConv
 
 DATASET_NAME = "HI-Small"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -66,12 +65,7 @@ def build_graph_from_df(df):
 
     node_features = torch.stack([normalized_indegree, normalized_outdegree], dim=1)
 
-    # Add RWPE features to each node
-    k_steps = 16
-    rwpe_features = dgl.random_walk_pe(graph, k=k_steps)
-
-    node_features = torch.cat([node_features, rwpe_features], dim=1)
-
+    # Perhaps we can include simple graph RWPE as a node feature too?
     graph.ndata['node_feats'] = node_features
 
     return graph
@@ -99,17 +93,50 @@ class EdgeEmbedding(nn.Module):
         edge_feats = torch.cat([payment_curr_embed, receiving_curr_embed, payment_method_embed, numericals], dim=1)
         return edge_feats
     
-class GINEEdgeClassifier(nn.Module):
-    """
-    Graph Isomorphism Network with Edge Features (GINE) for edge classification.
-    Uses GINEConv layers from DGL instead of custom GCN layers.
-    """
+class GCNLayer(nn.Module):
+    def __init__(self, input_dim, output_dim, residual=True):
+        super().__init__()
+        self.linear = nn.Linear(input_dim, output_dim)
+        self.residual = residual
+
+        if residual and input_dim != output_dim:
+            self.res_linear = nn.Linear(input_dim, output_dim) # project residual if diff dims
+        elif residual:
+            self.res_linear = nn.Identity()
+
+    def message_func(self, edges):
+        return {'m': edges.src['Wh'] * edges.src['norm']} # normalize by source degree first
+
+    def reduce_func(self, nodes):
+        return {'h': torch.sum(nodes.mailbox['m'], dim=1)}
+    
+    def forward(self, graph, node_feats):
+        with graph.local_scope():
+            h_in = node_feats
+
+            graph.ndata['Wh'] = self.linear(node_feats) # W is linear transform, h is node feats
+
+            degs = graph.in_degrees().float().clamp(min=1)
+            norm = torch.pow(degs, -0.5).unsqueeze(1)
+            graph.ndata['norm'] = norm
+
+            graph.update_all(self.message_func, self.reduce_func)
+
+            h_out = graph.ndata['h'] * norm # then normalize by destination degree
+
+            h_out = F.relu(h_out)
+            if self.residual:
+                return h_out + self.res_linear(h_in)
+            else:
+                return h_out
+
+class GCNEdgeClassifier(nn.Module):
     
     def __init__(self,
                 # node params
-                node_in_feats=2 + 16, # log transformed and normalized indegree outdegree and RWPE with k=16 steps
+                node_in_feats=2, # log transformed and normalized indegree outdegree
                 hidden_dim=64,
-                num_gine_layers=3,
+                num_gcn_layers=3,
 
                 # for EdgeEmbedding
                 num_currencies=15,
@@ -126,67 +153,24 @@ class GINEEdgeClassifier(nn.Module):
                 use_batch_norm=False):
         super().__init__()
 
-        self.num_gine_layers = num_gine_layers
+        self.num_gcn_layers = num_gcn_layers
         self.hidden_dim = hidden_dim
         self.dropout = dropout
         self.use_batch_norm = use_batch_norm
 
-        # Edge Feature processor - used for message passing
-        self.edge_embed = EdgeEmbedding(num_currencies, num_payment_methods, 
-                                       currencies_embed_dim, payment_embed_dim, num_numericals)
-        
-        edge_feat_dim = self.edge_embed.out_dim
+        # GCN layers
+        self.gcn_layers = nn.ModuleList()
+        self.gcn_layers.append(GCNLayer(node_in_feats, hidden_dim, residual=False)) # no residual for layer 1 since in dim and out dim dont match, simpler to just skip
+        for i in range(num_gcn_layers - 1):
+            self.gcn_layers.append(GCNLayer(hidden_dim, hidden_dim, residual=True))
+        if use_batch_norm: # create batch norm layers if using them
+            self.batch_norms = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for i in range(num_gcn_layers)])
 
-        # Edge projection layers to match node feature dimensions
-        # GINEConv requires edge features to have same dimension as node features
-        self.edge_projections = nn.ModuleList()
-        
-        # First edge projection: edge_feat_dim -> node_in_feats (for first GINE layer)
-        self.edge_projections.append(nn.Linear(edge_feat_dim, node_in_feats))
-        
-        # Subsequent edge projections: edge_feat_dim -> hidden_dim
-        for _ in range(num_gine_layers - 1):
-            self.edge_projections.append(nn.Linear(edge_feat_dim, hidden_dim))
-
-        # MLP modules for GINE layers (used as apply_func)
-        self.mlp_layers = nn.ModuleList()
-        
-        # First MLP: node_in_feats -> hidden_dim
-        mlp_first = nn.Sequential(
-            nn.Linear(node_in_feats, hidden_dim),
-            nn.BatchNorm1d(hidden_dim) if use_batch_norm else nn.Identity(),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, hidden_dim)
-        )
-        self.mlp_layers.append(mlp_first)
-        
-        # Subsequent MLPs: hidden_dim -> hidden_dim
-        for _ in range(num_gine_layers - 1):
-            mlp = nn.Sequential(
-                nn.Linear(hidden_dim, hidden_dim),
-                nn.BatchNorm1d(hidden_dim) if use_batch_norm else nn.Identity(),
-                nn.ReLU(),
-                nn.Linear(hidden_dim, hidden_dim)
-            )
-            self.mlp_layers.append(mlp)
-        
-        # GINE layers - pass MLP as apply_func
-        self.gine_layers = nn.ModuleList()
-        for i in range(num_gine_layers):
-            self.gine_layers.append(
-                GINEConv(
-                    apply_func=self.mlp_layers[i],
-                    init_eps=0,
-                    learn_eps=True
-                )
-            )
-        
-        # Batch normalization layers for node embeddings after each GINE layer
-        if use_batch_norm:
-            self.batch_norms = nn.ModuleList([nn.BatchNorm1d(hidden_dim) for _ in range(num_gine_layers)])
+        # Edge Feature processor
+        self.edge_embed = EdgeEmbedding(num_currencies, num_payment_methods, currencies_embed_dim, payment_embed_dim, num_numericals)
 
         # Combiner to do edge classification: append 2 node embeddings with edge embedding
-        edge_repr_dim = 2*hidden_dim + edge_feat_dim
+        edge_repr_dim = 2*hidden_dim + self.edge_embed.out_dim
 
         # MLP for edge classification
         self.edge_classifier = nn.Sequential(
@@ -203,6 +187,7 @@ class GINEEdgeClassifier(nn.Module):
             nn.Linear(hidden_dim, num_classes)
         )
 
+
     def forward(self, graph):
         node_features = graph.ndata['node_feats']
         payment_currency = graph.edata['payment_currency']
@@ -210,37 +195,27 @@ class GINEEdgeClassifier(nn.Module):
         payment_method = graph.edata['payment_format']
         edge_numericals = graph.edata['numericals']
 
-        # Process edge features once
-        edge_features_raw = self.edge_embed(payment_currency, receiving_currency, 
-                                           payment_method, edge_numericals)
-
-        # GINE message passing to learn node embeddings
+        # GCN message passing to learn node embeddings
         h = node_features
-        for i, gine_layer in enumerate(self.gine_layers):
-            # Project edge features to match current node feature dimension
-            edge_features_projected = self.edge_projections[i](edge_features_raw)
-            
-            # GINEConv takes (graph, node_features, edge_features)
-            h = gine_layer(graph, h, edge_features_projected)
-            
+        for i, gcn_layer in enumerate(self.gcn_layers):
+            h = gcn_layer(graph, h)
             if self.use_batch_norm:
                 h = self.batch_norms[i](h)
-            
-            h = F.relu(h)
-            
-            # Apply dropout between layers except after the last one
-            if i < self.num_gine_layers - 1:
+            if i < self.num_gcn_layers - 1: # dropout between each layer except after last
                 h = F.dropout(h, p=self.dropout, training=self.training)
         
-        # Get node embeddings for each edge
+        # get node embedding for each edge
         src_nodes, dst_nodes = graph.edges()
         src_embed = h[src_nodes]
         dst_embed = h[dst_nodes]
 
-        # Concat 2 node embeddings with original edge features to get complete edge representation
-        edge_repr = torch.cat([src_embed, dst_embed, edge_features_raw], dim=1)
+        # process edge features
+        edge_features = self.edge_embed(payment_currency, receiving_currency, payment_method, edge_numericals)
 
-        # Classify edges
+        # concat 2 nodes embeddings with edge features to get complete edge embedding
+        edge_repr = torch.cat([src_embed, dst_embed, edge_features], dim=1)
+
+        # classify edges
         logits = self.edge_classifier(edge_repr)
 
         return logits
@@ -322,7 +297,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     # Setup model and loss
     training_graph = training_graph.to(DEVICE)
     test_graph = test_graph.to(DEVICE)
-    model = GINEEdgeClassifier().to(DEVICE)
+    model = GCNEdgeClassifier().to(DEVICE)
 
     train_labels = training_graph.edata['is_laundering'].long()
 
@@ -367,7 +342,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
         optimizer.step()
         
         # Evaluate every 2 epochs, can change to 5 if uw, this slows down training 
-        if epoch % 1 == 0:
+        if epoch % 2 == 0:
             model.eval()
             with torch.no_grad():
                 eval_logits = model(training_graph)

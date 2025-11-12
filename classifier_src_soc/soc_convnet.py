@@ -264,6 +264,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     """
     Main function to pre-process data, train/evaluate the model.
     """
+    print(f"CUDA available: {torch.cuda.is_available()}")
     dataset_name = "HI-Small"
 
     print(f"Loading {dataset_name}...\n")
@@ -302,7 +303,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     train_labels = training_graph.edata['is_laundering'].long()
 
     ############ MINORITY CLASS SCALE WEIGHT ############
-    class_weights = torch.tensor([1.0, 20.0]).to(DEVICE) #place 20x weight on positive examples, since we are doing 1:30 undersampling, feel free to adjust these numbers and experiment yourself
+    class_weights = torch.tensor([1.0, 40.0]).to(DEVICE) #place 20x weight on positive examples, since we are doing 1:30 undersampling, feel free to adjust these numbers and experiment yourself
     ######################################################
 
     print(f"Class weights: {class_weights}")
@@ -441,9 +442,10 @@ if __name__ == "__main__":
                        help='Learning rate')
     
     args = parser.parse_args()
-
+    print("Preparing dataset")
     # Download dataset from Kaggle
     path = kagglehub.dataset_download("ealtman2019/ibm-transactions-for-anti-money-laundering-aml")
     print("Path to dataset files:", path)
+    print("Begin main loop")
     
     main(args.output_dir, args.num_epochs, args.learning_rate)

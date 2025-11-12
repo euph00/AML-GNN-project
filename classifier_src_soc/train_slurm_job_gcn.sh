@@ -68,7 +68,7 @@ OUTPUT_DIR="./saved_models/"
 mkdir -p $OUTPUT_DIR
 
 # Training parameters
-NUM_EPOCHS=50
+NUM_EPOCHS=100
 LEARNING_RATE=1e-4
 
 # Run the training script
@@ -78,7 +78,7 @@ echo "Epochs: $NUM_EPOCHS"
 echo "Learning rate: $LEARNING_RATE"
 echo "=========================================="
 
-python soc_convnet.py \
+python -u soc_convnet.py \
     --output_dir $OUTPUT_DIR \
     --num_epochs $NUM_EPOCHS \
     --learning_rate $LEARNING_RATE \

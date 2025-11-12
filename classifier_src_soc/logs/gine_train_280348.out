@@ -1,0 +1,393 @@
+==========================================
+Job ID: 280348
+Job Name: dgl_gnn_train
+Node: xgpi15
+Start Time: Wed Nov 12 12:45:54 PM +08 2025
+GPU Information:
+Wed Nov 12 12:45:54 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 575.57.08              Driver Version: 575.57.08      CUDA Version: 12.9     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 NVL                On  |   00000000:82:00.0 Off |                   On |
+| N/A   81C    P0            200W /  400W |   42079MiB /  95830MiB |     N/A      Default |
+|                                         |                        |              Enabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| MIG devices:                                                                            |
++------------------+----------------------------------+-----------+-----------------------+
+| GPU  GI  CI  MIG |                     Memory-Usage |        Vol|        Shared         |
+|      ID  ID  Dev |                       BAR1-Usage | SM     Unc| CE ENC  DEC  OFA  JPG |
+|                  |                                  |        ECC|                       |
+|==================+==================================+===========+=======================|
+|  0    1   0   0  |              44MiB / 47488MiB    | 60      0 |  3   0    3    0    3 |
+|                  |                 0MiB / 65535MiB  |           |                       |
++------------------+----------------------------------+-----------+-----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+==========================================
+Conda environment 'aml_project_new' already exists. Activating it...
+Working directory: /home/l/linchieh/AML-GNN-project/classifier_src_soc
+==========================================
+Starting fine-tuning...
+Output directory: ./saved_models/
+Epochs: 100
+Learning rate: 1e-4
+==========================================
+Warning: Looks like you're using an outdated `kagglehub` version, please consider updating (latest version: 0.3.13)
+Path to dataset files: /home/l/linchieh/.cache/kagglehub/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml/versions/8
+Loading HI-Small...
+
+
+Loading transactions from: /home/l/linchieh/.cache/kagglehub/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml/versions/8/HI-Small_Trans.csv
+File size: 453.6 MB
+
+Loaded 5,078,345 transactions
+Date range: 2022-09-01 00:00:00 to 2022-09-18 16:18:00
+Laundering transactions: 5,177 (0.102%)
+============================================================
+TEMPORAL TRAIN/TEST SPLIT
+============================================================
+
+Train Set:
+  Date range: 2022-09-01 00:00:00 to 2022-09-08 16:12:00
+  Transactions: 4,062,676
+  Laundering: 3,380 (0.083%)
+
+Test Set:
+  Date range: 2022-09-08 16:12:00 to 2022-09-18 16:18:00
+  Transactions: 1,015,669
+  Laundering: 1,797 (0.177%)
+============================================================
+Number of nodes: 515080
+Number of edges: 4062676
+Number of nodes: 515080
+Number of edges: 1015669
+Class weights: tensor([ 1., 20.], device='cuda:0')
+
+============================================================
+TRAINING
+============================================================
+
+Epoch   0 | Loss: 3.0062 | Acc: 0.5940
+  Class 1 - P: 0.0009, R: 0.4399, F1: 0.0018
+  Predicting class 1: 40.59472%
+  Saved best model (F1: 0.0018)
+Epoch   1 | Loss: 2.6448
+
+Epoch   2 | Loss: 2.5850 | Acc: 0.7126
+  Class 1 - P: 0.0008, R: 0.2624, F1: 0.0015
+  Predicting class 1: 28.70093%
+Epoch   3 | Loss: 2.5492
+
+Epoch   4 | Loss: 2.2261 | Acc: 0.7913
+  Class 1 - P: 0.0008, R: 0.1947, F1: 0.0015
+  Predicting class 1: 20.81761%
+Epoch   5 | Loss: 2.2713
+
+Epoch   6 | Loss: 2.1201 | Acc: 0.8329
+  Class 1 - P: 0.0008, R: 0.1686, F1: 0.0017
+  Predicting class 1: 16.65240%
+Epoch   7 | Loss: 1.8831
+
+Epoch   8 | Loss: 2.0315 | Acc: 0.8493
+  Class 1 - P: 0.0010, R: 0.1814, F1: 0.0020
+  Predicting class 1: 15.01683%
+  Saved best model (F1: 0.0020)
+Epoch   9 | Loss: 1.8214
+
+Epoch  10 | Loss: 1.7798 | Acc: 0.8616
+  Class 1 - P: 0.0012, R: 0.1938, F1: 0.0023
+  Predicting class 1: 13.79025%
+  Saved best model (F1: 0.0023)
+Epoch  11 | Loss: 1.6732
+
+Epoch  12 | Loss: 1.5844 | Acc: 0.8717
+  Class 1 - P: 0.0013, R: 0.2068, F1: 0.0027
+  Predicting class 1: 12.78455%
+  Saved best model (F1: 0.0027)
+Epoch  13 | Loss: 1.6265
+
+Epoch  14 | Loss: 1.3939 | Acc: 0.8809
+  Class 1 - P: 0.0014, R: 0.2065, F1: 0.0029
+  Predicting class 1: 11.86363%
+  Saved best model (F1: 0.0029)
+Epoch  15 | Loss: 1.5537
+
+Epoch  16 | Loss: 1.3725 | Acc: 0.8866
+  Class 1 - P: 0.0015, R: 0.2044, F1: 0.0030
+  Predicting class 1: 11.29078%
+  Saved best model (F1: 0.0030)
+Epoch  17 | Loss: 1.3232
+
+Epoch  18 | Loss: 1.3014 | Acc: 0.8893
+  Class 1 - P: 0.0016, R: 0.2071, F1: 0.0031
+  Predicting class 1: 11.02561%
+  Saved best model (F1: 0.0031)
+Epoch  19 | Loss: 1.3303
+
+Epoch  20 | Loss: 1.2680 | Acc: 0.8906
+  Class 1 - P: 0.0016, R: 0.2095, F1: 0.0032
+  Predicting class 1: 10.89262%
+  Saved best model (F1: 0.0032)
+Epoch  21 | Loss: 1.1944
+
+Epoch  22 | Loss: 1.1605 | Acc: 0.8903
+  Class 1 - P: 0.0016, R: 0.2148, F1: 0.0032
+  Predicting class 1: 10.92450%
+  Saved best model (F1: 0.0032)
+Epoch  23 | Loss: 1.1612
+
+Epoch  24 | Loss: 1.0861 | Acc: 0.8911
+  Class 1 - P: 0.0016, R: 0.2127, F1: 0.0032
+  Predicting class 1: 10.84608%
+Epoch  25 | Loss: 1.0963
+
+Epoch  26 | Loss: 1.1062 | Acc: 0.8931
+  Class 1 - P: 0.0017, R: 0.2115, F1: 0.0033
+  Predicting class 1: 10.64355%
+  Saved best model (F1: 0.0033)
+Epoch  27 | Loss: 1.0459
+
+Epoch  28 | Loss: 1.0542 | Acc: 0.8975
+  Class 1 - P: 0.0017, R: 0.2083, F1: 0.0034
+  Predicting class 1: 10.19712%
+  Saved best model (F1: 0.0034)
+Epoch  29 | Loss: 1.1024
+
+Epoch  30 | Loss: 0.9856 | Acc: 0.9046
+  Class 1 - P: 0.0018, R: 0.2018, F1: 0.0035
+  Predicting class 1: 9.49256%
+  Saved best model (F1: 0.0035)
+Epoch  31 | Loss: 1.0203
+
+Epoch  32 | Loss: 0.9792 | Acc: 0.9113
+  Class 1 - P: 0.0018, R: 0.1956, F1: 0.0037
+  Predicting class 1: 8.81481%
+  Saved best model (F1: 0.0037)
+Epoch  33 | Loss: 1.0016
+
+Epoch  34 | Loss: 0.9683 | Acc: 0.9145
+  Class 1 - P: 0.0019, R: 0.1964, F1: 0.0038
+  Predicting class 1: 8.50358%
+  Saved best model (F1: 0.0038)
+Epoch  35 | Loss: 0.9449
+
+Epoch  36 | Loss: 1.0139 | Acc: 0.9134
+  Class 1 - P: 0.0019, R: 0.1967, F1: 0.0038
+  Predicting class 1: 8.61179%
+Epoch  37 | Loss: 0.9753
+
+Epoch  38 | Loss: 0.9427 | Acc: 0.9137
+  Class 1 - P: 0.0020, R: 0.2044, F1: 0.0039
+  Predicting class 1: 8.58355%
+  Saved best model (F1: 0.0039)
+Epoch  39 | Loss: 0.9438
+
+Epoch  40 | Loss: 0.9934 | Acc: 0.9161
+  Class 1 - P: 0.0021, R: 0.2130, F1: 0.0042
+  Predicting class 1: 8.34445%
+  Saved best model (F1: 0.0042)
+Epoch  41 | Loss: 0.9452
+
+Epoch  42 | Loss: 0.8875 | Acc: 0.9174
+  Class 1 - P: 0.0022, R: 0.2160, F1: 0.0043
+  Predicting class 1: 8.20966%
+  Saved best model (F1: 0.0043)
+Epoch  43 | Loss: 0.8883
+
+Epoch  44 | Loss: 0.9287 | Acc: 0.9172
+  Class 1 - P: 0.0023, R: 0.2269, F1: 0.0045
+  Predicting class 1: 8.23753%
+  Saved best model (F1: 0.0045)
+Epoch  45 | Loss: 0.9158
+
+Epoch  46 | Loss: 0.8851 | Acc: 0.9155
+  Class 1 - P: 0.0024, R: 0.2453, F1: 0.0048
+  Predicting class 1: 8.40330%
+  Saved best model (F1: 0.0048)
+Epoch  47 | Loss: 0.8731
+
+Epoch  48 | Loss: 0.8760 | Acc: 0.9151
+  Class 1 - P: 0.0025, R: 0.2559, F1: 0.0050
+  Predicting class 1: 8.45046%
+  Saved best model (F1: 0.0050)
+Epoch  49 | Loss: 0.8837
+
+Epoch  50 | Loss: 0.8557 | Acc: 0.9136
+  Class 1 - P: 0.0026, R: 0.2651, F1: 0.0051
+  Predicting class 1: 8.59724%
+  Saved best model (F1: 0.0051)
+Epoch  51 | Loss: 0.8729
+
+Epoch  52 | Loss: 0.8356 | Acc: 0.9077
+  Class 1 - P: 0.0025, R: 0.2796, F1: 0.0050
+  Predicting class 1: 9.19236%
+Epoch  53 | Loss: 0.8405
+
+Epoch  54 | Loss: 0.8956 | Acc: 0.9003
+  Class 1 - P: 0.0025, R: 0.3021, F1: 0.0050
+  Predicting class 1: 9.93326%
+Epoch  55 | Loss: 0.8550
+
+Epoch  56 | Loss: 0.8457 | Acc: 0.8964
+  Class 1 - P: 0.0025, R: 0.3148, F1: 0.0050
+  Predicting class 1: 10.32955%
+Epoch  57 | Loss: 0.8089
+
+Epoch  58 | Loss: 0.8174 | Acc: 0.9013
+  Class 1 - P: 0.0026, R: 0.3095, F1: 0.0052
+  Predicting class 1: 9.83738%
+  Saved best model (F1: 0.0052)
+Epoch  59 | Loss: 0.8380
+
+Epoch  60 | Loss: 0.8373 | Acc: 0.9086
+  Class 1 - P: 0.0027, R: 0.2991, F1: 0.0054
+  Predicting class 1: 9.10986%
+  Saved best model (F1: 0.0054)
+Epoch  61 | Loss: 0.7998
+
+Epoch  62 | Loss: 0.8074 | Acc: 0.9241
+  Class 1 - P: 0.0029, R: 0.2666, F1: 0.0058
+  Predicting class 1: 7.54668%
+  Saved best model (F1: 0.0058)
+Epoch  63 | Loss: 0.8116
+
+Epoch  64 | Loss: 0.7846 | Acc: 0.9326
+  Class 1 - P: 0.0032, R: 0.2598, F1: 0.0064
+  Predicting class 1: 6.69573%
+  Saved best model (F1: 0.0064)
+Epoch  65 | Loss: 0.7841
+
+Epoch  66 | Loss: 0.7716 | Acc: 0.9372
+  Class 1 - P: 0.0034, R: 0.2556, F1: 0.0067
+  Predicting class 1: 6.23842%
+  Saved best model (F1: 0.0067)
+Epoch  67 | Loss: 0.7875
+
+Epoch  68 | Loss: 0.7796 | Acc: 0.9394
+  Class 1 - P: 0.0035, R: 0.2550, F1: 0.0070
+  Predicting class 1: 6.01495%
+  Saved best model (F1: 0.0070)
+Epoch  69 | Loss: 0.8097
+
+Epoch  70 | Loss: 0.8231 | Acc: 0.9387
+  Class 1 - P: 0.0035, R: 0.2562, F1: 0.0069
+  Predicting class 1: 6.08471%
+Epoch  71 | Loss: 0.7912
+
+Epoch  72 | Loss: 0.7489 | Acc: 0.9351
+  Class 1 - P: 0.0034, R: 0.2607, F1: 0.0066
+  Predicting class 1: 6.44580%
+Epoch  73 | Loss: 0.7885
+
+Epoch  74 | Loss: 0.7974 | Acc: 0.9357
+  Class 1 - P: 0.0034, R: 0.2601, F1: 0.0067
+  Predicting class 1: 6.39074%
+Epoch  75 | Loss: 0.7732
+
+Epoch  76 | Loss: 0.7706 | Acc: 0.9328
+  Class 1 - P: 0.0033, R: 0.2633, F1: 0.0065
+  Predicting class 1: 6.68254%
+Epoch  77 | Loss: 0.7521
+
+Epoch  78 | Loss: 0.7522 | Acc: 0.9293
+  Class 1 - P: 0.0032, R: 0.2722, F1: 0.0064
+  Predicting class 1: 7.03615%
+Epoch  79 | Loss: 0.7712
+
+Epoch  80 | Loss: 0.7649 | Acc: 0.9245
+  Class 1 - P: 0.0031, R: 0.2796, F1: 0.0061
+  Predicting class 1: 7.51140%
+Epoch  81 | Loss: 0.7889
+
+Epoch  82 | Loss: 0.7666 | Acc: 0.9200
+  Class 1 - P: 0.0030, R: 0.2864, F1: 0.0059
+  Predicting class 1: 7.96389%
+Epoch  83 | Loss: 0.7583
+
+Epoch  84 | Loss: 0.7532 | Acc: 0.9125
+  Class 1 - P: 0.0028, R: 0.2970, F1: 0.0056
+  Predicting class 1: 8.71271%
+Epoch  85 | Loss: 0.7789
+
+Epoch  86 | Loss: 0.7594 | Acc: 0.9053
+  Class 1 - P: 0.0027, R: 0.3086, F1: 0.0054
+  Predicting class 1: 9.43642%
+Epoch  87 | Loss: 0.7444
+
+Epoch  88 | Loss: 0.7564 | Acc: 0.8996
+  Class 1 - P: 0.0026, R: 0.3180, F1: 0.0052
+  Predicting class 1: 10.01175%
+Epoch  89 | Loss: 0.7471
+
+Epoch  90 | Loss: 0.7394 | Acc: 0.8976
+  Class 1 - P: 0.0026, R: 0.3163, F1: 0.0051
+  Predicting class 1: 10.20953%
+Epoch  91 | Loss: 0.7342
+
+Epoch  92 | Loss: 0.7333 | Acc: 0.8973
+  Class 1 - P: 0.0026, R: 0.3169, F1: 0.0051
+  Predicting class 1: 10.23931%
+Epoch  93 | Loss: 0.7151
+
+Epoch  94 | Loss: 0.7087 | Acc: 0.8997
+  Class 1 - P: 0.0026, R: 0.3148, F1: 0.0052
+  Predicting class 1: 10.00232%
+Epoch  95 | Loss: 0.7320
+
+Epoch  96 | Loss: 0.7264 | Acc: 0.9021
+  Class 1 - P: 0.0027, R: 0.3118, F1: 0.0053
+  Predicting class 1: 9.75537%
+Epoch  97 | Loss: 0.7521
+
+Epoch  98 | Loss: 0.7452 | Acc: 0.9039
+  Class 1 - P: 0.0027, R: 0.3074, F1: 0.0053
+  Predicting class 1: 9.57581%
+Epoch  99 | Loss: 0.7187
+
+============================================================
+TRAINING COMPLETE
+============================================================
+Class 0: 1013872 (99.82%)
+Class 1: 1797 (0.18%)
+
+============================================================
+TEST SET RESULTS
+============================================================
+Overall Accuracy: 0.8937
+AUC-ROC: 0.6528
+
+Confusion Matrix:
+  TN:  907161  FP:  106711
+  FN:    1281  TP:     516
+
+Class 0 (Legitimate):
+  Precision: 0.9986
+  Recall: 0.8947
+
+Class 1 (Laundering):
+  Precision: 0.0048
+  Recall: 0.2871
+  F1 Score: 0.0095
+============================================================
+
+============================================================
+EVALUATION COMPLETE
+============================================================
+==========================================
+Training completed successfully!
+Output saved to: ./saved_models/
+==========================================
+Job completed at: Wed Nov 12 12:47:49 PM +08 2025
+==========================================

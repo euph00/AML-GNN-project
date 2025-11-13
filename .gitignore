@@ -72,3 +72,4 @@ ENV/
 Thumbs.db
 .cache/path/to/large_file
 *.pt
+saved_models/*

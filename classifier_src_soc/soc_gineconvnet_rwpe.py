@@ -66,15 +66,67 @@ def build_graph_from_df(df):
 
     node_features = torch.stack([normalized_indegree, normalized_outdegree], dim=1)
 
-    # Add RWPE features to each node
-    k_steps = 16
-    rwpe_features = dgl.random_walk_pe(graph, k=k_steps)
-
-    node_features = torch.cat([node_features, rwpe_features], dim=1)
-
     graph.ndata['node_feats'] = node_features
+    add_rwpe_features(graph)
 
     return graph
+
+def add_rwpe_features(graph, k_steps=[1,2,3,4,5,6,7,8]):
+    print("Adding RWPE feats")
+    device = graph.ndata['node_feats'].device
+    print(device)
+    src, dst = graph.edges()
+    num_nodes = graph.num_nodes()
+    
+    # Create sparse adjacency matrix in COO format
+    indices = torch.stack([src, dst], dim=0).to(device)
+    values = torch.ones(indices.shape[1], dtype=torch.float32, device=device)
+    A = torch.sparse_coo_tensor(indices, values, (num_nodes, num_nodes))
+    
+    # Compute out-degrees
+    out_deg = torch.sparse.sum(A, dim=1).to_dense()
+    out_deg[out_deg == 0] = 1  # avoid division by zero
+    
+    # Create D^(-1) as sparse diagonal matrix
+    inv_deg = 1.0 / out_deg
+    diag_indices = torch.arange(num_nodes, device=device).unsqueeze(0).repeat(2, 1)
+    D_inv = torch.sparse_coo_tensor(diag_indices, inv_deg, (num_nodes, num_nodes))
+    
+    # Transition matrix P = D^(-1) @ A
+    P = torch.sparse.mm(D_inv, A)
+    
+    # Compute RWPE: diagonal of P^k for each k
+    rwpe = torch.zeros(num_nodes, len(k_steps), device=device)
+    P_k = P
+    
+    for idx, k in enumerate(sorted(k_steps)):
+        if k > 1 and idx > 0:
+            # Multiply to get from P^(previous_k) to P^k
+            for _ in range(k - k_steps[idx-1]):
+                P_k = torch.sparse.mm(P_k, P)
+        
+        # Extract diagonal from sparse matrix
+        indices = P_k.indices()
+        values = P_k.values()
+        
+        # Find where row == col (diagonal elements)
+        diag_mask = indices[0] == indices[1]
+        diag_indices = indices[0][diag_mask]
+        diag_values = values[diag_mask]
+        
+        # Scatter into result (nodes not in diagonal have 0 probability)
+        rwpe[diag_indices, idx] = diag_values
+    
+    # Normalize: log transform + standardize
+    rwpe = torch.log(rwpe + 1e-10)
+    mean = rwpe.mean(dim=0, keepdim=True)
+    std = rwpe.std(dim=0, keepdim=True)
+    rwpe = (rwpe - mean) / (std + 1e-10)
+    
+    # Add to existing node features
+    existing_feats = graph.ndata['node_feats']
+    graph.ndata['node_feats'] = torch.cat([existing_feats, rwpe], dim=1)
+    print("Added RWPE feats")
 
 class EdgeEmbedding(nn.Module):
     def __init__(
@@ -107,7 +159,7 @@ class GINEEdgeClassifier(nn.Module):
     
     def __init__(self,
                 # node params
-                node_in_feats=2 + 16, # log transformed and normalized indegree outdegree and RWPE with k=16 steps
+                node_in_feats=2 + 8, # log transformed and normalized indegree outdegree and RWPE with k=8 steps
                 hidden_dim=64,
                 num_gine_layers=3,
 
@@ -327,7 +379,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     train_labels = training_graph.edata['is_laundering'].long()
 
     ############ MINORITY CLASS SCALE WEIGHT ############
-    class_weights = torch.tensor([1.0, 20.0]).to(DEVICE) #place 20x weight on positive examples, since we are doing 1:30 undersampling, feel free to adjust these numbers and experiment yourself
+    class_weights = torch.tensor([1.0, 100.0]).to(DEVICE) #place 20x weight on positive examples, since we are doing 1:30 undersampling, feel free to adjust these numbers and experiment yourself
     ######################################################
 
     print(f"Class weights: {class_weights}")
@@ -340,7 +392,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     class_0_idx = (train_labels == 0).nonzero(as_tuple=True)[0]
     class_1_idx = (train_labels == 1).nonzero(as_tuple=True)[0]
     n_class_1 = len(class_1_idx)
-    n_class_0_sample = n_class_1 * 30 # We want to sample 30 legitimate transactions for every laundering transaction during loss calc
+    n_class_0_sample = n_class_1 * 200 # We want to sample 30 legitimate transactions for every laundering transaction during loss calc
 
     best_f1 = 0.0
 

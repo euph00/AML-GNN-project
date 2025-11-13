@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --job-name=train_gineconv_rwpe
+#SBATCH --job-name=train_convnet_rwpe
 #SBATCH --partition=gpu --gres=gpu:h100-47:1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G
 #SBATCH --time=24:00:00
-#SBATCH --output=logs/gineconv_rwpe_train_%j.out
-#SBATCH --error=logs/gineconv_rwpe_%j.err
+#SBATCH --output=logs/convnet_rwpe_train_%j.out
+#SBATCH --error=logs/convnet_rwpe_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=user@comp.nus.edu.sg
 
@@ -78,7 +78,7 @@ echo "Epochs: $NUM_EPOCHS"
 echo "Learning rate: $LEARNING_RATE"
 echo "=========================================="
 
-python -u soc_gineconvnet_rwpe.py \
+python -u soc_convnet_rwpe.py \
     --output_dir $OUTPUT_DIR \
     --num_epochs $NUM_EPOCHS \
     --learning_rate $LEARNING_RATE \

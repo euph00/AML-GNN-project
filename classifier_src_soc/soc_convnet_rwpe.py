@@ -65,18 +65,76 @@ def build_graph_from_df(df):
 
     node_features = torch.stack([normalized_indegree, normalized_outdegree], dim=1)
 
-    # Perhaps we can include simple graph RWPE as a node feature too?
     graph.ndata['node_feats'] = node_features
 
+    add_rwpe_features(graph)
+
     return graph
+
+def add_rwpe_features(graph, k_steps=[1,2,3,4,5,6,7,8]):
+    print("Adding RWPE feats")
+    device = graph.ndata['node_feats'].device
+    print(device)
+    src, dst = graph.edges()
+    num_nodes = graph.num_nodes()
+    
+    # Create sparse adjacency matrix in COO format
+    indices = torch.stack([src, dst], dim=0).to(device)
+    values = torch.ones(indices.shape[1], dtype=torch.float32, device=device)
+    A = torch.sparse_coo_tensor(indices, values, (num_nodes, num_nodes))
+    
+    # Compute out-degrees
+    out_deg = torch.sparse.sum(A, dim=1).to_dense()
+    out_deg[out_deg == 0] = 1  # avoid division by zero
+    
+    # Create D^(-1) as sparse diagonal matrix
+    inv_deg = 1.0 / out_deg
+    diag_indices = torch.arange(num_nodes, device=device).unsqueeze(0).repeat(2, 1)
+    D_inv = torch.sparse_coo_tensor(diag_indices, inv_deg, (num_nodes, num_nodes))
+    
+    # Transition matrix P = D^(-1) @ A
+    P = torch.sparse.mm(D_inv, A)
+    
+    # Compute RWPE: diagonal of P^k for each k
+    rwpe = torch.zeros(num_nodes, len(k_steps), device=device)
+    P_k = P
+    
+    for idx, k in enumerate(sorted(k_steps)):
+        if k > 1 and idx > 0:
+            # Multiply to get from P^(previous_k) to P^k
+            for _ in range(k - k_steps[idx-1]):
+                P_k = torch.sparse.mm(P_k, P)
+        
+        # Extract diagonal from sparse matrix
+        indices = P_k.indices()
+        values = P_k.values()
+        
+        # Find where row == col (diagonal elements)
+        diag_mask = indices[0] == indices[1]
+        diag_indices = indices[0][diag_mask]
+        diag_values = values[diag_mask]
+        
+        # Scatter into result (nodes not in diagonal have 0 probability)
+        rwpe[diag_indices, idx] = diag_values
+    
+    # Normalize: log transform + standardize
+    rwpe = torch.log(rwpe + 1e-10)
+    mean = rwpe.mean(dim=0, keepdim=True)
+    std = rwpe.std(dim=0, keepdim=True)
+    rwpe = (rwpe - mean) / (std + 1e-10)
+    
+    # Add to existing node features
+    existing_feats = graph.ndata['node_feats']
+    graph.ndata['node_feats'] = torch.cat([existing_feats, rwpe], dim=1)
+    print("Added RWPE feats")
 
 class EdgeEmbedding(nn.Module):
     def __init__(
             self, 
             num_currencies=15, 
             num_payment_methods=7, 
-            currencies_embed_dim=8, 
-            payment_embed_dim=4, 
+            currencies_embed_dim=16, 
+            payment_embed_dim=16, 
             num_numericals=5):
         super().__init__()
         self.currencies_embed = nn.Embedding(num_currencies, currencies_embed_dim)
@@ -134,9 +192,9 @@ class GCNEdgeClassifier(nn.Module):
     
     def __init__(self,
                 # node params
-                node_in_feats=2, # log transformed and normalized indegree outdegree
-                hidden_dim=64,
-                num_gcn_layers=3,
+                node_in_feats=2+8, # log transformed and normalized indegree outdegree + 8 dimensional rwpe
+                hidden_dim=128,
+                num_gcn_layers=5,
 
                 # for EdgeEmbedding
                 num_currencies=15,
@@ -149,7 +207,7 @@ class GCNEdgeClassifier(nn.Module):
                 num_classes=2,
 
                 # regularization
-                dropout=0.2,
+                dropout=0.1,
                 use_batch_norm=False):
         super().__init__()
 
@@ -175,6 +233,11 @@ class GCNEdgeClassifier(nn.Module):
         # MLP for edge classification
         self.edge_classifier = nn.Sequential(
             nn.Linear(edge_repr_dim, hidden_dim),
+            nn.BatchNorm1d(hidden_dim) if use_batch_norm else nn.Identity(),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+
+            nn.Linear(hidden_dim, hidden_dim),
             nn.BatchNorm1d(hidden_dim) if use_batch_norm else nn.Identity(),
             nn.ReLU(),
             nn.Dropout(dropout),
@@ -302,11 +365,10 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     train_labels = training_graph.edata['is_laundering'].long()
 
     ############ MINORITY CLASS SCALE WEIGHT ############
-    class_weights = torch.tensor([1.0, 20.0]).to(DEVICE) #place 20x weight on positive examples, since we are doing 1:30 undersampling, feel free to adjust these numbers and experiment yourself
+    class_weights = torch.tensor([1.0, 30.0]).to(DEVICE) #place 20x weight on positive examples, since we are doing 1:30 undersampling, feel free to adjust these numbers and experiment yourself
     ######################################################
 
     print(f"Class weights: {class_weights}")
-    # criterion = FocalLoss(alpha=class_weights, gamma=1.5)
     criterion = nn.CrossEntropyLoss(weight=class_weights)
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
@@ -315,7 +377,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     class_0_idx = (train_labels == 0).nonzero(as_tuple=True)[0]
     class_1_idx = (train_labels == 1).nonzero(as_tuple=True)[0]
     n_class_1 = len(class_1_idx)
-    n_class_0_sample = n_class_1 * 30 # We want to sample 30 legitimate transactions for every laundering transaction during loss calc
+    n_class_0_sample = n_class_1 * 60 # We want to sample 30 legitimate transactions for every laundering transaction during loss calc
 
     best_f1 = 0.0
 
@@ -341,8 +403,8 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
         loss.backward()
         optimizer.step()
         
-        # Evaluate every 2 epochs, can change to 5 if uw, this slows down training 
-        if epoch % 2 == 0:
+        # Evaluate every 1 epochs, can change to 5 if uw, this slows down training 
+        if epoch % 1 == 0:
             model.eval()
             with torch.no_grad():
                 eval_logits = model(training_graph)
@@ -368,7 +430,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
             # Save best model
             if f1_1 > best_f1:
                 best_f1 = f1_1
-                torch.save(model.state_dict(), output_dir + 'best_gcn_model.pt')
+                torch.save(model.state_dict(), output_dir + 'best_gcn_rwpe_model.pt')
                 print(f"  Saved best model (F1: {best_f1:.4f})")
         else:
             print(f"Epoch {epoch:3d} | Loss: {loss.item():.4f}")

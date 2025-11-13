@@ -260,7 +260,7 @@ def evaluate(model, graph):
         
         return metrics, preds, probs
 
-def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
+def main(output_dir='./saved_models/', num_epochs=50, learning_rate=0.001):
     """
     Main function to pre-process data, train/evaluate the model.
     """
@@ -384,6 +384,7 @@ def main(output_dir='./saved_models', num_epochs=50, learning_rate=0.001):
     print(f"Class 1: {(test_labels==1).sum()} ({100*(test_labels==1).float().mean():.2f}%)")
 
     # Evaluate
+    model.load_state_dict(torch.load(output_dir + 'best_gcn_model.pt'))
     model.eval()
     with torch.no_grad():
         test_logits = model(test_graph)

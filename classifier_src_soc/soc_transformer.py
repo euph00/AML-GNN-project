@@ -114,20 +114,24 @@ class graph_MHA_layer(nn.Module):
         self.per_head_hidden_dim = hidden_dim//num_heads
         self.hidden_dim = hidden_dim
         self.num_heads = num_heads
+        self.scale_factor = torch.sqrt(torch.tensor(self.per_head_hidden_dim))
         self.WQ = nn.Linear(hidden_dim, hidden_dim)
         self.WK = nn.Linear(hidden_dim, hidden_dim)
         self.WV = nn.Linear(hidden_dim, hidden_dim)
 
     def message_func(self, edges):
         qikj = (edges.dst['Q'] * edges.src['K']).sum(dim=2).unsqueeze(2)
-        expij = torch.exp(qikj / torch.sqrt(torch.tensor(self.per_head_hidden_dim)))
+        scores = qikj / self.scale_factor
         vj = edges.src['V']
-        return {'expij' : expij, 'vj' : vj}
+        return {'scores' : scores, 'vj' : vj}
     
     def reduce_func(self, nodes):
-        expij = nodes.mailbox['expij']
+        scores = nodes.mailbox['scores']
         vj = nodes.mailbox['vj']
-        h = torch.sum(expij * vj, dim=1) / torch.sum(expij, dim=1)
+        max_scores = scores.max(dim=1, keepdim=True)[0]
+        stable_exp = torch.exp(scores - max_scores)
+        attn_weights = stable_exp / stable_exp.sum(dim=1, keepdim=True)
+        h = torch.sum(attn_weights * vj, dim=1)
         return {'h' : h}
     
     def forward(self, g, h):

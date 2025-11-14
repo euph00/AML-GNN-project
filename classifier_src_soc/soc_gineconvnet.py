@@ -322,7 +322,7 @@ def main(output_dir='./saved_models/', num_epochs=50, learning_rate=0.001):
     train_labels = training_graph.edata['is_laundering'].long()
 
     ############ MINORITY CLASS SCALE WEIGHT ############
-    class_weights = torch.tensor([1.0, 20.0]).to(DEVICE) #place 20x weight on positive examples, since we are doing 1:30 undersampling, feel free to adjust these numbers and experiment yourself
+    class_weights = torch.tensor([1.0, 800.0]).to(DEVICE) #place 20x weight on positive examples, since we are doing 1:30 undersampling, feel free to adjust these numbers and experiment yourself
     ######################################################
 
     print(f"Class weights: {class_weights}")
@@ -335,7 +335,7 @@ def main(output_dir='./saved_models/', num_epochs=50, learning_rate=0.001):
     class_0_idx = (train_labels == 0).nonzero(as_tuple=True)[0]
     class_1_idx = (train_labels == 1).nonzero(as_tuple=True)[0]
     n_class_1 = len(class_1_idx)
-    n_class_0_sample = n_class_1 * 30 # We want to sample 30 legitimate transactions for every laundering transaction during loss calc
+    n_class_0_sample = n_class_1 * 1000 # We want to sample 30 legitimate transactions for every laundering transaction during loss calc
 
     best_f1 = 0.0
 

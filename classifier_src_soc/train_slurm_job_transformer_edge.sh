@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --job-name=train_convnet_rwpe
-#SBATCH --partition=gpu --gres=gpu:h100-47:1
+#SBATCH --job-name=dgl_gnn_train
+#SBATCH --partition=gpu --gres=gpu:h100-96:1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G
 #SBATCH --time=00:45:00
-#SBATCH --output=logs/convnet_rwpe_train_%j.out
-#SBATCH --error=logs/convnet_rwpe_%j.err
+#SBATCH --output=logs/transformer_edge_train_%j.out
+#SBATCH --error=logs/transformer_edge_train_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=user@comp.nus.edu.sg
 
@@ -68,7 +68,7 @@ OUTPUT_DIR="./saved_models/"
 mkdir -p $OUTPUT_DIR
 
 # Training parameters
-NUM_EPOCHS=100
+NUM_EPOCHS=500
 LEARNING_RATE=1e-4
 
 # Run the training script
@@ -78,7 +78,7 @@ echo "Epochs: $NUM_EPOCHS"
 echo "Learning rate: $LEARNING_RATE"
 echo "=========================================="
 
-python -u soc_convnet_rwpe.py \
+python -u soc_transformer_edge.py \
     --output_dir $OUTPUT_DIR \
     --num_epochs $NUM_EPOCHS \
     --learning_rate $LEARNING_RATE \

@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G
-#SBATCH --time=24:00:00
+#SBATCH --time=00:45:00
 #SBATCH --output=logs/gcn_train_%j.out
 #SBATCH --error=logs/gcn_train_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL

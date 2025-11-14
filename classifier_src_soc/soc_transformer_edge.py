@@ -279,7 +279,7 @@ def evaluate(model, graph):
         
         return metrics, preds, probs
 
-def main(output_dir='./saved_models/', num_epochs=100, learning_rate=0.001):
+def main(output_dir='./saved_models/', num_epochs=500, learning_rate=0.001):
     """
     Main function to pre-process data, train/evaluate the model.
     """
@@ -387,7 +387,7 @@ def main(output_dir='./saved_models/', num_epochs=100, learning_rate=0.001):
             # Save best model
             if f1_1 > best_f1:
                 best_f1 = f1_1
-                torch.save(model.state_dict(), output_dir + 'best_transformer_model.pt')
+                torch.save(model.state_dict(), output_dir + 'best_transformer_edge_model.pt')
                 print(f"  Saved best model (F1: {best_f1:.4f})")
         else:
             print(f"Epoch {epoch:3d} | Loss: {loss.item():.4f}")

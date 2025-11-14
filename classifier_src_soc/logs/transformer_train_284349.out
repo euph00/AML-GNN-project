@@ -1,0 +1,35 @@
+==========================================
+Job ID: 284349
+Job Name: dgl_gnn_train
+Node: xgpi9
+Start Time: Fri Nov 14 06:02:17 PM +08 2025
+GPU Information:
+Fri Nov 14 18:02:17 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 575.57.08              Driver Version: 575.57.08      CUDA Version: 12.9     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 NVL                On  |   00000000:E3:00.0 Off |                    0 |
+| N/A   54C    P0             74W /  400W |       0MiB /  95830MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+==========================================
+Conda environment 'aml_project_new' already exists. Activating it...
+Working directory: /home/l/linchieh/AML-GNN-project/classifier_src_soc
+==========================================
+Starting fine-tuning...
+Output directory: ./saved_models/
+Epochs: 500
+Learning rate: 1e-4
+==========================================

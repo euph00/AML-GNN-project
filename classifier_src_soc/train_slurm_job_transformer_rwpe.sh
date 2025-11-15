@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --job-name=dgl_gnn_train
+#SBATCH --job-name=transformer_rwpe
 #SBATCH --partition=gpu --gres=gpu:h200-141:1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G
 #SBATCH --time=01:30:00
-#SBATCH --output=logs/transformer_train_%j.out
-#SBATCH --error=logs/transformer_train_%j.err
+#SBATCH --output=logs/transformer_rwpe_train_%j.out
+#SBATCH --error=logs/transformer_rwpe_train_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=user@comp.nus.edu.sg
 
@@ -68,7 +68,7 @@ OUTPUT_DIR="./saved_models/"
 mkdir -p $OUTPUT_DIR
 
 # Training parameters
-NUM_EPOCHS=500
+NUM_EPOCHS=1000
 LEARNING_RATE=1e-4
 
 # Run the training script

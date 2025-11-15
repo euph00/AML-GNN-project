@@ -67,7 +67,53 @@ def build_graph_from_df(df):
 
     graph.ndata['node_feats'] = node_features
 
+    add_rwpe_features(graph)
+
     return graph
+
+def add_rwpe_features(graph, k_steps=[1,2,3,4,5,6,7,8]):
+    print("Adding RWPE feats")
+    device = graph.ndata['node_feats'].device
+    print(device)
+    src, dst = graph.edges()
+    num_nodes = graph.num_nodes()
+    
+    # Create sparse adjacency matrix
+    indices = torch.stack([src, dst], dim=0).to(device)
+    values = torch.ones(indices.shape[1], dtype=torch.float32, device=device)
+    A = torch.sparse_coo_tensor(indices, values, (num_nodes, num_nodes))
+    
+    # Compute out-degrees and D^(-1)
+    out_deg = torch.sparse.sum(A, dim=1).to_dense()
+    out_deg[out_deg == 0] = 1
+    inv_deg = 1.0 / out_deg
+    
+    # D^(-1) as sparse diagonal
+    diag_indices = torch.arange(num_nodes, device=device).unsqueeze(0).repeat(2, 1)
+    D_inv = torch.sparse_coo_tensor(diag_indices, inv_deg, (num_nodes, num_nodes))
+    
+    # Transition matrix P = D^(-1) @ A
+    P = torch.sparse.mm(D_inv, A)
+    
+    # Compute RWPE
+    rwpe = torch.zeros(num_nodes, len(k_steps), device=device)
+    P_k = P
+    
+    for idx, k in enumerate(sorted(k_steps)):
+        if k > 1 and idx > 0:
+            for _ in range(k - k_steps[idx-1]):
+                P_k = torch.sparse.mm(P_k, P)
+        
+        # Extract diagonal
+        indices = P_k.indices()
+        values = P_k.values()
+        diag_mask = indices[0] == indices[1]
+        rwpe[indices[0][diag_mask], idx] = values[diag_mask]
+    
+    # Add to node features (no transformation!)
+    existing_feats = graph.ndata['node_feats']
+    graph.ndata['node_feats'] = torch.cat([existing_feats, rwpe], dim=1)
+    print("Added RWPE feats")
 
 class EdgeFeatsEmbedding(nn.Module):
     def __init__(
@@ -180,7 +226,7 @@ class GraphTransformer_layer(nn.Module):
         return h
 
 class GraphTransformer_net(nn.Module):
-    def __init__(self, input_dim=2, hidden_dim=128, output_dim=2, transformer_layers=7):
+    def __init__(self, input_dim=2+8, hidden_dim=128, output_dim=2, transformer_layers=7):
         super().__init__()
         self.embedding_h = nn.Linear(input_dim, hidden_dim)
         self.GraphTransformer_layers = nn.ModuleList([GraphTransformer_layer(hidden_dim=hidden_dim) for _ in range(transformer_layers)])
@@ -352,7 +398,7 @@ def main(output_dir='./saved_models/', num_epochs=100, learning_rate=0.001):
             # Save best model
             if f1_1 > best_f1:
                 best_f1 = f1_1
-                torch.save(model.state_dict(), output_dir + 'best_transformer_model.pt')
+                torch.save(model.state_dict(), output_dir + 'best_transformer_rwpe_model.pt')
                 print(f"  Saved best model (F1: {best_f1:.4f})")
         else:
             print(f"Epoch {epoch:3d} | Loss: {loss.item():.4f}")

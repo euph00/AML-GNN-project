@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=dgl_gnn_train
+#SBATCH --job-name=transformer
 #SBATCH --partition=gpu --gres=gpu:h200-141:1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1

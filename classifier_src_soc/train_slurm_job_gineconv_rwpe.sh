@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=train_gineconv_rwpe
+#SBATCH --job-name=gine_rwpe
 #SBATCH --partition=gpu --gres=gpu:h100-47:1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1

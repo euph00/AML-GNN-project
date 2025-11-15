@@ -1,13 +1,13 @@
 #!/bin/bash
 #SBATCH --job-name=dgl_gnn_train
-#SBATCH --partition=gpu --gres=gpu:h100-96:1
+#SBATCH --partition=gpu --gres=gpu:h200-141:1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G
-#SBATCH --time=00:45:00
-#SBATCH --output=logs/transformer_edge_train_%j.out
-#SBATCH --error=logs/transformer_edge_train_%j.err
+#SBATCH --time=01:30:00
+#SBATCH --output=logs/transformer_train_%j.out
+#SBATCH --error=logs/transformer_train_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=user@comp.nus.edu.sg
 
@@ -78,7 +78,7 @@ echo "Epochs: $NUM_EPOCHS"
 echo "Learning rate: $LEARNING_RATE"
 echo "=========================================="
 
-python -u soc_transformer_edge.py \
+python -u soc_transformer_rwpe.py \
     --output_dir $OUTPUT_DIR \
     --num_epochs $NUM_EPOCHS \
     --learning_rate $LEARNING_RATE \

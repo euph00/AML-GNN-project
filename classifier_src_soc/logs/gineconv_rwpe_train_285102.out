@@ -1,0 +1,4323 @@
+==========================================
+Job ID: 285102
+Job Name: train_gineconv_rwpe
+Node: xgpi10
+Start Time: Sat Nov 15 03:40:14 PM +08 2025
+GPU Information:
+Sat Nov 15 15:40:14 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 575.57.08              Driver Version: 575.57.08      CUDA Version: 12.9     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H100 NVL                On  |   00000000:82:00.0 Off |                   On |
+| N/A   42C    P0             65W /  400W |      87MiB /  95830MiB |     N/A      Default |
+|                                         |                        |              Enabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| MIG devices:                                                                            |
++------------------+----------------------------------+-----------+-----------------------+
+| GPU  GI  CI  MIG |                     Memory-Usage |        Vol|        Shared         |
+|      ID  ID  Dev |                       BAR1-Usage | SM     Unc| CE ENC  DEC  OFA  JPG |
+|                  |                                  |        ECC|                       |
+|==================+==================================+===========+=======================|
+|  0    2   0   0  |              44MiB / 47488MiB    | 60      0 |  3   0    3    0    3 |
+|                  |                 0MiB / 65535MiB  |           |                       |
++------------------+----------------------------------+-----------+-----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+==========================================
+Conda environment 'aml_project_new' already exists. Activating it...
+Working directory: /home/l/linchieh/AML-GNN-project/classifier_src_soc
+==========================================
+Starting fine-tuning...
+Output directory: ./saved_models/
+Epochs: 1000
+Learning rate: 1e-4
+==========================================
+Warning: Looks like you're using an outdated `kagglehub` version, please consider updating (latest version: 0.3.13)
+Path to dataset files: /home/l/linchieh/.cache/kagglehub/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml/versions/8
+Loading HI-Small...
+
+
+Loading transactions from: /home/l/linchieh/.cache/kagglehub/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml/versions/8/HI-Small_Trans.csv
+File size: 453.6 MB
+
+Loaded 5,078,345 transactions
+Date range: 2022-09-01 00:00:00 to 2022-09-18 16:18:00
+Laundering transactions: 5,177 (0.102%)
+============================================================
+TEMPORAL TRAIN/TEST SPLIT
+============================================================
+
+Train Set:
+  Date range: 2022-09-01 00:00:00 to 2022-09-08 16:12:00
+  Transactions: 4,062,676
+  Laundering: 3,380 (0.083%)
+
+Test Set:
+  Date range: 2022-09-08 16:12:00 to 2022-09-18 16:18:00
+  Transactions: 1,015,669
+  Laundering: 1,797 (0.177%)
+============================================================
+Number of nodes: 515080
+Number of edges: 4062676
+Adding RWPE feats
+cpu
+soc_gineconvnet_rwpe.py:96: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at /opt/conda/conda-bld/pytorch_1702400400184/work/aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  P = torch.sparse.mm(D_inv, A)
+Added RWPE feats
+Number of nodes: 515080
+Number of edges: 1015669
+Adding RWPE feats
+cpu
+Added RWPE feats
+Class weights: tensor([  1., 800.], device='cuda:0')
+
+============================================================
+TRAINING
+============================================================
+
+Epoch   0 | Loss: 2.1643 | Acc: 0.9405
+  Class 1 - P: 0.0011, R: 0.0778, F1: 0.0022
+  Predicting class 1: 5.87529%
+  Saved best model (F1: 0.0022)
+
+Epoch   1 | Loss: 2.3348 | Acc: 0.9202
+  Class 1 - P: 0.0011, R: 0.1003, F1: 0.0021
+  Predicting class 1: 7.91048%
+
+Epoch   2 | Loss: 1.9625 | Acc: 0.8916
+  Class 1 - P: 0.0011, R: 0.1426, F1: 0.0022
+  Predicting class 1: 10.78225%
+  Saved best model (F1: 0.0022)
+
+Epoch   3 | Loss: 2.1002 | Acc: 0.8415
+  Class 1 - P: 0.0012, R: 0.2240, F1: 0.0023
+  Predicting class 1: 15.80232%
+  Saved best model (F1: 0.0023)
+
+Epoch   4 | Loss: 1.9030 | Acc: 0.8141
+  Class 1 - P: 0.0012, R: 0.2737, F1: 0.0024
+  Predicting class 1: 18.54748%
+  Saved best model (F1: 0.0024)
+
+Epoch   5 | Loss: 1.9831 | Acc: 0.8056
+  Class 1 - P: 0.0013, R: 0.2997, F1: 0.0026
+  Predicting class 1: 19.40676%
+  Saved best model (F1: 0.0026)
+
+Epoch   6 | Loss: 1.6294 | Acc: 0.7989
+  Class 1 - P: 0.0014, R: 0.3346, F1: 0.0028
+  Predicting class 1: 20.08723%
+  Saved best model (F1: 0.0028)
+
+Epoch   7 | Loss: 1.6259 | Acc: 0.7950
+  Class 1 - P: 0.0014, R: 0.3538, F1: 0.0029
+  Predicting class 1: 20.47320%
+  Saved best model (F1: 0.0029)
+
+Epoch   8 | Loss: 1.5555 | Acc: 0.7930
+  Class 1 - P: 0.0015, R: 0.3749, F1: 0.0030
+  Predicting class 1: 20.67453%
+  Saved best model (F1: 0.0030)
+
+Epoch   9 | Loss: 1.5446 | Acc: 0.7947
+  Class 1 - P: 0.0016, R: 0.3825, F1: 0.0031
+  Predicting class 1: 20.51352%
+  Saved best model (F1: 0.0031)
+
+Epoch  10 | Loss: 1.4749 | Acc: 0.7959
+  Class 1 - P: 0.0016, R: 0.4015, F1: 0.0033
+  Predicting class 1: 20.39604%
+  Saved best model (F1: 0.0033)
+
+Epoch  11 | Loss: 1.4510 | Acc: 0.8036
+  Class 1 - P: 0.0017, R: 0.4080, F1: 0.0034
+  Predicting class 1: 19.62637%
+  Saved best model (F1: 0.0034)
+
+Epoch  12 | Loss: 1.5178 | Acc: 0.8142
+  Class 1 - P: 0.0018, R: 0.4038, F1: 0.0036
+  Predicting class 1: 18.56806%
+  Saved best model (F1: 0.0036)
+
+Epoch  13 | Loss: 1.3071 | Acc: 0.8259
+  Class 1 - P: 0.0019, R: 0.3950, F1: 0.0038
+  Predicting class 1: 17.39253%
+  Saved best model (F1: 0.0038)
+
+Epoch  14 | Loss: 1.3278 | Acc: 0.8324
+  Class 1 - P: 0.0019, R: 0.3923, F1: 0.0039
+  Predicting class 1: 16.74404%
+  Saved best model (F1: 0.0039)
+
+Epoch  15 | Loss: 1.3340 | Acc: 0.8323
+  Class 1 - P: 0.0020, R: 0.3982, F1: 0.0039
+  Predicting class 1: 16.75681%
+  Saved best model (F1: 0.0039)
+
+Epoch  16 | Loss: 1.1773 | Acc: 0.8322
+  Class 1 - P: 0.0020, R: 0.3976, F1: 0.0039
+  Predicting class 1: 16.76156%
+
+Epoch  17 | Loss: 1.1662 | Acc: 0.8304
+  Class 1 - P: 0.0020, R: 0.3988, F1: 0.0039
+  Predicting class 1: 16.93950%
+
+Epoch  18 | Loss: 1.1577 | Acc: 0.8259
+  Class 1 - P: 0.0019, R: 0.4030, F1: 0.0038
+  Predicting class 1: 17.39383%
+
+Epoch  19 | Loss: 1.1635 | Acc: 0.8163
+  Class 1 - P: 0.0019, R: 0.4189, F1: 0.0038
+  Predicting class 1: 18.35898%
+
+Epoch  20 | Loss: 1.0874 | Acc: 0.8072
+  Class 1 - P: 0.0018, R: 0.4278, F1: 0.0037
+  Predicting class 1: 19.26848%
+
+Epoch  21 | Loss: 1.1493 | Acc: 0.7973
+  Class 1 - P: 0.0018, R: 0.4364, F1: 0.0036
+  Predicting class 1: 20.25598%
+
+Epoch  22 | Loss: 1.0634 | Acc: 0.7897
+  Class 1 - P: 0.0017, R: 0.4391, F1: 0.0035
+  Predicting class 1: 21.01972%
+
+Epoch  23 | Loss: 1.0177 | Acc: 0.7800
+  Class 1 - P: 0.0017, R: 0.4500, F1: 0.0034
+  Predicting class 1: 21.99649%
+
+Epoch  24 | Loss: 1.1157 | Acc: 0.7695
+  Class 1 - P: 0.0017, R: 0.4651, F1: 0.0033
+  Predicting class 1: 23.03944%
+
+Epoch  25 | Loss: 1.0204 | Acc: 0.7656
+  Class 1 - P: 0.0017, R: 0.4654, F1: 0.0033
+  Predicting class 1: 23.43310%
+
+Epoch  26 | Loss: 1.0347 | Acc: 0.7625
+  Class 1 - P: 0.0017, R: 0.4713, F1: 0.0033
+  Predicting class 1: 23.74733%
+
+Epoch  27 | Loss: 1.0198 | Acc: 0.7632
+  Class 1 - P: 0.0016, R: 0.4692, F1: 0.0033
+  Predicting class 1: 23.67666%
+
+Epoch  28 | Loss: 1.0563 | Acc: 0.7632
+  Class 1 - P: 0.0016, R: 0.4683, F1: 0.0033
+  Predicting class 1: 23.67590%
+
+Epoch  29 | Loss: 1.0001 | Acc: 0.7663
+  Class 1 - P: 0.0016, R: 0.4592, F1: 0.0033
+  Predicting class 1: 23.36078%
+
+Epoch  30 | Loss: 0.9277 | Acc: 0.7691
+  Class 1 - P: 0.0016, R: 0.4574, F1: 0.0033
+  Predicting class 1: 23.08089%
+
+Epoch  31 | Loss: 0.9199 | Acc: 0.7726
+  Class 1 - P: 0.0017, R: 0.4538, F1: 0.0033
+  Predicting class 1: 22.73410%
+
+Epoch  32 | Loss: 1.0168 | Acc: 0.7760
+  Class 1 - P: 0.0017, R: 0.4506, F1: 0.0033
+  Predicting class 1: 22.39344%
+
+Epoch  33 | Loss: 0.9851 | Acc: 0.7790
+  Class 1 - P: 0.0017, R: 0.4459, F1: 0.0033
+  Predicting class 1: 22.09551%
+
+Epoch  34 | Loss: 0.9755 | Acc: 0.7816
+  Class 1 - P: 0.0017, R: 0.4423, F1: 0.0034
+  Predicting class 1: 21.83356%
+
+Epoch  35 | Loss: 0.9177 | Acc: 0.7859
+  Class 1 - P: 0.0017, R: 0.4388, F1: 0.0034
+  Predicting class 1: 21.39824%
+
+Epoch  36 | Loss: 0.9246 | Acc: 0.7918
+  Class 1 - P: 0.0017, R: 0.4302, F1: 0.0034
+  Predicting class 1: 20.80380%
+
+Epoch  37 | Loss: 0.8795 | Acc: 0.7969
+  Class 1 - P: 0.0017, R: 0.4231, F1: 0.0035
+  Predicting class 1: 20.29803%
+
+Epoch  38 | Loss: 0.8575 | Acc: 0.8009
+  Class 1 - P: 0.0017, R: 0.4151, F1: 0.0035
+  Predicting class 1: 19.89642%
+
+Epoch  39 | Loss: 0.8897 | Acc: 0.8057
+  Class 1 - P: 0.0017, R: 0.4074, F1: 0.0035
+  Predicting class 1: 19.41403%
+
+Epoch  40 | Loss: 0.8657 | Acc: 0.8099
+  Class 1 - P: 0.0018, R: 0.4030, F1: 0.0035
+  Predicting class 1: 18.98987%
+
+Epoch  41 | Loss: 0.8744 | Acc: 0.8128
+  Class 1 - P: 0.0018, R: 0.3973, F1: 0.0035
+  Predicting class 1: 18.70090%
+
+Epoch  42 | Loss: 0.9131 | Acc: 0.8152
+  Class 1 - P: 0.0018, R: 0.3950, F1: 0.0035
+  Predicting class 1: 18.46263%
+
+Epoch  43 | Loss: 0.8830 | Acc: 0.8182
+  Class 1 - P: 0.0018, R: 0.3929, F1: 0.0036
+  Predicting class 1: 18.16357%
+
+Epoch  44 | Loss: 0.8798 | Acc: 0.8194
+  Class 1 - P: 0.0018, R: 0.3902, F1: 0.0036
+  Predicting class 1: 18.03929%
+
+Epoch  45 | Loss: 0.9246 | Acc: 0.8198
+  Class 1 - P: 0.0018, R: 0.3914, F1: 0.0036
+  Predicting class 1: 18.00052%
+
+Epoch  46 | Loss: 0.8137 | Acc: 0.8209
+  Class 1 - P: 0.0018, R: 0.3914, F1: 0.0036
+  Predicting class 1: 17.88828%
+
+Epoch  47 | Loss: 0.8330 | Acc: 0.8225
+  Class 1 - P: 0.0018, R: 0.3905, F1: 0.0036
+  Predicting class 1: 17.72809%
+
+Epoch  48 | Loss: 0.8017 | Acc: 0.8240
+  Class 1 - P: 0.0018, R: 0.3902, F1: 0.0037
+  Predicting class 1: 17.58314%
+
+Epoch  49 | Loss: 0.8255 | Acc: 0.8283
+  Class 1 - P: 0.0019, R: 0.3822, F1: 0.0037
+  Predicting class 1: 17.14943%
+
+Epoch  50 | Loss: 0.8415 | Acc: 0.8329
+  Class 1 - P: 0.0019, R: 0.3754, F1: 0.0037
+  Predicting class 1: 16.68644%
+
+Epoch  51 | Loss: 0.8479 | Acc: 0.8340
+  Class 1 - P: 0.0019, R: 0.3757, F1: 0.0038
+  Predicting class 1: 16.58225%
+
+Epoch  52 | Loss: 0.8231 | Acc: 0.8361
+  Class 1 - P: 0.0019, R: 0.3728, F1: 0.0038
+  Predicting class 1: 16.37379%
+
+Epoch  53 | Loss: 0.8207 | Acc: 0.8354
+  Class 1 - P: 0.0019, R: 0.3749, F1: 0.0038
+  Predicting class 1: 16.43855%
+
+Epoch  54 | Loss: 0.7591 | Acc: 0.8336
+  Class 1 - P: 0.0019, R: 0.3805, F1: 0.0038
+  Predicting class 1: 16.62318%
+
+Epoch  55 | Loss: 0.8262 | Acc: 0.8318
+  Class 1 - P: 0.0019, R: 0.3837, F1: 0.0038
+  Predicting class 1: 16.79912%
+
+Epoch  56 | Loss: 0.7908 | Acc: 0.8302
+  Class 1 - P: 0.0019, R: 0.3867, F1: 0.0038
+  Predicting class 1: 16.96123%
+
+Epoch  57 | Loss: 0.7817 | Acc: 0.8280
+  Class 1 - P: 0.0019, R: 0.3923, F1: 0.0038
+  Predicting class 1: 17.18220%
+
+Epoch  58 | Loss: 0.7625 | Acc: 0.8264
+  Class 1 - P: 0.0019, R: 0.3947, F1: 0.0038
+  Predicting class 1: 17.34300%
+
+Epoch  59 | Loss: 0.7648 | Acc: 0.8255
+  Class 1 - P: 0.0019, R: 0.3970, F1: 0.0038
+  Predicting class 1: 17.42893%
+
+Epoch  60 | Loss: 0.7687 | Acc: 0.8241
+  Class 1 - P: 0.0019, R: 0.4015, F1: 0.0038
+  Predicting class 1: 17.56876%
+
+Epoch  61 | Loss: 0.7983 | Acc: 0.8230
+  Class 1 - P: 0.0019, R: 0.4027, F1: 0.0038
+  Predicting class 1: 17.68206%
+
+Epoch  62 | Loss: 0.7928 | Acc: 0.8232
+  Class 1 - P: 0.0019, R: 0.4033, F1: 0.0038
+  Predicting class 1: 17.66870%
+
+Epoch  63 | Loss: 0.7872 | Acc: 0.8225
+  Class 1 - P: 0.0019, R: 0.4077, F1: 0.0038
+  Predicting class 1: 17.73107%
+
+Epoch  64 | Loss: 0.7557 | Acc: 0.8215
+  Class 1 - P: 0.0019, R: 0.4101, F1: 0.0038
+  Predicting class 1: 17.83283%
+
+Epoch  65 | Loss: 0.8110 | Acc: 0.8207
+  Class 1 - P: 0.0019, R: 0.4130, F1: 0.0038
+  Predicting class 1: 17.91593%
+
+Epoch  66 | Loss: 0.7620 | Acc: 0.8196
+  Class 1 - P: 0.0019, R: 0.4136, F1: 0.0038
+  Predicting class 1: 18.02617%
+
+Epoch  67 | Loss: 0.8303 | Acc: 0.8189
+  Class 1 - P: 0.0019, R: 0.4121, F1: 0.0038
+  Predicting class 1: 18.09172%
+
+Epoch  68 | Loss: 0.7858 | Acc: 0.8181
+  Class 1 - P: 0.0019, R: 0.4148, F1: 0.0038
+  Predicting class 1: 18.18036%
+
+Epoch  69 | Loss: 0.7597 | Acc: 0.8186
+  Class 1 - P: 0.0019, R: 0.4136, F1: 0.0038
+  Predicting class 1: 18.12549%
+
+Epoch  70 | Loss: 0.7585 | Acc: 0.8194
+  Class 1 - P: 0.0019, R: 0.4154, F1: 0.0038
+  Predicting class 1: 18.04404%
+
+Epoch  71 | Loss: 0.8065 | Acc: 0.8195
+  Class 1 - P: 0.0019, R: 0.4160, F1: 0.0038
+  Predicting class 1: 18.03297%
+
+Epoch  72 | Loss: 0.7859 | Acc: 0.8195
+  Class 1 - P: 0.0019, R: 0.4180, F1: 0.0038
+  Predicting class 1: 18.03265%
+
+Epoch  73 | Loss: 0.7704 | Acc: 0.8192
+  Class 1 - P: 0.0019, R: 0.4178, F1: 0.0038
+  Predicting class 1: 18.06565%
+
+Epoch  74 | Loss: 0.7532 | Acc: 0.8190
+  Class 1 - P: 0.0019, R: 0.4178, F1: 0.0038
+  Predicting class 1: 18.08229%
+
+Epoch  75 | Loss: 0.7658 | Acc: 0.8191
+  Class 1 - P: 0.0019, R: 0.4169, F1: 0.0038
+  Predicting class 1: 18.07961%
+
+Epoch  76 | Loss: 0.7405 | Acc: 0.8187
+  Class 1 - P: 0.0019, R: 0.4207, F1: 0.0038
+  Predicting class 1: 18.11533%
+
+Epoch  77 | Loss: 0.7993 | Acc: 0.8171
+  Class 1 - P: 0.0019, R: 0.4216, F1: 0.0038
+  Predicting class 1: 18.27212%
+
+Epoch  78 | Loss: 0.7390 | Acc: 0.8153
+  Class 1 - P: 0.0019, R: 0.4260, F1: 0.0038
+  Predicting class 1: 18.45276%
+
+Epoch  79 | Loss: 0.7480 | Acc: 0.8140
+  Class 1 - P: 0.0019, R: 0.4272, F1: 0.0038
+  Predicting class 1: 18.58920%
+
+Epoch  80 | Loss: 0.7885 | Acc: 0.8130
+  Class 1 - P: 0.0019, R: 0.4290, F1: 0.0038
+  Predicting class 1: 18.68362%
+
+Epoch  81 | Loss: 0.7415 | Acc: 0.8133
+  Class 1 - P: 0.0019, R: 0.4308, F1: 0.0038
+  Predicting class 1: 18.65470%
+
+Epoch  82 | Loss: 0.7268 | Acc: 0.8144
+  Class 1 - P: 0.0019, R: 0.4337, F1: 0.0039
+  Predicting class 1: 18.54418%
+
+Epoch  83 | Loss: 0.7487 | Acc: 0.8162
+  Class 1 - P: 0.0020, R: 0.4346, F1: 0.0039
+  Predicting class 1: 18.37001%
+
+Epoch  84 | Loss: 0.7258 | Acc: 0.8180
+  Class 1 - P: 0.0020, R: 0.4340, F1: 0.0040
+  Predicting class 1: 18.18565%
+  Saved best model (F1: 0.0040)
+
+Epoch  85 | Loss: 0.7731 | Acc: 0.8194
+  Class 1 - P: 0.0020, R: 0.4343, F1: 0.0040
+  Predicting class 1: 18.04530%
+  Saved best model (F1: 0.0040)
+
+Epoch  86 | Loss: 0.7354 | Acc: 0.8205
+  Class 1 - P: 0.0020, R: 0.4355, F1: 0.0040
+  Predicting class 1: 17.93857%
+  Saved best model (F1: 0.0040)
+
+Epoch  87 | Loss: 0.7193 | Acc: 0.8213
+  Class 1 - P: 0.0020, R: 0.4340, F1: 0.0040
+  Predicting class 1: 17.85769%
+  Saved best model (F1: 0.0040)
+
+Epoch  88 | Loss: 0.7639 | Acc: 0.8223
+  Class 1 - P: 0.0020, R: 0.4334, F1: 0.0040
+  Predicting class 1: 17.76356%
+  Saved best model (F1: 0.0040)
+
+Epoch  89 | Loss: 0.7295 | Acc: 0.8231
+  Class 1 - P: 0.0020, R: 0.4349, F1: 0.0041
+  Predicting class 1: 17.68073%
+  Saved best model (F1: 0.0041)
+
+Epoch  90 | Loss: 0.7457 | Acc: 0.8237
+  Class 1 - P: 0.0021, R: 0.4376, F1: 0.0041
+  Predicting class 1: 17.61984%
+  Saved best model (F1: 0.0041)
+
+Epoch  91 | Loss: 0.7382 | Acc: 0.8243
+  Class 1 - P: 0.0021, R: 0.4358, F1: 0.0041
+  Predicting class 1: 17.55545%
+
+Epoch  92 | Loss: 0.7468 | Acc: 0.8258
+  Class 1 - P: 0.0021, R: 0.4358, F1: 0.0041
+  Predicting class 1: 17.40752%
+  Saved best model (F1: 0.0041)
+
+Epoch  93 | Loss: 0.7230 | Acc: 0.8271
+  Class 1 - P: 0.0021, R: 0.4364, F1: 0.0042
+  Predicting class 1: 17.27635%
+  Saved best model (F1: 0.0042)
+
+Epoch  94 | Loss: 0.7656 | Acc: 0.8284
+  Class 1 - P: 0.0021, R: 0.4364, F1: 0.0042
+  Predicting class 1: 17.15204%
+  Saved best model (F1: 0.0042)
+
+Epoch  95 | Loss: 0.7230 | Acc: 0.8303
+  Class 1 - P: 0.0021, R: 0.4361, F1: 0.0043
+  Predicting class 1: 16.95473%
+  Saved best model (F1: 0.0043)
+
+Epoch  96 | Loss: 0.7337 | Acc: 0.8316
+  Class 1 - P: 0.0022, R: 0.4358, F1: 0.0043
+  Predicting class 1: 16.82750%
+  Saved best model (F1: 0.0043)
+
+Epoch  97 | Loss: 0.7346 | Acc: 0.8333
+  Class 1 - P: 0.0022, R: 0.4361, F1: 0.0043
+  Predicting class 1: 16.65784%
+  Saved best model (F1: 0.0043)
+
+Epoch  98 | Loss: 0.7080 | Acc: 0.8356
+  Class 1 - P: 0.0022, R: 0.4340, F1: 0.0044
+  Predicting class 1: 16.42511%
+  Saved best model (F1: 0.0044)
+
+Epoch  99 | Loss: 0.7481 | Acc: 0.8379
+  Class 1 - P: 0.0022, R: 0.4343, F1: 0.0044
+  Predicting class 1: 16.19876%
+  Saved best model (F1: 0.0044)
+
+Epoch 100 | Loss: 0.7062 | Acc: 0.8406
+  Class 1 - P: 0.0023, R: 0.4346, F1: 0.0045
+  Predicting class 1: 15.93218%
+  Saved best model (F1: 0.0045)
+
+Epoch 101 | Loss: 0.7285 | Acc: 0.8437
+  Class 1 - P: 0.0023, R: 0.4287, F1: 0.0045
+  Predicting class 1: 15.61771%
+  Saved best model (F1: 0.0045)
+
+Epoch 102 | Loss: 0.7184 | Acc: 0.8472
+  Class 1 - P: 0.0023, R: 0.4254, F1: 0.0046
+  Predicting class 1: 15.26701%
+  Saved best model (F1: 0.0046)
+
+Epoch 103 | Loss: 0.7454 | Acc: 0.8517
+  Class 1 - P: 0.0024, R: 0.4207, F1: 0.0047
+  Predicting class 1: 14.81506%
+  Saved best model (F1: 0.0047)
+
+Epoch 104 | Loss: 0.7248 | Acc: 0.8549
+  Class 1 - P: 0.0024, R: 0.4175, F1: 0.0048
+  Predicting class 1: 14.49274%
+  Saved best model (F1: 0.0048)
+
+Epoch 105 | Loss: 0.7744 | Acc: 0.8569
+  Class 1 - P: 0.0024, R: 0.4157, F1: 0.0048
+  Predicting class 1: 14.29705%
+  Saved best model (F1: 0.0048)
+
+Epoch 106 | Loss: 0.7289 | Acc: 0.8590
+  Class 1 - P: 0.0024, R: 0.4133, F1: 0.0049
+  Predicting class 1: 14.08862%
+  Saved best model (F1: 0.0049)
+
+Epoch 107 | Loss: 0.7116 | Acc: 0.8612
+  Class 1 - P: 0.0025, R: 0.4121, F1: 0.0049
+  Predicting class 1: 13.86805%
+  Saved best model (F1: 0.0049)
+
+Epoch 108 | Loss: 0.7387 | Acc: 0.8628
+  Class 1 - P: 0.0025, R: 0.4107, F1: 0.0050
+  Predicting class 1: 13.70422%
+  Saved best model (F1: 0.0050)
+
+Epoch 109 | Loss: 0.6913 | Acc: 0.8644
+  Class 1 - P: 0.0025, R: 0.4065, F1: 0.0050
+  Predicting class 1: 13.54048%
+  Saved best model (F1: 0.0050)
+
+Epoch 110 | Loss: 0.6992 | Acc: 0.8668
+  Class 1 - P: 0.0025, R: 0.4044, F1: 0.0050
+  Predicting class 1: 13.30054%
+  Saved best model (F1: 0.0050)
+
+Epoch 111 | Loss: 0.7311 | Acc: 0.8676
+  Class 1 - P: 0.0025, R: 0.4033, F1: 0.0050
+  Predicting class 1: 13.22367%
+  Saved best model (F1: 0.0050)
+
+Epoch 112 | Loss: 0.7329 | Acc: 0.8683
+  Class 1 - P: 0.0025, R: 0.4018, F1: 0.0050
+  Predicting class 1: 13.15840%
+  Saved best model (F1: 0.0050)
+
+Epoch 113 | Loss: 0.7180 | Acc: 0.8692
+  Class 1 - P: 0.0026, R: 0.4018, F1: 0.0051
+  Predicting class 1: 13.06730%
+  Saved best model (F1: 0.0051)
+
+Epoch 114 | Loss: 0.7239 | Acc: 0.8694
+  Class 1 - P: 0.0026, R: 0.4024, F1: 0.0051
+  Predicting class 1: 13.04291%
+  Saved best model (F1: 0.0051)
+
+Epoch 115 | Loss: 0.7015 | Acc: 0.8688
+  Class 1 - P: 0.0026, R: 0.4056, F1: 0.0051
+  Predicting class 1: 13.10690%
+  Saved best model (F1: 0.0051)
+
+Epoch 116 | Loss: 0.7043 | Acc: 0.8695
+  Class 1 - P: 0.0026, R: 0.4044, F1: 0.0051
+  Predicting class 1: 13.03323%
+  Saved best model (F1: 0.0051)
+
+Epoch 117 | Loss: 0.7010 | Acc: 0.8708
+  Class 1 - P: 0.0026, R: 0.4024, F1: 0.0052
+  Predicting class 1: 12.89911%
+  Saved best model (F1: 0.0052)
+
+Epoch 118 | Loss: 0.7002 | Acc: 0.8722
+  Class 1 - P: 0.0026, R: 0.3997, F1: 0.0052
+  Predicting class 1: 12.75940%
+  Saved best model (F1: 0.0052)
+
+Epoch 119 | Loss: 0.6879 | Acc: 0.8728
+  Class 1 - P: 0.0026, R: 0.3994, F1: 0.0052
+  Predicting class 1: 12.70089%
+  Saved best model (F1: 0.0052)
+
+Epoch 120 | Loss: 0.7108 | Acc: 0.8745
+  Class 1 - P: 0.0026, R: 0.3956, F1: 0.0052
+  Predicting class 1: 12.52842%
+  Saved best model (F1: 0.0052)
+
+Epoch 121 | Loss: 0.6914 | Acc: 0.8763
+  Class 1 - P: 0.0027, R: 0.3956, F1: 0.0053
+  Predicting class 1: 12.35516%
+  Saved best model (F1: 0.0053)
+
+Epoch 122 | Loss: 0.7012 | Acc: 0.8777
+  Class 1 - P: 0.0027, R: 0.3956, F1: 0.0054
+  Predicting class 1: 12.20831%
+  Saved best model (F1: 0.0054)
+
+Epoch 123 | Loss: 0.6909 | Acc: 0.8802
+  Class 1 - P: 0.0027, R: 0.3920, F1: 0.0054
+  Predicting class 1: 11.95768%
+  Saved best model (F1: 0.0054)
+
+Epoch 124 | Loss: 0.6821 | Acc: 0.8830
+  Class 1 - P: 0.0028, R: 0.3947, F1: 0.0056
+  Predicting class 1: 11.68380%
+  Saved best model (F1: 0.0056)
+
+Epoch 125 | Loss: 0.6971 | Acc: 0.8861
+  Class 1 - P: 0.0029, R: 0.3905, F1: 0.0057
+  Predicting class 1: 11.37509%
+  Saved best model (F1: 0.0057)
+
+Epoch 126 | Loss: 0.6845 | Acc: 0.8907
+  Class 1 - P: 0.0029, R: 0.3858, F1: 0.0058
+  Predicting class 1: 10.90946%
+  Saved best model (F1: 0.0058)
+
+Epoch 127 | Loss: 0.6881 | Acc: 0.8944
+  Class 1 - P: 0.0030, R: 0.3822, F1: 0.0060
+  Predicting class 1: 10.53921%
+  Saved best model (F1: 0.0060)
+
+Epoch 128 | Loss: 0.6904 | Acc: 0.8951
+  Class 1 - P: 0.0030, R: 0.3834, F1: 0.0060
+  Predicting class 1: 10.46657%
+  Saved best model (F1: 0.0060)
+
+Epoch 129 | Loss: 0.6823 | Acc: 0.8966
+  Class 1 - P: 0.0031, R: 0.3822, F1: 0.0061
+  Predicting class 1: 10.32135%
+  Saved best model (F1: 0.0061)
+
+Epoch 130 | Loss: 0.6947 | Acc: 0.8963
+  Class 1 - P: 0.0031, R: 0.3852, F1: 0.0061
+  Predicting class 1: 10.34717%
+  Saved best model (F1: 0.0061)
+
+Epoch 131 | Loss: 0.6895 | Acc: 0.8945
+  Class 1 - P: 0.0031, R: 0.3899, F1: 0.0061
+  Predicting class 1: 10.53414%
+
+Epoch 132 | Loss: 0.7068 | Acc: 0.8919
+  Class 1 - P: 0.0031, R: 0.3959, F1: 0.0061
+  Predicting class 1: 10.78821%
+
+Epoch 133 | Loss: 0.7121 | Acc: 0.8896
+  Class 1 - P: 0.0030, R: 0.4003, F1: 0.0060
+  Predicting class 1: 11.02621%
+
+Epoch 134 | Loss: 0.6760 | Acc: 0.8878
+  Class 1 - P: 0.0030, R: 0.4044, F1: 0.0060
+  Predicting class 1: 11.20109%
+
+Epoch 135 | Loss: 0.7238 | Acc: 0.8868
+  Class 1 - P: 0.0030, R: 0.4080, F1: 0.0060
+  Predicting class 1: 11.30280%
+
+Epoch 136 | Loss: 0.6919 | Acc: 0.8860
+  Class 1 - P: 0.0030, R: 0.4109, F1: 0.0060
+  Predicting class 1: 11.38543%
+
+Epoch 137 | Loss: 0.6887 | Acc: 0.8850
+  Class 1 - P: 0.0030, R: 0.4133, F1: 0.0059
+  Predicting class 1: 11.48846%
+
+Epoch 138 | Loss: 0.6760 | Acc: 0.8829
+  Class 1 - P: 0.0030, R: 0.4180, F1: 0.0059
+  Predicting class 1: 11.69567%
+
+Epoch 139 | Loss: 0.6795 | Acc: 0.8812
+  Class 1 - P: 0.0030, R: 0.4231, F1: 0.0059
+  Predicting class 1: 11.86339%
+
+Epoch 140 | Loss: 0.7003 | Acc: 0.8796
+  Class 1 - P: 0.0029, R: 0.4257, F1: 0.0058
+  Predicting class 1: 12.03232%
+
+Epoch 141 | Loss: 0.6927 | Acc: 0.8780
+  Class 1 - P: 0.0029, R: 0.4311, F1: 0.0058
+  Predicting class 1: 12.18748%
+
+Epoch 142 | Loss: 0.7019 | Acc: 0.8769
+  Class 1 - P: 0.0029, R: 0.4337, F1: 0.0058
+  Predicting class 1: 12.29616%
+
+Epoch 143 | Loss: 0.6665 | Acc: 0.8764
+  Class 1 - P: 0.0029, R: 0.4346, F1: 0.0058
+  Predicting class 1: 12.35299%
+
+Epoch 144 | Loss: 0.6861 | Acc: 0.8762
+  Class 1 - P: 0.0029, R: 0.4379, F1: 0.0058
+  Predicting class 1: 12.37354%
+
+Epoch 145 | Loss: 0.6716 | Acc: 0.8760
+  Class 1 - P: 0.0030, R: 0.4411, F1: 0.0059
+  Predicting class 1: 12.39439%
+
+Epoch 146 | Loss: 0.6637 | Acc: 0.8762
+  Class 1 - P: 0.0030, R: 0.4396, F1: 0.0059
+  Predicting class 1: 12.36685%
+
+Epoch 147 | Loss: 0.6654 | Acc: 0.8770
+  Class 1 - P: 0.0030, R: 0.4385, F1: 0.0059
+  Predicting class 1: 12.29000%
+
+Epoch 148 | Loss: 0.6665 | Acc: 0.8777
+  Class 1 - P: 0.0030, R: 0.4385, F1: 0.0059
+  Predicting class 1: 12.21586%
+
+Epoch 149 | Loss: 0.6701 | Acc: 0.8773
+  Class 1 - P: 0.0030, R: 0.4399, F1: 0.0059
+  Predicting class 1: 12.25608%
+
+Epoch 150 | Loss: 0.6769 | Acc: 0.8782
+  Class 1 - P: 0.0030, R: 0.4414, F1: 0.0060
+  Predicting class 1: 12.17203%
+
+Epoch 151 | Loss: 0.6703 | Acc: 0.8791
+  Class 1 - P: 0.0030, R: 0.4364, F1: 0.0060
+  Predicting class 1: 12.07972%
+
+Epoch 152 | Loss: 0.6736 | Acc: 0.8795
+  Class 1 - P: 0.0030, R: 0.4382, F1: 0.0060
+  Predicting class 1: 12.03633%
+
+Epoch 153 | Loss: 0.6596 | Acc: 0.8806
+  Class 1 - P: 0.0031, R: 0.4393, F1: 0.0061
+  Predicting class 1: 11.92724%
+
+Epoch 154 | Loss: 0.6666 | Acc: 0.8818
+  Class 1 - P: 0.0031, R: 0.4376, F1: 0.0061
+  Predicting class 1: 11.81305%
+
+Epoch 155 | Loss: 0.6769 | Acc: 0.8821
+  Class 1 - P: 0.0031, R: 0.4388, F1: 0.0062
+  Predicting class 1: 11.78081%
+  Saved best model (F1: 0.0062)
+
+Epoch 156 | Loss: 0.6968 | Acc: 0.8818
+  Class 1 - P: 0.0031, R: 0.4405, F1: 0.0062
+  Predicting class 1: 11.81221%
+  Saved best model (F1: 0.0062)
+
+Epoch 157 | Loss: 0.6951 | Acc: 0.8829
+  Class 1 - P: 0.0031, R: 0.4405, F1: 0.0062
+  Predicting class 1: 11.69936%
+  Saved best model (F1: 0.0062)
+
+Epoch 158 | Loss: 0.6549 | Acc: 0.8836
+  Class 1 - P: 0.0031, R: 0.4402, F1: 0.0063
+  Predicting class 1: 11.63263%
+  Saved best model (F1: 0.0063)
+
+Epoch 159 | Loss: 0.6737 | Acc: 0.8835
+  Class 1 - P: 0.0032, R: 0.4417, F1: 0.0063
+  Predicting class 1: 11.63982%
+  Saved best model (F1: 0.0063)
+
+Epoch 160 | Loss: 0.6663 | Acc: 0.8840
+  Class 1 - P: 0.0032, R: 0.4414, F1: 0.0063
+  Predicting class 1: 11.59408%
+  Saved best model (F1: 0.0063)
+
+Epoch 161 | Loss: 0.6729 | Acc: 0.8843
+  Class 1 - P: 0.0032, R: 0.4414, F1: 0.0063
+  Predicting class 1: 11.55706%
+  Saved best model (F1: 0.0063)
+
+Epoch 162 | Loss: 0.6585 | Acc: 0.8849
+  Class 1 - P: 0.0032, R: 0.4426, F1: 0.0064
+  Predicting class 1: 11.50010%
+  Saved best model (F1: 0.0064)
+
+Epoch 163 | Loss: 0.6640 | Acc: 0.8853
+  Class 1 - P: 0.0032, R: 0.4435, F1: 0.0064
+  Predicting class 1: 11.45902%
+  Saved best model (F1: 0.0064)
+
+Epoch 164 | Loss: 0.6708 | Acc: 0.8850
+  Class 1 - P: 0.0032, R: 0.4441, F1: 0.0064
+  Predicting class 1: 11.49048%
+
+Epoch 165 | Loss: 0.7041 | Acc: 0.8826
+  Class 1 - P: 0.0032, R: 0.4470, F1: 0.0063
+  Predicting class 1: 11.72720%
+
+Epoch 166 | Loss: 0.6645 | Acc: 0.8798
+  Class 1 - P: 0.0031, R: 0.4521, F1: 0.0062
+  Predicting class 1: 12.01580%
+
+Epoch 167 | Loss: 0.6753 | Acc: 0.8764
+  Class 1 - P: 0.0031, R: 0.4627, F1: 0.0062
+  Predicting class 1: 12.35518%
+
+Epoch 168 | Loss: 0.6583 | Acc: 0.8734
+  Class 1 - P: 0.0031, R: 0.4686, F1: 0.0061
+  Predicting class 1: 12.65247%
+
+Epoch 169 | Loss: 0.6710 | Acc: 0.8714
+  Class 1 - P: 0.0031, R: 0.4725, F1: 0.0061
+  Predicting class 1: 12.85793%
+
+Epoch 170 | Loss: 0.6558 | Acc: 0.8685
+  Class 1 - P: 0.0030, R: 0.4766, F1: 0.0060
+  Predicting class 1: 13.14875%
+
+Epoch 171 | Loss: 0.6683 | Acc: 0.8661
+  Class 1 - P: 0.0030, R: 0.4790, F1: 0.0059
+  Predicting class 1: 13.38923%
+
+Epoch 172 | Loss: 0.6581 | Acc: 0.8646
+  Class 1 - P: 0.0030, R: 0.4811, F1: 0.0059
+  Predicting class 1: 13.53925%
+
+Epoch 173 | Loss: 0.6551 | Acc: 0.8636
+  Class 1 - P: 0.0029, R: 0.4817, F1: 0.0058
+  Predicting class 1: 13.63577%
+
+Epoch 174 | Loss: 0.6541 | Acc: 0.8633
+  Class 1 - P: 0.0029, R: 0.4828, F1: 0.0058
+  Predicting class 1: 13.66533%
+
+Epoch 175 | Loss: 0.6450 | Acc: 0.8638
+  Class 1 - P: 0.0030, R: 0.4840, F1: 0.0059
+  Predicting class 1: 13.61689%
+
+Epoch 176 | Loss: 0.6479 | Acc: 0.8647
+  Class 1 - P: 0.0030, R: 0.4828, F1: 0.0059
+  Predicting class 1: 13.53093%
+
+Epoch 177 | Loss: 0.6533 | Acc: 0.8654
+  Class 1 - P: 0.0030, R: 0.4814, F1: 0.0059
+  Predicting class 1: 13.45502%
+
+Epoch 178 | Loss: 0.6510 | Acc: 0.8662
+  Class 1 - P: 0.0030, R: 0.4802, F1: 0.0059
+  Predicting class 1: 13.37727%
+
+Epoch 179 | Loss: 0.6536 | Acc: 0.8673
+  Class 1 - P: 0.0030, R: 0.4781, F1: 0.0060
+  Predicting class 1: 13.26987%
+
+Epoch 180 | Loss: 0.6410 | Acc: 0.8690
+  Class 1 - P: 0.0030, R: 0.4749, F1: 0.0060
+  Predicting class 1: 13.09437%
+
+Epoch 181 | Loss: 0.6651 | Acc: 0.8702
+  Class 1 - P: 0.0030, R: 0.4731, F1: 0.0060
+  Predicting class 1: 12.97423%
+
+Epoch 182 | Loss: 0.6778 | Acc: 0.8717
+  Class 1 - P: 0.0031, R: 0.4716, F1: 0.0061
+  Predicting class 1: 12.82689%
+
+Epoch 183 | Loss: 0.6377 | Acc: 0.8734
+  Class 1 - P: 0.0031, R: 0.4689, F1: 0.0061
+  Predicting class 1: 12.65804%
+
+Epoch 184 | Loss: 0.6453 | Acc: 0.8754
+  Class 1 - P: 0.0031, R: 0.4663, F1: 0.0062
+  Predicting class 1: 12.45132%
+
+Epoch 185 | Loss: 0.6553 | Acc: 0.8763
+  Class 1 - P: 0.0031, R: 0.4639, F1: 0.0062
+  Predicting class 1: 12.36586%
+
+Epoch 186 | Loss: 0.6651 | Acc: 0.8763
+  Class 1 - P: 0.0031, R: 0.4642, F1: 0.0062
+  Predicting class 1: 12.35912%
+
+Epoch 187 | Loss: 0.6530 | Acc: 0.8767
+  Class 1 - P: 0.0031, R: 0.4660, F1: 0.0062
+  Predicting class 1: 12.32500%
+
+Epoch 188 | Loss: 0.6765 | Acc: 0.8770
+  Class 1 - P: 0.0031, R: 0.4645, F1: 0.0062
+  Predicting class 1: 12.29714%
+
+Epoch 189 | Loss: 0.6502 | Acc: 0.8771
+  Class 1 - P: 0.0032, R: 0.4654, F1: 0.0063
+  Predicting class 1: 12.27989%
+
+Epoch 190 | Loss: 0.6478 | Acc: 0.8767
+  Class 1 - P: 0.0032, R: 0.4669, F1: 0.0063
+  Predicting class 1: 12.32414%
+
+Epoch 191 | Loss: 0.6636 | Acc: 0.8753
+  Class 1 - P: 0.0032, R: 0.4728, F1: 0.0063
+  Predicting class 1: 12.46855%
+
+Epoch 192 | Loss: 0.6476 | Acc: 0.8735
+  Class 1 - P: 0.0031, R: 0.4781, F1: 0.0063
+  Predicting class 1: 12.64181%
+
+Epoch 193 | Loss: 0.6581 | Acc: 0.8710
+  Class 1 - P: 0.0031, R: 0.4820, F1: 0.0062
+  Predicting class 1: 12.90130%
+
+Epoch 194 | Loss: 0.6721 | Acc: 0.8683
+  Class 1 - P: 0.0031, R: 0.4861, F1: 0.0061
+  Predicting class 1: 13.17112%
+
+Epoch 195 | Loss: 0.6599 | Acc: 0.8648
+  Class 1 - P: 0.0030, R: 0.4917, F1: 0.0060
+  Predicting class 1: 13.51900%
+
+Epoch 196 | Loss: 0.6369 | Acc: 0.8617
+  Class 1 - P: 0.0030, R: 0.4964, F1: 0.0059
+  Predicting class 1: 13.83012%
+
+Epoch 197 | Loss: 0.6400 | Acc: 0.8592
+  Class 1 - P: 0.0030, R: 0.5006, F1: 0.0059
+  Predicting class 1: 14.07543%
+
+Epoch 198 | Loss: 0.6428 | Acc: 0.8570
+  Class 1 - P: 0.0029, R: 0.5024, F1: 0.0058
+  Predicting class 1: 14.29915%
+
+Epoch 199 | Loss: 0.6682 | Acc: 0.8547
+  Class 1 - P: 0.0029, R: 0.5059, F1: 0.0058
+  Predicting class 1: 14.52749%
+
+Epoch 200 | Loss: 0.6437 | Acc: 0.8532
+  Class 1 - P: 0.0029, R: 0.5109, F1: 0.0058
+  Predicting class 1: 14.68621%
+
+Epoch 201 | Loss: 0.6418 | Acc: 0.8521
+  Class 1 - P: 0.0029, R: 0.5124, F1: 0.0057
+  Predicting class 1: 14.78816%
+
+Epoch 202 | Loss: 0.6344 | Acc: 0.8517
+  Class 1 - P: 0.0029, R: 0.5124, F1: 0.0057
+  Predicting class 1: 14.83101%
+
+Epoch 203 | Loss: 0.6359 | Acc: 0.8520
+  Class 1 - P: 0.0029, R: 0.5133, F1: 0.0057
+  Predicting class 1: 14.80536%
+
+Epoch 204 | Loss: 0.6391 | Acc: 0.8530
+  Class 1 - P: 0.0029, R: 0.5130, F1: 0.0058
+  Predicting class 1: 14.70698%
+
+Epoch 205 | Loss: 0.6341 | Acc: 0.8546
+  Class 1 - P: 0.0029, R: 0.5133, F1: 0.0058
+  Predicting class 1: 14.54568%
+
+Epoch 206 | Loss: 0.6519 | Acc: 0.8559
+  Class 1 - P: 0.0030, R: 0.5112, F1: 0.0059
+  Predicting class 1: 14.40853%
+
+Epoch 207 | Loss: 0.6388 | Acc: 0.8573
+  Class 1 - P: 0.0030, R: 0.5095, F1: 0.0059
+  Predicting class 1: 14.27653%
+
+Epoch 208 | Loss: 0.6384 | Acc: 0.8583
+  Class 1 - P: 0.0030, R: 0.5086, F1: 0.0059
+  Predicting class 1: 14.17361%
+
+Epoch 209 | Loss: 0.6350 | Acc: 0.8593
+  Class 1 - P: 0.0030, R: 0.5083, F1: 0.0060
+  Predicting class 1: 14.06885%
+
+Epoch 210 | Loss: 0.6411 | Acc: 0.8598
+  Class 1 - P: 0.0030, R: 0.5089, F1: 0.0060
+  Predicting class 1: 14.01731%
+
+Epoch 211 | Loss: 0.6372 | Acc: 0.8601
+  Class 1 - P: 0.0030, R: 0.5077, F1: 0.0060
+  Predicting class 1: 13.98873%
+
+Epoch 212 | Loss: 0.6403 | Acc: 0.8612
+  Class 1 - P: 0.0030, R: 0.5062, F1: 0.0060
+  Predicting class 1: 13.88380%
+
+Epoch 213 | Loss: 0.6328 | Acc: 0.8622
+  Class 1 - P: 0.0030, R: 0.5050, F1: 0.0061
+  Predicting class 1: 13.78153%
+
+Epoch 214 | Loss: 0.6308 | Acc: 0.8628
+  Class 1 - P: 0.0031, R: 0.5041, F1: 0.0061
+  Predicting class 1: 13.71992%
+
+Epoch 215 | Loss: 0.6623 | Acc: 0.8619
+  Class 1 - P: 0.0030, R: 0.5053, F1: 0.0061
+  Predicting class 1: 13.81004%
+
+Epoch 216 | Loss: 0.6292 | Acc: 0.8611
+  Class 1 - P: 0.0030, R: 0.5062, F1: 0.0060
+  Predicting class 1: 13.88713%
+
+Epoch 217 | Loss: 0.6285 | Acc: 0.8607
+  Class 1 - P: 0.0030, R: 0.5098, F1: 0.0061
+  Predicting class 1: 13.92732%
+
+Epoch 218 | Loss: 0.6408 | Acc: 0.8606
+  Class 1 - P: 0.0030, R: 0.5089, F1: 0.0060
+  Predicting class 1: 13.93734%
+
+Epoch 219 | Loss: 0.6303 | Acc: 0.8608
+  Class 1 - P: 0.0030, R: 0.5080, F1: 0.0060
+  Predicting class 1: 13.91868%
+
+Epoch 220 | Loss: 0.6448 | Acc: 0.8614
+  Class 1 - P: 0.0031, R: 0.5092, F1: 0.0061
+  Predicting class 1: 13.85656%
+
+Epoch 221 | Loss: 0.6356 | Acc: 0.8620
+  Class 1 - P: 0.0031, R: 0.5101, F1: 0.0061
+  Predicting class 1: 13.80482%
+
+Epoch 222 | Loss: 0.6257 | Acc: 0.8623
+  Class 1 - P: 0.0031, R: 0.5095, F1: 0.0061
+  Predicting class 1: 13.76684%
+
+Epoch 223 | Loss: 0.6349 | Acc: 0.8626
+  Class 1 - P: 0.0031, R: 0.5104, F1: 0.0061
+  Predicting class 1: 13.74003%
+
+Epoch 224 | Loss: 0.6268 | Acc: 0.8631
+  Class 1 - P: 0.0031, R: 0.5098, F1: 0.0062
+  Predicting class 1: 13.68709%
+
+Epoch 225 | Loss: 0.6409 | Acc: 0.8628
+  Class 1 - P: 0.0031, R: 0.5133, F1: 0.0062
+  Predicting class 1: 13.72430%
+
+Epoch 226 | Loss: 0.6222 | Acc: 0.8625
+  Class 1 - P: 0.0031, R: 0.5142, F1: 0.0062
+  Predicting class 1: 13.74737%
+
+Epoch 227 | Loss: 0.6223 | Acc: 0.8629
+  Class 1 - P: 0.0031, R: 0.5142, F1: 0.0062
+  Predicting class 1: 13.71606%
+
+Epoch 228 | Loss: 0.6403 | Acc: 0.8627
+  Class 1 - P: 0.0031, R: 0.5160, F1: 0.0062
+  Predicting class 1: 13.73380%
+
+Epoch 229 | Loss: 0.6365 | Acc: 0.8620
+  Class 1 - P: 0.0031, R: 0.5172, F1: 0.0062
+  Predicting class 1: 13.80588%
+
+Epoch 230 | Loss: 0.6386 | Acc: 0.8605
+  Class 1 - P: 0.0031, R: 0.5207, F1: 0.0062
+  Predicting class 1: 13.95826%
+
+Epoch 231 | Loss: 0.6219 | Acc: 0.8591
+  Class 1 - P: 0.0031, R: 0.5219, F1: 0.0061
+  Predicting class 1: 14.09642%
+
+Epoch 232 | Loss: 0.6495 | Acc: 0.8583
+  Class 1 - P: 0.0031, R: 0.5234, F1: 0.0061
+  Predicting class 1: 14.17174%
+
+Epoch 233 | Loss: 0.6346 | Acc: 0.8580
+  Class 1 - P: 0.0031, R: 0.5249, F1: 0.0061
+  Predicting class 1: 14.20229%
+
+Epoch 234 | Loss: 0.6307 | Acc: 0.8573
+  Class 1 - P: 0.0031, R: 0.5269, F1: 0.0061
+  Predicting class 1: 14.27042%
+
+Epoch 235 | Loss: 0.6246 | Acc: 0.8560
+  Class 1 - P: 0.0031, R: 0.5299, F1: 0.0061
+  Predicting class 1: 14.40521%
+
+Epoch 236 | Loss: 0.6217 | Acc: 0.8541
+  Class 1 - P: 0.0030, R: 0.5311, F1: 0.0060
+  Predicting class 1: 14.59028%
+
+Epoch 237 | Loss: 0.6210 | Acc: 0.8524
+  Class 1 - P: 0.0030, R: 0.5349, F1: 0.0060
+  Predicting class 1: 14.76143%
+
+Epoch 238 | Loss: 0.6267 | Acc: 0.8513
+  Class 1 - P: 0.0030, R: 0.5349, F1: 0.0060
+  Predicting class 1: 14.87318%
+
+Epoch 239 | Loss: 0.6321 | Acc: 0.8506
+  Class 1 - P: 0.0030, R: 0.5364, F1: 0.0059
+  Predicting class 1: 14.94690%
+
+Epoch 240 | Loss: 0.6273 | Acc: 0.8500
+  Class 1 - P: 0.0030, R: 0.5376, F1: 0.0059
+  Predicting class 1: 15.00504%
+
+Epoch 241 | Loss: 0.6305 | Acc: 0.8497
+  Class 1 - P: 0.0030, R: 0.5391, F1: 0.0059
+  Predicting class 1: 15.04036%
+
+Epoch 242 | Loss: 0.6297 | Acc: 0.8495
+  Class 1 - P: 0.0030, R: 0.5402, F1: 0.0059
+  Predicting class 1: 15.05584%
+
+Epoch 243 | Loss: 0.6355 | Acc: 0.8486
+  Class 1 - P: 0.0030, R: 0.5429, F1: 0.0059
+  Predicting class 1: 15.14669%
+
+Epoch 244 | Loss: 0.6238 | Acc: 0.8479
+  Class 1 - P: 0.0030, R: 0.5447, F1: 0.0059
+  Predicting class 1: 15.21989%
+
+Epoch 245 | Loss: 0.6264 | Acc: 0.8473
+  Class 1 - P: 0.0030, R: 0.5462, F1: 0.0059
+  Predicting class 1: 15.27343%
+
+Epoch 246 | Loss: 0.6172 | Acc: 0.8473
+  Class 1 - P: 0.0030, R: 0.5470, F1: 0.0059
+  Predicting class 1: 15.28254%
+
+Epoch 247 | Loss: 0.6307 | Acc: 0.8471
+  Class 1 - P: 0.0030, R: 0.5470, F1: 0.0059
+  Predicting class 1: 15.29837%
+
+Epoch 248 | Loss: 0.6212 | Acc: 0.8472
+  Class 1 - P: 0.0030, R: 0.5473, F1: 0.0059
+  Predicting class 1: 15.29056%
+
+Epoch 249 | Loss: 0.6260 | Acc: 0.8469
+  Class 1 - P: 0.0030, R: 0.5462, F1: 0.0059
+  Predicting class 1: 15.32039%
+
+Epoch 250 | Loss: 0.6311 | Acc: 0.8468
+  Class 1 - P: 0.0030, R: 0.5470, F1: 0.0059
+  Predicting class 1: 15.32960%
+
+Epoch 251 | Loss: 0.6150 | Acc: 0.8469
+  Class 1 - P: 0.0030, R: 0.5467, F1: 0.0059
+  Predicting class 1: 15.31491%
+
+Epoch 252 | Loss: 0.6208 | Acc: 0.8473
+  Class 1 - P: 0.0030, R: 0.5470, F1: 0.0059
+  Predicting class 1: 15.27823%
+
+Epoch 253 | Loss: 0.6184 | Acc: 0.8482
+  Class 1 - P: 0.0030, R: 0.5467, F1: 0.0060
+  Predicting class 1: 15.19080%
+
+Epoch 254 | Loss: 0.6182 | Acc: 0.8496
+  Class 1 - P: 0.0030, R: 0.5447, F1: 0.0060
+  Predicting class 1: 15.05092%
+
+Epoch 255 | Loss: 0.6321 | Acc: 0.8504
+  Class 1 - P: 0.0030, R: 0.5441, F1: 0.0060
+  Predicting class 1: 14.96964%
+
+Epoch 256 | Loss: 0.6183 | Acc: 0.8516
+  Class 1 - P: 0.0030, R: 0.5417, F1: 0.0060
+  Predicting class 1: 14.84256%
+
+Epoch 257 | Loss: 0.6193 | Acc: 0.8529
+  Class 1 - P: 0.0031, R: 0.5405, F1: 0.0061
+  Predicting class 1: 14.71956%
+
+Epoch 258 | Loss: 0.6214 | Acc: 0.8539
+  Class 1 - P: 0.0031, R: 0.5408, F1: 0.0061
+  Predicting class 1: 14.61832%
+
+Epoch 259 | Loss: 0.6115 | Acc: 0.8548
+  Class 1 - P: 0.0031, R: 0.5408, F1: 0.0062
+  Predicting class 1: 14.53148%
+
+Epoch 260 | Loss: 0.6260 | Acc: 0.8559
+  Class 1 - P: 0.0031, R: 0.5388, F1: 0.0062
+  Predicting class 1: 14.41537%
+
+Epoch 261 | Loss: 0.6228 | Acc: 0.8569
+  Class 1 - P: 0.0031, R: 0.5367, F1: 0.0062
+  Predicting class 1: 14.31628%
+
+Epoch 262 | Loss: 0.6225 | Acc: 0.8577
+  Class 1 - P: 0.0031, R: 0.5373, F1: 0.0062
+  Predicting class 1: 14.23953%
+
+Epoch 263 | Loss: 0.6267 | Acc: 0.8576
+  Class 1 - P: 0.0031, R: 0.5385, F1: 0.0063
+  Predicting class 1: 14.24531%
+
+Epoch 264 | Loss: 0.6208 | Acc: 0.8574
+  Class 1 - P: 0.0032, R: 0.5411, F1: 0.0063
+  Predicting class 1: 14.26584%
+
+Epoch 265 | Loss: 0.6174 | Acc: 0.8573
+  Class 1 - P: 0.0032, R: 0.5411, F1: 0.0063
+  Predicting class 1: 14.28081%
+
+Epoch 266 | Loss: 0.6110 | Acc: 0.8566
+  Class 1 - P: 0.0032, R: 0.5435, F1: 0.0063
+  Predicting class 1: 14.34535%
+
+Epoch 267 | Loss: 0.6234 | Acc: 0.8564
+  Class 1 - P: 0.0032, R: 0.5450, F1: 0.0063
+  Predicting class 1: 14.37068%
+
+Epoch 268 | Loss: 0.6145 | Acc: 0.8562
+  Class 1 - P: 0.0032, R: 0.5473, F1: 0.0063
+  Predicting class 1: 14.39278%
+
+Epoch 269 | Loss: 0.6093 | Acc: 0.8561
+  Class 1 - P: 0.0032, R: 0.5467, F1: 0.0063
+  Predicting class 1: 14.39763%
+
+Epoch 270 | Loss: 0.6105 | Acc: 0.8560
+  Class 1 - P: 0.0032, R: 0.5491, F1: 0.0063
+  Predicting class 1: 14.41178%
+
+Epoch 271 | Loss: 0.6146 | Acc: 0.8557
+  Class 1 - P: 0.0032, R: 0.5500, F1: 0.0063
+  Predicting class 1: 14.43959%
+
+Epoch 272 | Loss: 0.6184 | Acc: 0.8552
+  Class 1 - P: 0.0032, R: 0.5530, F1: 0.0063
+  Predicting class 1: 14.48954%
+
+Epoch 273 | Loss: 0.6114 | Acc: 0.8553
+  Class 1 - P: 0.0032, R: 0.5538, F1: 0.0063
+  Predicting class 1: 14.47731%
+
+Epoch 274 | Loss: 0.6140 | Acc: 0.8556
+  Class 1 - P: 0.0032, R: 0.5541, F1: 0.0063
+  Predicting class 1: 14.45109%
+
+Epoch 275 | Loss: 0.6102 | Acc: 0.8557
+  Class 1 - P: 0.0032, R: 0.5547, F1: 0.0064
+  Predicting class 1: 14.43524%
+
+Epoch 276 | Loss: 0.6110 | Acc: 0.8560
+  Class 1 - P: 0.0032, R: 0.5553, F1: 0.0064
+  Predicting class 1: 14.40452%
+
+Epoch 277 | Loss: 0.6105 | Acc: 0.8561
+  Class 1 - P: 0.0032, R: 0.5559, F1: 0.0064
+  Predicting class 1: 14.40230%
+
+Epoch 278 | Loss: 0.6055 | Acc: 0.8561
+  Class 1 - P: 0.0032, R: 0.5571, F1: 0.0064
+  Predicting class 1: 14.39967%
+  Saved best model (F1: 0.0064)
+
+Epoch 279 | Loss: 0.6226 | Acc: 0.8553
+  Class 1 - P: 0.0032, R: 0.5586, F1: 0.0064
+  Predicting class 1: 14.47738%
+
+Epoch 280 | Loss: 0.6112 | Acc: 0.8543
+  Class 1 - P: 0.0032, R: 0.5624, F1: 0.0064
+  Predicting class 1: 14.58046%
+
+Epoch 281 | Loss: 0.6145 | Acc: 0.8533
+  Class 1 - P: 0.0032, R: 0.5648, F1: 0.0064
+  Predicting class 1: 14.67673%
+
+Epoch 282 | Loss: 0.6076 | Acc: 0.8525
+  Class 1 - P: 0.0032, R: 0.5663, F1: 0.0063
+  Predicting class 1: 14.75633%
+
+Epoch 283 | Loss: 0.6280 | Acc: 0.8511
+  Class 1 - P: 0.0032, R: 0.5701, F1: 0.0063
+  Predicting class 1: 14.89966%
+
+Epoch 284 | Loss: 0.6050 | Acc: 0.8506
+  Class 1 - P: 0.0032, R: 0.5713, F1: 0.0063
+  Predicting class 1: 14.95408%
+
+Epoch 285 | Loss: 0.6261 | Acc: 0.8492
+  Class 1 - P: 0.0032, R: 0.5728, F1: 0.0063
+  Predicting class 1: 15.09003%
+
+Epoch 286 | Loss: 0.6123 | Acc: 0.8480
+  Class 1 - P: 0.0031, R: 0.5740, F1: 0.0062
+  Predicting class 1: 15.21696%
+
+Epoch 287 | Loss: 0.6214 | Acc: 0.8469
+  Class 1 - P: 0.0031, R: 0.5757, F1: 0.0062
+  Predicting class 1: 15.32298%
+
+Epoch 288 | Loss: 0.6215 | Acc: 0.8463
+  Class 1 - P: 0.0031, R: 0.5760, F1: 0.0062
+  Predicting class 1: 15.38476%
+
+Epoch 289 | Loss: 0.6230 | Acc: 0.8463
+  Class 1 - P: 0.0031, R: 0.5769, F1: 0.0062
+  Predicting class 1: 15.38754%
+
+Epoch 290 | Loss: 0.6283 | Acc: 0.8464
+  Class 1 - P: 0.0031, R: 0.5763, F1: 0.0062
+  Predicting class 1: 15.37164%
+
+Epoch 291 | Loss: 0.5967 | Acc: 0.8471
+  Class 1 - P: 0.0031, R: 0.5746, F1: 0.0062
+  Predicting class 1: 15.30698%
+
+Epoch 292 | Loss: 0.6119 | Acc: 0.8478
+  Class 1 - P: 0.0031, R: 0.5740, F1: 0.0062
+  Predicting class 1: 15.23680%
+
+Epoch 293 | Loss: 0.6052 | Acc: 0.8489
+  Class 1 - P: 0.0032, R: 0.5728, F1: 0.0063
+  Predicting class 1: 15.12286%
+
+Epoch 294 | Loss: 0.6020 | Acc: 0.8505
+  Class 1 - P: 0.0032, R: 0.5701, F1: 0.0063
+  Predicting class 1: 14.96216%
+
+Epoch 295 | Loss: 0.6077 | Acc: 0.8523
+  Class 1 - P: 0.0032, R: 0.5689, F1: 0.0064
+  Predicting class 1: 14.78004%
+
+Epoch 296 | Loss: 0.6070 | Acc: 0.8546
+  Class 1 - P: 0.0032, R: 0.5651, F1: 0.0064
+  Predicting class 1: 14.55378%
+  Saved best model (F1: 0.0064)
+
+Epoch 297 | Loss: 0.6234 | Acc: 0.8565
+  Class 1 - P: 0.0033, R: 0.5636, F1: 0.0065
+  Predicting class 1: 14.36482%
+  Saved best model (F1: 0.0065)
+
+Epoch 298 | Loss: 0.6113 | Acc: 0.8576
+  Class 1 - P: 0.0033, R: 0.5624, F1: 0.0065
+  Predicting class 1: 14.24989%
+  Saved best model (F1: 0.0065)
+
+Epoch 299 | Loss: 0.6096 | Acc: 0.8583
+  Class 1 - P: 0.0033, R: 0.5621, F1: 0.0066
+  Predicting class 1: 14.18274%
+  Saved best model (F1: 0.0066)
+
+Epoch 300 | Loss: 0.5972 | Acc: 0.8584
+  Class 1 - P: 0.0033, R: 0.5618, F1: 0.0066
+  Predicting class 1: 14.16606%
+  Saved best model (F1: 0.0066)
+
+Epoch 301 | Loss: 0.6100 | Acc: 0.8588
+  Class 1 - P: 0.0033, R: 0.5630, F1: 0.0066
+  Predicting class 1: 14.12909%
+  Saved best model (F1: 0.0066)
+
+Epoch 302 | Loss: 0.6048 | Acc: 0.8596
+  Class 1 - P: 0.0033, R: 0.5630, F1: 0.0066
+  Predicting class 1: 14.05350%
+  Saved best model (F1: 0.0066)
+
+Epoch 303 | Loss: 0.6337 | Acc: 0.8583
+  Class 1 - P: 0.0033, R: 0.5660, F1: 0.0066
+  Predicting class 1: 14.18048%
+
+Epoch 304 | Loss: 0.6094 | Acc: 0.8570
+  Class 1 - P: 0.0033, R: 0.5672, F1: 0.0066
+  Predicting class 1: 14.31465%
+
+Epoch 305 | Loss: 0.6066 | Acc: 0.8549
+  Class 1 - P: 0.0033, R: 0.5713, F1: 0.0065
+  Predicting class 1: 14.51792%
+
+Epoch 306 | Loss: 0.6135 | Acc: 0.8522
+  Class 1 - P: 0.0032, R: 0.5763, F1: 0.0064
+  Predicting class 1: 14.79360%
+
+Epoch 307 | Loss: 0.6043 | Acc: 0.8495
+  Class 1 - P: 0.0032, R: 0.5814, F1: 0.0064
+  Predicting class 1: 15.06640%
+
+Epoch 308 | Loss: 0.5986 | Acc: 0.8473
+  Class 1 - P: 0.0032, R: 0.5858, F1: 0.0063
+  Predicting class 1: 15.28534%
+
+Epoch 309 | Loss: 0.5947 | Acc: 0.8458
+  Class 1 - P: 0.0032, R: 0.5885, F1: 0.0063
+  Predicting class 1: 15.43456%
+
+Epoch 310 | Loss: 0.6004 | Acc: 0.8451
+  Class 1 - P: 0.0032, R: 0.5914, F1: 0.0063
+  Predicting class 1: 15.50480%
+
+Epoch 311 | Loss: 0.6037 | Acc: 0.8442
+  Class 1 - P: 0.0032, R: 0.5926, F1: 0.0063
+  Predicting class 1: 15.59123%
+
+Epoch 312 | Loss: 0.5939 | Acc: 0.8435
+  Class 1 - P: 0.0032, R: 0.5944, F1: 0.0063
+  Predicting class 1: 15.66396%
+
+Epoch 313 | Loss: 0.6029 | Acc: 0.8433
+  Class 1 - P: 0.0032, R: 0.5956, F1: 0.0063
+  Predicting class 1: 15.68877%
+
+Epoch 314 | Loss: 0.5967 | Acc: 0.8431
+  Class 1 - P: 0.0032, R: 0.5956, F1: 0.0063
+  Predicting class 1: 15.70197%
+
+Epoch 315 | Loss: 0.6198 | Acc: 0.8432
+  Class 1 - P: 0.0032, R: 0.5970, F1: 0.0063
+  Predicting class 1: 15.69955%
+
+Epoch 316 | Loss: 0.6013 | Acc: 0.8434
+  Class 1 - P: 0.0032, R: 0.5970, F1: 0.0063
+  Predicting class 1: 15.68030%
+
+Epoch 317 | Loss: 0.6151 | Acc: 0.8432
+  Class 1 - P: 0.0032, R: 0.5991, F1: 0.0063
+  Predicting class 1: 15.69704%
+
+Epoch 318 | Loss: 0.5932 | Acc: 0.8433
+  Class 1 - P: 0.0032, R: 0.6000, F1: 0.0063
+  Predicting class 1: 15.69050%
+
+Epoch 319 | Loss: 0.5995 | Acc: 0.8436
+  Class 1 - P: 0.0032, R: 0.6012, F1: 0.0064
+  Predicting class 1: 15.65210%
+
+Epoch 320 | Loss: 0.5956 | Acc: 0.8442
+  Class 1 - P: 0.0032, R: 0.6006, F1: 0.0064
+  Predicting class 1: 15.59667%
+
+Epoch 321 | Loss: 0.6012 | Acc: 0.8447
+  Class 1 - P: 0.0032, R: 0.6006, F1: 0.0064
+  Predicting class 1: 15.55118%
+
+Epoch 322 | Loss: 0.6004 | Acc: 0.8455
+  Class 1 - P: 0.0032, R: 0.6012, F1: 0.0064
+  Predicting class 1: 15.46796%
+
+Epoch 323 | Loss: 0.5969 | Acc: 0.8469
+  Class 1 - P: 0.0033, R: 0.5997, F1: 0.0065
+  Predicting class 1: 15.32219%
+
+Epoch 324 | Loss: 0.6000 | Acc: 0.8486
+  Class 1 - P: 0.0033, R: 0.5985, F1: 0.0065
+  Predicting class 1: 15.15415%
+
+Epoch 325 | Loss: 0.5948 | Acc: 0.8503
+  Class 1 - P: 0.0033, R: 0.5964, F1: 0.0066
+  Predicting class 1: 14.98586%
+
+Epoch 326 | Loss: 0.5964 | Acc: 0.8517
+  Class 1 - P: 0.0033, R: 0.5938, F1: 0.0066
+  Predicting class 1: 14.84110%
+
+Epoch 327 | Loss: 0.5930 | Acc: 0.8531
+  Class 1 - P: 0.0034, R: 0.5932, F1: 0.0067
+  Predicting class 1: 14.70536%
+  Saved best model (F1: 0.0067)
+
+Epoch 328 | Loss: 0.5881 | Acc: 0.8545
+  Class 1 - P: 0.0034, R: 0.5905, F1: 0.0067
+  Predicting class 1: 14.56124%
+  Saved best model (F1: 0.0067)
+
+Epoch 329 | Loss: 0.5968 | Acc: 0.8557
+  Class 1 - P: 0.0034, R: 0.5893, F1: 0.0068
+  Predicting class 1: 14.44358%
+  Saved best model (F1: 0.0068)
+
+Epoch 330 | Loss: 0.5954 | Acc: 0.8560
+  Class 1 - P: 0.0034, R: 0.5902, F1: 0.0068
+  Predicting class 1: 14.41378%
+  Saved best model (F1: 0.0068)
+
+Epoch 331 | Loss: 0.6063 | Acc: 0.8564
+  Class 1 - P: 0.0034, R: 0.5911, F1: 0.0068
+  Predicting class 1: 14.37085%
+  Saved best model (F1: 0.0068)
+
+Epoch 332 | Loss: 0.6012 | Acc: 0.8572
+  Class 1 - P: 0.0034, R: 0.5905, F1: 0.0068
+  Predicting class 1: 14.29489%
+  Saved best model (F1: 0.0068)
+
+Epoch 333 | Loss: 0.6077 | Acc: 0.8570
+  Class 1 - P: 0.0034, R: 0.5911, F1: 0.0068
+  Predicting class 1: 14.31672%
+
+Epoch 334 | Loss: 0.5893 | Acc: 0.8567
+  Class 1 - P: 0.0034, R: 0.5926, F1: 0.0068
+  Predicting class 1: 14.34869%
+
+Epoch 335 | Loss: 0.5930 | Acc: 0.8558
+  Class 1 - P: 0.0034, R: 0.5956, F1: 0.0068
+  Predicting class 1: 14.43945%
+
+Epoch 336 | Loss: 0.6133 | Acc: 0.8544
+  Class 1 - P: 0.0034, R: 0.5973, F1: 0.0068
+  Predicting class 1: 14.57778%
+
+Epoch 337 | Loss: 0.6051 | Acc: 0.8526
+  Class 1 - P: 0.0034, R: 0.6003, F1: 0.0067
+  Predicting class 1: 14.75815%
+
+Epoch 338 | Loss: 0.5925 | Acc: 0.8509
+  Class 1 - P: 0.0034, R: 0.6050, F1: 0.0067
+  Predicting class 1: 14.92964%
+
+Epoch 339 | Loss: 0.6031 | Acc: 0.8491
+  Class 1 - P: 0.0033, R: 0.6062, F1: 0.0066
+  Predicting class 1: 15.10677%
+
+Epoch 340 | Loss: 0.5975 | Acc: 0.8477
+  Class 1 - P: 0.0033, R: 0.6083, F1: 0.0066
+  Predicting class 1: 15.25088%
+
+Epoch 341 | Loss: 0.5930 | Acc: 0.8470
+  Class 1 - P: 0.0033, R: 0.6068, F1: 0.0066
+  Predicting class 1: 15.31631%
+
+Epoch 342 | Loss: 0.5871 | Acc: 0.8471
+  Class 1 - P: 0.0033, R: 0.6074, F1: 0.0066
+  Predicting class 1: 15.30986%
+
+Epoch 343 | Loss: 0.5949 | Acc: 0.8472
+  Class 1 - P: 0.0033, R: 0.6065, F1: 0.0066
+  Predicting class 1: 15.29273%
+
+Epoch 344 | Loss: 0.5962 | Acc: 0.8470
+  Class 1 - P: 0.0033, R: 0.6062, F1: 0.0065
+  Predicting class 1: 15.32059%
+
+Epoch 345 | Loss: 0.5940 | Acc: 0.8469
+  Class 1 - P: 0.0033, R: 0.6065, F1: 0.0066
+  Predicting class 1: 15.32369%
+
+Epoch 346 | Loss: 0.5931 | Acc: 0.8468
+  Class 1 - P: 0.0033, R: 0.6062, F1: 0.0065
+  Predicting class 1: 15.33952%
+
+Epoch 347 | Loss: 0.5928 | Acc: 0.8469
+  Class 1 - P: 0.0033, R: 0.6062, F1: 0.0065
+  Predicting class 1: 15.33214%
+
+Epoch 348 | Loss: 0.5914 | Acc: 0.8471
+  Class 1 - P: 0.0033, R: 0.6071, F1: 0.0066
+  Predicting class 1: 15.30326%
+
+Epoch 349 | Loss: 0.5824 | Acc: 0.8479
+  Class 1 - P: 0.0033, R: 0.6056, F1: 0.0066
+  Predicting class 1: 15.23144%
+
+Epoch 350 | Loss: 0.5963 | Acc: 0.8491
+  Class 1 - P: 0.0033, R: 0.6047, F1: 0.0066
+  Predicting class 1: 15.10790%
+
+Epoch 351 | Loss: 0.5882 | Acc: 0.8501
+  Class 1 - P: 0.0033, R: 0.6041, F1: 0.0067
+  Predicting class 1: 15.00868%
+
+Epoch 352 | Loss: 0.5926 | Acc: 0.8503
+  Class 1 - P: 0.0034, R: 0.6041, F1: 0.0067
+  Predicting class 1: 14.98239%
+
+Epoch 353 | Loss: 0.6067 | Acc: 0.8483
+  Class 1 - P: 0.0033, R: 0.6083, F1: 0.0066
+  Predicting class 1: 15.19114%
+
+Epoch 354 | Loss: 0.5890 | Acc: 0.8460
+  Class 1 - P: 0.0033, R: 0.6115, F1: 0.0066
+  Predicting class 1: 15.41585%
+
+Epoch 355 | Loss: 0.5813 | Acc: 0.8448
+  Class 1 - P: 0.0033, R: 0.6154, F1: 0.0066
+  Predicting class 1: 15.54054%
+
+Epoch 356 | Loss: 0.6022 | Acc: 0.8428
+  Class 1 - P: 0.0033, R: 0.6180, F1: 0.0065
+  Predicting class 1: 15.73864%
+
+Epoch 357 | Loss: 0.5900 | Acc: 0.8412
+  Class 1 - P: 0.0032, R: 0.6204, F1: 0.0065
+  Predicting class 1: 15.89723%
+
+Epoch 358 | Loss: 0.5885 | Acc: 0.8407
+  Class 1 - P: 0.0033, R: 0.6237, F1: 0.0065
+  Predicting class 1: 15.95082%
+
+Epoch 359 | Loss: 0.5904 | Acc: 0.8408
+  Class 1 - P: 0.0033, R: 0.6249, F1: 0.0065
+  Predicting class 1: 15.94068%
+
+Epoch 360 | Loss: 0.5906 | Acc: 0.8419
+  Class 1 - P: 0.0033, R: 0.6251, F1: 0.0065
+  Predicting class 1: 15.82740%
+
+Epoch 361 | Loss: 0.5900 | Acc: 0.8431
+  Class 1 - P: 0.0033, R: 0.6246, F1: 0.0066
+  Predicting class 1: 15.70839%
+
+Epoch 362 | Loss: 0.5908 | Acc: 0.8445
+  Class 1 - P: 0.0033, R: 0.6234, F1: 0.0066
+  Predicting class 1: 15.56833%
+
+Epoch 363 | Loss: 0.5872 | Acc: 0.8460
+  Class 1 - P: 0.0034, R: 0.6225, F1: 0.0067
+  Predicting class 1: 15.42203%
+
+Epoch 364 | Loss: 0.5901 | Acc: 0.8473
+  Class 1 - P: 0.0034, R: 0.6204, F1: 0.0067
+  Predicting class 1: 15.28776%
+
+Epoch 365 | Loss: 0.5751 | Acc: 0.8491
+  Class 1 - P: 0.0034, R: 0.6180, F1: 0.0068
+  Predicting class 1: 15.11135%
+
+Epoch 366 | Loss: 0.5824 | Acc: 0.8511
+  Class 1 - P: 0.0034, R: 0.6160, F1: 0.0068
+  Predicting class 1: 14.90584%
+  Saved best model (F1: 0.0068)
+
+Epoch 367 | Loss: 0.5813 | Acc: 0.8534
+  Class 1 - P: 0.0035, R: 0.6130, F1: 0.0069
+  Predicting class 1: 14.68335%
+  Saved best model (F1: 0.0069)
+
+Epoch 368 | Loss: 0.5888 | Acc: 0.8545
+  Class 1 - P: 0.0035, R: 0.6124, F1: 0.0070
+  Predicting class 1: 14.56402%
+  Saved best model (F1: 0.0070)
+
+Epoch 369 | Loss: 0.5850 | Acc: 0.8556
+  Class 1 - P: 0.0035, R: 0.6133, F1: 0.0070
+  Predicting class 1: 14.45591%
+  Saved best model (F1: 0.0070)
+
+Epoch 370 | Loss: 0.5873 | Acc: 0.8562
+  Class 1 - P: 0.0035, R: 0.6136, F1: 0.0070
+  Predicting class 1: 14.40090%
+  Saved best model (F1: 0.0070)
+
+Epoch 371 | Loss: 0.5896 | Acc: 0.8563
+  Class 1 - P: 0.0036, R: 0.6157, F1: 0.0071
+  Predicting class 1: 14.38810%
+  Saved best model (F1: 0.0071)
+
+Epoch 372 | Loss: 0.5769 | Acc: 0.8565
+  Class 1 - P: 0.0036, R: 0.6166, F1: 0.0071
+  Predicting class 1: 14.37136%
+  Saved best model (F1: 0.0071)
+
+Epoch 373 | Loss: 0.5974 | Acc: 0.8556
+  Class 1 - P: 0.0036, R: 0.6180, F1: 0.0071
+  Predicting class 1: 14.45660%
+
+Epoch 374 | Loss: 0.5929 | Acc: 0.8545
+  Class 1 - P: 0.0035, R: 0.6213, F1: 0.0071
+  Predicting class 1: 14.56971%
+
+Epoch 375 | Loss: 0.5873 | Acc: 0.8532
+  Class 1 - P: 0.0035, R: 0.6243, F1: 0.0070
+  Predicting class 1: 14.69992%
+
+Epoch 376 | Loss: 0.5840 | Acc: 0.8519
+  Class 1 - P: 0.0035, R: 0.6269, F1: 0.0070
+  Predicting class 1: 14.83212%
+
+Epoch 377 | Loss: 0.5845 | Acc: 0.8497
+  Class 1 - P: 0.0035, R: 0.6308, F1: 0.0069
+  Predicting class 1: 15.04784%
+
+Epoch 378 | Loss: 0.5803 | Acc: 0.8473
+  Class 1 - P: 0.0035, R: 0.6349, F1: 0.0069
+  Predicting class 1: 15.28975%
+
+Epoch 379 | Loss: 0.5753 | Acc: 0.8453
+  Class 1 - P: 0.0034, R: 0.6393, F1: 0.0068
+  Predicting class 1: 15.48922%
+
+Epoch 380 | Loss: 0.5792 | Acc: 0.8438
+  Class 1 - P: 0.0034, R: 0.6438, F1: 0.0068
+  Predicting class 1: 15.63984%
+
+Epoch 381 | Loss: 0.5747 | Acc: 0.8426
+  Class 1 - P: 0.0034, R: 0.6467, F1: 0.0068
+  Predicting class 1: 15.76153%
+
+Epoch 382 | Loss: 0.5853 | Acc: 0.8418
+  Class 1 - P: 0.0034, R: 0.6485, F1: 0.0068
+  Predicting class 1: 15.84525%
+
+Epoch 383 | Loss: 0.5787 | Acc: 0.8412
+  Class 1 - P: 0.0034, R: 0.6500, F1: 0.0068
+  Predicting class 1: 15.90486%
+
+Epoch 384 | Loss: 0.5784 | Acc: 0.8410
+  Class 1 - P: 0.0034, R: 0.6506, F1: 0.0068
+  Predicting class 1: 15.92751%
+
+Epoch 385 | Loss: 0.5741 | Acc: 0.8413
+  Class 1 - P: 0.0034, R: 0.6527, F1: 0.0068
+  Predicting class 1: 15.89231%
+
+Epoch 386 | Loss: 0.5704 | Acc: 0.8420
+  Class 1 - P: 0.0034, R: 0.6530, F1: 0.0068
+  Predicting class 1: 15.82211%
+
+Epoch 387 | Loss: 0.5726 | Acc: 0.8431
+  Class 1 - P: 0.0035, R: 0.6530, F1: 0.0069
+  Predicting class 1: 15.71902%
+
+Epoch 388 | Loss: 0.5759 | Acc: 0.8447
+  Class 1 - P: 0.0035, R: 0.6521, F1: 0.0069
+  Predicting class 1: 15.55726%
+
+Epoch 389 | Loss: 0.5729 | Acc: 0.8466
+  Class 1 - P: 0.0035, R: 0.6506, F1: 0.0070
+  Predicting class 1: 15.36315%
+
+Epoch 390 | Loss: 0.5806 | Acc: 0.8484
+  Class 1 - P: 0.0036, R: 0.6491, F1: 0.0071
+  Predicting class 1: 15.18940%
+
+Epoch 391 | Loss: 0.5717 | Acc: 0.8498
+  Class 1 - P: 0.0036, R: 0.6491, F1: 0.0071
+  Predicting class 1: 15.04796%
+  Saved best model (F1: 0.0071)
+
+Epoch 392 | Loss: 0.5751 | Acc: 0.8516
+  Class 1 - P: 0.0036, R: 0.6470, F1: 0.0072
+  Predicting class 1: 14.86540%
+  Saved best model (F1: 0.0072)
+
+Epoch 393 | Loss: 0.5751 | Acc: 0.8525
+  Class 1 - P: 0.0036, R: 0.6479, F1: 0.0073
+  Predicting class 1: 14.77752%
+  Saved best model (F1: 0.0073)
+
+Epoch 394 | Loss: 0.5765 | Acc: 0.8533
+  Class 1 - P: 0.0037, R: 0.6473, F1: 0.0073
+  Predicting class 1: 14.69613%
+  Saved best model (F1: 0.0073)
+
+Epoch 395 | Loss: 0.5796 | Acc: 0.8543
+  Class 1 - P: 0.0037, R: 0.6464, F1: 0.0073
+  Predicting class 1: 14.59747%
+  Saved best model (F1: 0.0073)
+
+Epoch 396 | Loss: 0.5773 | Acc: 0.8551
+  Class 1 - P: 0.0037, R: 0.6459, F1: 0.0074
+  Predicting class 1: 14.51464%
+  Saved best model (F1: 0.0074)
+
+Epoch 397 | Loss: 0.5807 | Acc: 0.8549
+  Class 1 - P: 0.0037, R: 0.6473, F1: 0.0074
+  Predicting class 1: 14.53650%
+  Saved best model (F1: 0.0074)
+
+Epoch 398 | Loss: 0.5825 | Acc: 0.8543
+  Class 1 - P: 0.0037, R: 0.6488, F1: 0.0074
+  Predicting class 1: 14.59732%
+
+Epoch 399 | Loss: 0.5725 | Acc: 0.8534
+  Class 1 - P: 0.0037, R: 0.6497, F1: 0.0073
+  Predicting class 1: 14.68946%
+
+Epoch 400 | Loss: 0.5749 | Acc: 0.8516
+  Class 1 - P: 0.0036, R: 0.6518, F1: 0.0073
+  Predicting class 1: 14.86626%
+
+Epoch 401 | Loss: 0.5882 | Acc: 0.8482
+  Class 1 - P: 0.0036, R: 0.6601, F1: 0.0072
+  Predicting class 1: 15.21012%
+
+Epoch 402 | Loss: 0.5886 | Acc: 0.8436
+  Class 1 - P: 0.0036, R: 0.6695, F1: 0.0071
+  Predicting class 1: 15.67135%
+
+Epoch 403 | Loss: 0.5837 | Acc: 0.8385
+  Class 1 - P: 0.0035, R: 0.6754, F1: 0.0069
+  Predicting class 1: 16.17557%
+
+Epoch 404 | Loss: 0.5767 | Acc: 0.8345
+  Class 1 - P: 0.0034, R: 0.6811, F1: 0.0068
+  Predicting class 1: 16.57760%
+
+Epoch 405 | Loss: 0.5720 | Acc: 0.8320
+  Class 1 - P: 0.0034, R: 0.6840, F1: 0.0067
+  Predicting class 1: 16.83181%
+
+Epoch 406 | Loss: 0.5722 | Acc: 0.8310
+  Class 1 - P: 0.0034, R: 0.6870, F1: 0.0067
+  Predicting class 1: 16.93445%
+
+Epoch 407 | Loss: 0.5737 | Acc: 0.8309
+  Class 1 - P: 0.0034, R: 0.6873, F1: 0.0067
+  Predicting class 1: 16.94051%
+
+Epoch 408 | Loss: 0.5779 | Acc: 0.8311
+  Class 1 - P: 0.0034, R: 0.6870, F1: 0.0067
+  Predicting class 1: 16.91914%
+
+Epoch 409 | Loss: 0.5700 | Acc: 0.8323
+  Class 1 - P: 0.0034, R: 0.6855, F1: 0.0068
+  Predicting class 1: 16.80282%
+
+Epoch 410 | Loss: 0.5637 | Acc: 0.8338
+  Class 1 - P: 0.0034, R: 0.6837, F1: 0.0068
+  Predicting class 1: 16.65326%
+
+Epoch 411 | Loss: 0.5675 | Acc: 0.8359
+  Class 1 - P: 0.0034, R: 0.6814, F1: 0.0069
+  Predicting class 1: 16.43815%
+
+Epoch 412 | Loss: 0.5709 | Acc: 0.8384
+  Class 1 - P: 0.0035, R: 0.6787, F1: 0.0069
+  Predicting class 1: 16.18537%
+
+Epoch 413 | Loss: 0.5684 | Acc: 0.8415
+  Class 1 - P: 0.0035, R: 0.6757, F1: 0.0070
+  Predicting class 1: 15.88177%
+
+Epoch 414 | Loss: 0.5711 | Acc: 0.8438
+  Class 1 - P: 0.0036, R: 0.6725, F1: 0.0071
+  Predicting class 1: 15.64900%
+
+Epoch 415 | Loss: 0.5639 | Acc: 0.8459
+  Class 1 - P: 0.0036, R: 0.6707, F1: 0.0072
+  Predicting class 1: 15.43588%
+
+Epoch 416 | Loss: 0.5655 | Acc: 0.8479
+  Class 1 - P: 0.0037, R: 0.6701, F1: 0.0073
+  Predicting class 1: 15.23668%
+
+Epoch 417 | Loss: 0.5619 | Acc: 0.8494
+  Class 1 - P: 0.0037, R: 0.6683, F1: 0.0073
+  Predicting class 1: 15.08789%
+
+Epoch 418 | Loss: 0.5592 | Acc: 0.8509
+  Class 1 - P: 0.0037, R: 0.6663, F1: 0.0074
+  Predicting class 1: 14.93961%
+  Saved best model (F1: 0.0074)
+
+Epoch 419 | Loss: 0.5725 | Acc: 0.8524
+  Class 1 - P: 0.0037, R: 0.6660, F1: 0.0075
+  Predicting class 1: 14.78998%
+  Saved best model (F1: 0.0075)
+
+Epoch 420 | Loss: 0.5608 | Acc: 0.8528
+  Class 1 - P: 0.0038, R: 0.6675, F1: 0.0075
+  Predicting class 1: 14.74343%
+  Saved best model (F1: 0.0075)
+
+Epoch 421 | Loss: 0.5656 | Acc: 0.8527
+  Class 1 - P: 0.0038, R: 0.6680, F1: 0.0075
+  Predicting class 1: 14.75810%
+
+Epoch 422 | Loss: 0.5627 | Acc: 0.8524
+  Class 1 - P: 0.0038, R: 0.6701, F1: 0.0075
+  Predicting class 1: 14.79077%
+  Saved best model (F1: 0.0075)
+
+Epoch 423 | Loss: 0.5614 | Acc: 0.8521
+  Class 1 - P: 0.0038, R: 0.6734, F1: 0.0075
+  Predicting class 1: 14.81580%
+  Saved best model (F1: 0.0075)
+
+Epoch 424 | Loss: 0.5743 | Acc: 0.8512
+  Class 1 - P: 0.0038, R: 0.6766, F1: 0.0075
+  Predicting class 1: 14.90899%
+
+Epoch 425 | Loss: 0.5653 | Acc: 0.8506
+  Class 1 - P: 0.0038, R: 0.6781, F1: 0.0075
+  Predicting class 1: 14.97203%
+
+Epoch 426 | Loss: 0.5800 | Acc: 0.8495
+  Class 1 - P: 0.0038, R: 0.6814, F1: 0.0075
+  Predicting class 1: 15.08343%
+
+Epoch 427 | Loss: 0.5589 | Acc: 0.8485
+  Class 1 - P: 0.0037, R: 0.6828, F1: 0.0074
+  Predicting class 1: 15.17854%
+
+Epoch 428 | Loss: 0.5764 | Acc: 0.8474
+  Class 1 - P: 0.0037, R: 0.6858, F1: 0.0074
+  Predicting class 1: 15.28785%
+
+Epoch 429 | Loss: 0.5549 | Acc: 0.8461
+  Class 1 - P: 0.0037, R: 0.6888, F1: 0.0074
+  Predicting class 1: 15.42409%
+
+Epoch 430 | Loss: 0.5929 | Acc: 0.8429
+  Class 1 - P: 0.0037, R: 0.6938, F1: 0.0073
+  Predicting class 1: 15.73751%
+
+Epoch 431 | Loss: 0.5593 | Acc: 0.8399
+  Class 1 - P: 0.0036, R: 0.7000, F1: 0.0072
+  Predicting class 1: 16.03867%
+
+Epoch 432 | Loss: 0.5569 | Acc: 0.8377
+  Class 1 - P: 0.0036, R: 0.7038, F1: 0.0072
+  Predicting class 1: 16.26627%
+
+Epoch 433 | Loss: 0.5561 | Acc: 0.8361
+  Class 1 - P: 0.0036, R: 0.7077, F1: 0.0071
+  Predicting class 1: 16.42779%
+
+Epoch 434 | Loss: 0.5633 | Acc: 0.8350
+  Class 1 - P: 0.0036, R: 0.7104, F1: 0.0071
+  Predicting class 1: 16.53181%
+
+Epoch 435 | Loss: 0.5578 | Acc: 0.8347
+  Class 1 - P: 0.0036, R: 0.7130, F1: 0.0071
+  Predicting class 1: 16.56059%
+
+Epoch 436 | Loss: 0.5612 | Acc: 0.8346
+  Class 1 - P: 0.0036, R: 0.7139, F1: 0.0071
+  Predicting class 1: 16.57393%
+
+Epoch 437 | Loss: 0.5566 | Acc: 0.8356
+  Class 1 - P: 0.0036, R: 0.7148, F1: 0.0072
+  Predicting class 1: 16.47894%
+
+Epoch 438 | Loss: 0.5579 | Acc: 0.8366
+  Class 1 - P: 0.0036, R: 0.7133, F1: 0.0072
+  Predicting class 1: 16.37864%
+
+Epoch 439 | Loss: 0.5539 | Acc: 0.8376
+  Class 1 - P: 0.0036, R: 0.7136, F1: 0.0073
+  Predicting class 1: 16.27179%
+
+Epoch 440 | Loss: 0.5561 | Acc: 0.8391
+  Class 1 - P: 0.0037, R: 0.7127, F1: 0.0073
+  Predicting class 1: 16.12659%
+
+Epoch 441 | Loss: 0.5611 | Acc: 0.8405
+  Class 1 - P: 0.0037, R: 0.7118, F1: 0.0074
+  Predicting class 1: 15.98774%
+
+Epoch 442 | Loss: 0.5541 | Acc: 0.8422
+  Class 1 - P: 0.0037, R: 0.7098, F1: 0.0074
+  Predicting class 1: 15.81864%
+
+Epoch 443 | Loss: 0.5599 | Acc: 0.8432
+  Class 1 - P: 0.0038, R: 0.7095, F1: 0.0075
+  Predicting class 1: 15.71201%
+
+Epoch 444 | Loss: 0.5572 | Acc: 0.8444
+  Class 1 - P: 0.0038, R: 0.7059, F1: 0.0075
+  Predicting class 1: 15.59812%
+
+Epoch 445 | Loss: 0.5542 | Acc: 0.8452
+  Class 1 - P: 0.0038, R: 0.7053, F1: 0.0075
+  Predicting class 1: 15.50983%
+  Saved best model (F1: 0.0075)
+
+Epoch 446 | Loss: 0.5478 | Acc: 0.8458
+  Class 1 - P: 0.0038, R: 0.7044, F1: 0.0075
+  Predicting class 1: 15.45575%
+  Saved best model (F1: 0.0075)
+
+Epoch 447 | Loss: 0.5560 | Acc: 0.8468
+  Class 1 - P: 0.0038, R: 0.7027, F1: 0.0076
+  Predicting class 1: 15.35581%
+  Saved best model (F1: 0.0076)
+
+Epoch 448 | Loss: 0.5611 | Acc: 0.8488
+  Class 1 - P: 0.0038, R: 0.6991, F1: 0.0076
+  Predicting class 1: 15.15683%
+  Saved best model (F1: 0.0076)
+
+Epoch 449 | Loss: 0.5510 | Acc: 0.8508
+  Class 1 - P: 0.0039, R: 0.6970, F1: 0.0077
+  Predicting class 1: 14.95593%
+  Saved best model (F1: 0.0077)
+
+Epoch 450 | Loss: 0.5553 | Acc: 0.8520
+  Class 1 - P: 0.0039, R: 0.6964, F1: 0.0078
+  Predicting class 1: 14.83463%
+  Saved best model (F1: 0.0078)
+
+Epoch 451 | Loss: 0.5583 | Acc: 0.8525
+  Class 1 - P: 0.0039, R: 0.6967, F1: 0.0078
+  Predicting class 1: 14.78732%
+  Saved best model (F1: 0.0078)
+
+Epoch 452 | Loss: 0.5548 | Acc: 0.8527
+  Class 1 - P: 0.0039, R: 0.6973, F1: 0.0078
+  Predicting class 1: 14.76288%
+  Saved best model (F1: 0.0078)
+
+Epoch 453 | Loss: 0.5466 | Acc: 0.8523
+  Class 1 - P: 0.0039, R: 0.7000, F1: 0.0078
+  Predicting class 1: 14.79924%
+  Saved best model (F1: 0.0078)
+
+Epoch 454 | Loss: 0.5510 | Acc: 0.8513
+  Class 1 - P: 0.0039, R: 0.7027, F1: 0.0078
+  Predicting class 1: 14.89964%
+
+Epoch 455 | Loss: 0.5509 | Acc: 0.8504
+  Class 1 - P: 0.0039, R: 0.7050, F1: 0.0078
+  Predicting class 1: 14.99745%
+
+Epoch 456 | Loss: 0.5557 | Acc: 0.8485
+  Class 1 - P: 0.0039, R: 0.7086, F1: 0.0077
+  Predicting class 1: 15.18194%
+
+Epoch 457 | Loss: 0.5520 | Acc: 0.8454
+  Class 1 - P: 0.0038, R: 0.7160, F1: 0.0076
+  Predicting class 1: 15.49380%
+
+Epoch 458 | Loss: 0.5531 | Acc: 0.8429
+  Class 1 - P: 0.0038, R: 0.7195, F1: 0.0076
+  Predicting class 1: 15.74543%
+
+Epoch 459 | Loss: 0.5421 | Acc: 0.8407
+  Class 1 - P: 0.0038, R: 0.7249, F1: 0.0075
+  Predicting class 1: 15.96672%
+
+Epoch 460 | Loss: 0.5536 | Acc: 0.8377
+  Class 1 - P: 0.0037, R: 0.7305, F1: 0.0074
+  Predicting class 1: 16.26462%
+
+Epoch 461 | Loss: 0.5445 | Acc: 0.8353
+  Class 1 - P: 0.0037, R: 0.7358, F1: 0.0074
+  Predicting class 1: 16.51303%
+
+Epoch 462 | Loss: 0.5458 | Acc: 0.8337
+  Class 1 - P: 0.0037, R: 0.7382, F1: 0.0073
+  Predicting class 1: 16.66586%
+
+Epoch 463 | Loss: 0.5382 | Acc: 0.8334
+  Class 1 - P: 0.0037, R: 0.7396, F1: 0.0073
+  Predicting class 1: 16.69503%
+
+Epoch 464 | Loss: 0.5444 | Acc: 0.8341
+  Class 1 - P: 0.0037, R: 0.7396, F1: 0.0074
+  Predicting class 1: 16.63448%
+
+Epoch 465 | Loss: 0.5542 | Acc: 0.8350
+  Class 1 - P: 0.0037, R: 0.7396, F1: 0.0074
+  Predicting class 1: 16.54129%
+
+Epoch 466 | Loss: 0.5446 | Acc: 0.8362
+  Class 1 - P: 0.0037, R: 0.7399, F1: 0.0075
+  Predicting class 1: 16.42235%
+
+Epoch 467 | Loss: 0.5483 | Acc: 0.8374
+  Class 1 - P: 0.0038, R: 0.7405, F1: 0.0075
+  Predicting class 1: 16.30423%
+
+Epoch 468 | Loss: 0.5458 | Acc: 0.8383
+  Class 1 - P: 0.0038, R: 0.7402, F1: 0.0076
+  Predicting class 1: 16.20885%
+
+Epoch 469 | Loss: 0.5439 | Acc: 0.8393
+  Class 1 - P: 0.0038, R: 0.7402, F1: 0.0076
+  Predicting class 1: 16.11081%
+
+Epoch 470 | Loss: 0.5417 | Acc: 0.8404
+  Class 1 - P: 0.0039, R: 0.7405, F1: 0.0077
+  Predicting class 1: 15.99502%
+
+Epoch 471 | Loss: 0.5457 | Acc: 0.8419
+  Class 1 - P: 0.0039, R: 0.7393, F1: 0.0077
+  Predicting class 1: 15.85253%
+
+Epoch 472 | Loss: 0.5385 | Acc: 0.8433
+  Class 1 - P: 0.0039, R: 0.7373, F1: 0.0078
+  Predicting class 1: 15.71016%
+
+Epoch 473 | Loss: 0.5468 | Acc: 0.8447
+  Class 1 - P: 0.0039, R: 0.7343, F1: 0.0078
+  Predicting class 1: 15.57082%
+
+Epoch 474 | Loss: 0.5387 | Acc: 0.8450
+  Class 1 - P: 0.0039, R: 0.7355, F1: 0.0078
+  Predicting class 1: 15.53791%
+  Saved best model (F1: 0.0078)
+
+Epoch 475 | Loss: 0.5451 | Acc: 0.8447
+  Class 1 - P: 0.0039, R: 0.7370, F1: 0.0078
+  Predicting class 1: 15.57217%
+
+Epoch 476 | Loss: 0.5348 | Acc: 0.8447
+  Class 1 - P: 0.0039, R: 0.7382, F1: 0.0078
+  Predicting class 1: 15.57365%
+  Saved best model (F1: 0.0078)
+
+Epoch 477 | Loss: 0.5425 | Acc: 0.8441
+  Class 1 - P: 0.0039, R: 0.7396, F1: 0.0078
+  Predicting class 1: 15.62773%
+
+Epoch 478 | Loss: 0.5316 | Acc: 0.8435
+  Class 1 - P: 0.0039, R: 0.7417, F1: 0.0078
+  Predicting class 1: 15.68949%
+
+Epoch 479 | Loss: 0.5383 | Acc: 0.8425
+  Class 1 - P: 0.0039, R: 0.7441, F1: 0.0078
+  Predicting class 1: 15.78565%
+
+Epoch 480 | Loss: 0.5375 | Acc: 0.8420
+  Class 1 - P: 0.0039, R: 0.7462, F1: 0.0078
+  Predicting class 1: 15.84421%
+
+Epoch 481 | Loss: 0.5394 | Acc: 0.8410
+  Class 1 - P: 0.0039, R: 0.7462, F1: 0.0077
+  Predicting class 1: 15.94011%
+
+Epoch 482 | Loss: 0.5384 | Acc: 0.8398
+  Class 1 - P: 0.0039, R: 0.7512, F1: 0.0077
+  Predicting class 1: 16.06224%
+
+Epoch 483 | Loss: 0.5477 | Acc: 0.8377
+  Class 1 - P: 0.0039, R: 0.7544, F1: 0.0077
+  Predicting class 1: 16.27134%
+
+Epoch 484 | Loss: 0.5409 | Acc: 0.8355
+  Class 1 - P: 0.0038, R: 0.7577, F1: 0.0076
+  Predicting class 1: 16.49140%
+
+Epoch 485 | Loss: 0.5403 | Acc: 0.8319
+  Class 1 - P: 0.0038, R: 0.7642, F1: 0.0075
+  Predicting class 1: 16.85200%
+
+Epoch 486 | Loss: 0.5267 | Acc: 0.8294
+  Class 1 - P: 0.0037, R: 0.7683, F1: 0.0074
+  Predicting class 1: 17.10240%
+
+Epoch 487 | Loss: 0.5337 | Acc: 0.8275
+  Class 1 - P: 0.0037, R: 0.7716, F1: 0.0074
+  Predicting class 1: 17.29552%
+
+Epoch 488 | Loss: 0.5311 | Acc: 0.8269
+  Class 1 - P: 0.0037, R: 0.7740, F1: 0.0074
+  Predicting class 1: 17.35162%
+
+Epoch 489 | Loss: 0.5298 | Acc: 0.8276
+  Class 1 - P: 0.0037, R: 0.7740, F1: 0.0074
+  Predicting class 1: 17.28555%
+
+Epoch 490 | Loss: 0.5304 | Acc: 0.8280
+  Class 1 - P: 0.0037, R: 0.7740, F1: 0.0074
+  Predicting class 1: 17.24797%
+
+Epoch 491 | Loss: 0.5376 | Acc: 0.8292
+  Class 1 - P: 0.0037, R: 0.7710, F1: 0.0075
+  Predicting class 1: 17.12354%
+
+Epoch 492 | Loss: 0.5493 | Acc: 0.8297
+  Class 1 - P: 0.0038, R: 0.7701, F1: 0.0075
+  Predicting class 1: 17.07210%
+
+Epoch 493 | Loss: 0.5415 | Acc: 0.8317
+  Class 1 - P: 0.0038, R: 0.7680, F1: 0.0075
+  Predicting class 1: 16.87720%
+
+Epoch 494 | Loss: 0.5302 | Acc: 0.8336
+  Class 1 - P: 0.0038, R: 0.7660, F1: 0.0076
+  Predicting class 1: 16.68422%
+
+Epoch 495 | Loss: 0.5362 | Acc: 0.8362
+  Class 1 - P: 0.0039, R: 0.7633, F1: 0.0077
+  Predicting class 1: 16.42504%
+
+Epoch 496 | Loss: 0.5244 | Acc: 0.8390
+  Class 1 - P: 0.0039, R: 0.7609, F1: 0.0078
+  Predicting class 1: 16.14512%
+
+Epoch 497 | Loss: 0.5270 | Acc: 0.8415
+  Class 1 - P: 0.0040, R: 0.7583, F1: 0.0079
+  Predicting class 1: 15.89017%
+  Saved best model (F1: 0.0079)
+
+Epoch 498 | Loss: 0.5383 | Acc: 0.8425
+  Class 1 - P: 0.0040, R: 0.7571, F1: 0.0079
+  Predicting class 1: 15.79119%
+  Saved best model (F1: 0.0079)
+
+Epoch 499 | Loss: 0.5401 | Acc: 0.8415
+  Class 1 - P: 0.0040, R: 0.7571, F1: 0.0079
+  Predicting class 1: 15.89698%
+
+Epoch 500 | Loss: 0.5268 | Acc: 0.8399
+  Class 1 - P: 0.0039, R: 0.7586, F1: 0.0078
+  Predicting class 1: 16.05614%
+
+Epoch 501 | Loss: 0.5261 | Acc: 0.8390
+  Class 1 - P: 0.0039, R: 0.7615, F1: 0.0078
+  Predicting class 1: 16.13966%
+
+Epoch 502 | Loss: 0.5303 | Acc: 0.8378
+  Class 1 - P: 0.0039, R: 0.7654, F1: 0.0078
+  Predicting class 1: 16.26455%
+
+Epoch 503 | Loss: 0.5269 | Acc: 0.8371
+  Class 1 - P: 0.0039, R: 0.7669, F1: 0.0078
+  Predicting class 1: 16.33044%
+
+Epoch 504 | Loss: 0.5191 | Acc: 0.8377
+  Class 1 - P: 0.0039, R: 0.7683, F1: 0.0078
+  Predicting class 1: 16.27605%
+
+Epoch 505 | Loss: 0.5259 | Acc: 0.8386
+  Class 1 - P: 0.0040, R: 0.7692, F1: 0.0079
+  Predicting class 1: 16.18677%
+
+Epoch 506 | Loss: 0.5392 | Acc: 0.8378
+  Class 1 - P: 0.0039, R: 0.7704, F1: 0.0078
+  Predicting class 1: 16.26487%
+
+Epoch 507 | Loss: 0.5196 | Acc: 0.8370
+  Class 1 - P: 0.0039, R: 0.7722, F1: 0.0078
+  Predicting class 1: 16.34354%
+
+Epoch 508 | Loss: 0.5245 | Acc: 0.8365
+  Class 1 - P: 0.0039, R: 0.7734, F1: 0.0078
+  Predicting class 1: 16.39739%
+
+Epoch 509 | Loss: 0.5164 | Acc: 0.8365
+  Class 1 - P: 0.0039, R: 0.7751, F1: 0.0078
+  Predicting class 1: 16.39375%
+
+Epoch 510 | Loss: 0.5150 | Acc: 0.8369
+  Class 1 - P: 0.0039, R: 0.7760, F1: 0.0079
+  Predicting class 1: 16.36032%
+
+Epoch 511 | Loss: 0.5214 | Acc: 0.8367
+  Class 1 - P: 0.0039, R: 0.7772, F1: 0.0079
+  Predicting class 1: 16.37285%
+
+Epoch 512 | Loss: 0.5248 | Acc: 0.8371
+  Class 1 - P: 0.0040, R: 0.7769, F1: 0.0079
+  Predicting class 1: 16.33327%
+
+Epoch 513 | Loss: 0.5178 | Acc: 0.8374
+  Class 1 - P: 0.0040, R: 0.7769, F1: 0.0079
+  Predicting class 1: 16.30140%
+
+Epoch 514 | Loss: 0.5234 | Acc: 0.8383
+  Class 1 - P: 0.0040, R: 0.7763, F1: 0.0079
+  Predicting class 1: 16.21648%
+
+Epoch 515 | Loss: 0.5231 | Acc: 0.8391
+  Class 1 - P: 0.0040, R: 0.7769, F1: 0.0080
+  Predicting class 1: 16.14027%
+  Saved best model (F1: 0.0080)
+
+Epoch 516 | Loss: 0.5164 | Acc: 0.8400
+  Class 1 - P: 0.0040, R: 0.7775, F1: 0.0080
+  Predicting class 1: 16.04455%
+  Saved best model (F1: 0.0080)
+
+Epoch 517 | Loss: 0.5303 | Acc: 0.8390
+  Class 1 - P: 0.0040, R: 0.7808, F1: 0.0080
+  Predicting class 1: 16.14694%
+
+Epoch 518 | Loss: 0.5153 | Acc: 0.8374
+  Class 1 - P: 0.0040, R: 0.7822, F1: 0.0079
+  Predicting class 1: 16.30260%
+
+Epoch 519 | Loss: 0.5165 | Acc: 0.8363
+  Class 1 - P: 0.0040, R: 0.7855, F1: 0.0079
+  Predicting class 1: 16.41285%
+
+Epoch 520 | Loss: 0.5228 | Acc: 0.8360
+  Class 1 - P: 0.0040, R: 0.7864, F1: 0.0079
+  Predicting class 1: 16.44743%
+
+Epoch 521 | Loss: 0.5097 | Acc: 0.8361
+  Class 1 - P: 0.0040, R: 0.7861, F1: 0.0079
+  Predicting class 1: 16.43274%
+
+Epoch 522 | Loss: 0.5193 | Acc: 0.8367
+  Class 1 - P: 0.0040, R: 0.7861, F1: 0.0079
+  Predicting class 1: 16.37438%
+
+Epoch 523 | Loss: 0.5191 | Acc: 0.8373
+  Class 1 - P: 0.0040, R: 0.7855, F1: 0.0080
+  Predicting class 1: 16.31496%
+
+Epoch 524 | Loss: 0.5181 | Acc: 0.8372
+  Class 1 - P: 0.0040, R: 0.7870, F1: 0.0080
+  Predicting class 1: 16.32419%
+
+Epoch 525 | Loss: 0.5130 | Acc: 0.8374
+  Class 1 - P: 0.0040, R: 0.7879, F1: 0.0080
+  Predicting class 1: 16.31247%
+
+Epoch 526 | Loss: 0.5044 | Acc: 0.8374
+  Class 1 - P: 0.0040, R: 0.7893, F1: 0.0080
+  Predicting class 1: 16.31031%
+
+Epoch 527 | Loss: 0.5074 | Acc: 0.8367
+  Class 1 - P: 0.0040, R: 0.7923, F1: 0.0080
+  Predicting class 1: 16.38036%
+
+Epoch 528 | Loss: 0.5123 | Acc: 0.8361
+  Class 1 - P: 0.0040, R: 0.7947, F1: 0.0080
+  Predicting class 1: 16.43687%
+
+Epoch 529 | Loss: 0.5060 | Acc: 0.8361
+  Class 1 - P: 0.0040, R: 0.7959, F1: 0.0080
+  Predicting class 1: 16.43545%
+
+Epoch 530 | Loss: 0.5084 | Acc: 0.8366
+  Class 1 - P: 0.0040, R: 0.7967, F1: 0.0080
+  Predicting class 1: 16.39390%
+  Saved best model (F1: 0.0080)
+
+Epoch 531 | Loss: 0.5040 | Acc: 0.8372
+  Class 1 - P: 0.0041, R: 0.7959, F1: 0.0081
+  Predicting class 1: 16.32498%
+  Saved best model (F1: 0.0081)
+
+Epoch 532 | Loss: 0.5071 | Acc: 0.8377
+  Class 1 - P: 0.0041, R: 0.7959, F1: 0.0081
+  Predicting class 1: 16.27774%
+  Saved best model (F1: 0.0081)
+
+Epoch 533 | Loss: 0.5029 | Acc: 0.8380
+  Class 1 - P: 0.0041, R: 0.7973, F1: 0.0081
+  Predicting class 1: 16.24638%
+  Saved best model (F1: 0.0081)
+
+Epoch 534 | Loss: 0.5018 | Acc: 0.8385
+  Class 1 - P: 0.0041, R: 0.7985, F1: 0.0082
+  Predicting class 1: 16.20360%
+  Saved best model (F1: 0.0082)
+
+Epoch 535 | Loss: 0.5125 | Acc: 0.8393
+  Class 1 - P: 0.0041, R: 0.7979, F1: 0.0082
+  Predicting class 1: 16.12371%
+  Saved best model (F1: 0.0082)
+
+Epoch 536 | Loss: 0.5118 | Acc: 0.8399
+  Class 1 - P: 0.0041, R: 0.7970, F1: 0.0082
+  Predicting class 1: 16.06399%
+  Saved best model (F1: 0.0082)
+
+Epoch 537 | Loss: 0.5012 | Acc: 0.8405
+  Class 1 - P: 0.0041, R: 0.7973, F1: 0.0083
+  Predicting class 1: 15.99559%
+  Saved best model (F1: 0.0083)
+
+Epoch 538 | Loss: 0.5147 | Acc: 0.8410
+  Class 1 - P: 0.0042, R: 0.7970, F1: 0.0083
+  Predicting class 1: 15.94784%
+  Saved best model (F1: 0.0083)
+
+Epoch 539 | Loss: 0.5082 | Acc: 0.8407
+  Class 1 - P: 0.0042, R: 0.7991, F1: 0.0083
+  Predicting class 1: 15.97885%
+  Saved best model (F1: 0.0083)
+
+Epoch 540 | Loss: 0.5003 | Acc: 0.8404
+  Class 1 - P: 0.0042, R: 0.8009, F1: 0.0083
+  Predicting class 1: 16.01129%
+  Saved best model (F1: 0.0083)
+
+Epoch 541 | Loss: 0.5015 | Acc: 0.8404
+  Class 1 - P: 0.0042, R: 0.8015, F1: 0.0083
+  Predicting class 1: 16.00553%
+  Saved best model (F1: 0.0083)
+
+Epoch 542 | Loss: 0.5094 | Acc: 0.8400
+  Class 1 - P: 0.0042, R: 0.8038, F1: 0.0083
+  Predicting class 1: 16.05437%
+
+Epoch 543 | Loss: 0.5020 | Acc: 0.8390
+  Class 1 - P: 0.0041, R: 0.8056, F1: 0.0083
+  Predicting class 1: 16.15356%
+
+Epoch 544 | Loss: 0.5058 | Acc: 0.8369
+  Class 1 - P: 0.0041, R: 0.8077, F1: 0.0082
+  Predicting class 1: 16.36323%
+
+Epoch 545 | Loss: 0.4965 | Acc: 0.8350
+  Class 1 - P: 0.0041, R: 0.8121, F1: 0.0081
+  Predicting class 1: 16.54826%
+
+Epoch 546 | Loss: 0.4937 | Acc: 0.8340
+  Class 1 - P: 0.0041, R: 0.8142, F1: 0.0081
+  Predicting class 1: 16.65661%
+
+Epoch 547 | Loss: 0.4928 | Acc: 0.8330
+  Class 1 - P: 0.0041, R: 0.8163, F1: 0.0081
+  Predicting class 1: 16.75408%
+
+Epoch 548 | Loss: 0.4922 | Acc: 0.8322
+  Class 1 - P: 0.0040, R: 0.8189, F1: 0.0081
+  Predicting class 1: 16.83477%
+
+Epoch 549 | Loss: 0.4895 | Acc: 0.8318
+  Class 1 - P: 0.0040, R: 0.8189, F1: 0.0080
+  Predicting class 1: 16.86905%
+
+Epoch 550 | Loss: 0.4917 | Acc: 0.8319
+  Class 1 - P: 0.0040, R: 0.8201, F1: 0.0081
+  Predicting class 1: 16.86807%
+
+Epoch 551 | Loss: 0.4956 | Acc: 0.8323
+  Class 1 - P: 0.0041, R: 0.8195, F1: 0.0081
+  Predicting class 1: 16.82696%
+
+Epoch 552 | Loss: 0.4943 | Acc: 0.8332
+  Class 1 - P: 0.0041, R: 0.8189, F1: 0.0081
+  Predicting class 1: 16.73173%
+
+Epoch 553 | Loss: 0.4886 | Acc: 0.8343
+  Class 1 - P: 0.0041, R: 0.8180, F1: 0.0081
+  Predicting class 1: 16.62156%
+
+Epoch 554 | Loss: 0.4903 | Acc: 0.8353
+  Class 1 - P: 0.0041, R: 0.8166, F1: 0.0082
+  Predicting class 1: 16.52204%
+
+Epoch 555 | Loss: 0.4844 | Acc: 0.8363
+  Class 1 - P: 0.0041, R: 0.8160, F1: 0.0082
+  Predicting class 1: 16.41947%
+
+Epoch 556 | Loss: 0.4931 | Acc: 0.8375
+  Class 1 - P: 0.0042, R: 0.8151, F1: 0.0083
+  Predicting class 1: 16.30292%
+
+Epoch 557 | Loss: 0.4846 | Acc: 0.8387
+  Class 1 - P: 0.0042, R: 0.8145, F1: 0.0083
+  Predicting class 1: 16.18140%
+  Saved best model (F1: 0.0083)
+
+Epoch 558 | Loss: 0.4857 | Acc: 0.8388
+  Class 1 - P: 0.0042, R: 0.8145, F1: 0.0083
+  Predicting class 1: 16.17121%
+  Saved best model (F1: 0.0083)
+
+Epoch 559 | Loss: 0.4866 | Acc: 0.8384
+  Class 1 - P: 0.0042, R: 0.8160, F1: 0.0083
+  Predicting class 1: 16.21650%
+
+Epoch 560 | Loss: 0.5001 | Acc: 0.8367
+  Class 1 - P: 0.0042, R: 0.8178, F1: 0.0083
+  Predicting class 1: 16.38531%
+
+Epoch 561 | Loss: 0.4914 | Acc: 0.8344
+  Class 1 - P: 0.0041, R: 0.8228, F1: 0.0082
+  Predicting class 1: 16.61292%
+
+Epoch 562 | Loss: 0.4833 | Acc: 0.8325
+  Class 1 - P: 0.0041, R: 0.8251, F1: 0.0081
+  Predicting class 1: 16.80188%
+
+Epoch 563 | Loss: 0.4927 | Acc: 0.8315
+  Class 1 - P: 0.0041, R: 0.8269, F1: 0.0081
+  Predicting class 1: 16.90164%
+
+Epoch 564 | Loss: 0.4779 | Acc: 0.8318
+  Class 1 - P: 0.0041, R: 0.8275, F1: 0.0081
+  Predicting class 1: 16.86972%
+
+Epoch 565 | Loss: 0.4806 | Acc: 0.8328
+  Class 1 - P: 0.0041, R: 0.8269, F1: 0.0082
+  Predicting class 1: 16.76988%
+
+Epoch 566 | Loss: 0.4774 | Acc: 0.8344
+  Class 1 - P: 0.0041, R: 0.8251, F1: 0.0082
+  Predicting class 1: 16.61489%
+
+Epoch 567 | Loss: 0.4758 | Acc: 0.8359
+  Class 1 - P: 0.0042, R: 0.8237, F1: 0.0083
+  Predicting class 1: 16.46609%
+
+Epoch 568 | Loss: 0.4855 | Acc: 0.8365
+  Class 1 - P: 0.0042, R: 0.8240, F1: 0.0083
+  Predicting class 1: 16.39998%
+
+Epoch 569 | Loss: 0.4977 | Acc: 0.8363
+  Class 1 - P: 0.0042, R: 0.8251, F1: 0.0083
+  Predicting class 1: 16.42651%
+
+Epoch 570 | Loss: 0.4782 | Acc: 0.8359
+  Class 1 - P: 0.0042, R: 0.8266, F1: 0.0083
+  Predicting class 1: 16.46715%
+
+Epoch 571 | Loss: 0.4839 | Acc: 0.8357
+  Class 1 - P: 0.0042, R: 0.8290, F1: 0.0083
+  Predicting class 1: 16.48839%
+
+Epoch 572 | Loss: 0.4770 | Acc: 0.8358
+  Class 1 - P: 0.0042, R: 0.8290, F1: 0.0083
+  Predicting class 1: 16.47092%
+
+Epoch 573 | Loss: 0.4930 | Acc: 0.8363
+  Class 1 - P: 0.0042, R: 0.8302, F1: 0.0084
+  Predicting class 1: 16.42339%
+  Saved best model (F1: 0.0084)
+
+Epoch 574 | Loss: 0.4855 | Acc: 0.8359
+  Class 1 - P: 0.0042, R: 0.8317, F1: 0.0084
+  Predicting class 1: 16.46924%
+
+Epoch 575 | Loss: 0.4817 | Acc: 0.8346
+  Class 1 - P: 0.0042, R: 0.8340, F1: 0.0083
+  Predicting class 1: 16.59958%
+
+Epoch 576 | Loss: 0.4829 | Acc: 0.8338
+  Class 1 - P: 0.0042, R: 0.8364, F1: 0.0083
+  Predicting class 1: 16.67440%
+
+Epoch 577 | Loss: 0.4754 | Acc: 0.8335
+  Class 1 - P: 0.0042, R: 0.8379, F1: 0.0083
+  Predicting class 1: 16.70325%
+
+Epoch 578 | Loss: 0.4695 | Acc: 0.8339
+  Class 1 - P: 0.0042, R: 0.8379, F1: 0.0083
+  Predicting class 1: 16.66783%
+
+Epoch 579 | Loss: 0.4751 | Acc: 0.8333
+  Class 1 - P: 0.0042, R: 0.8402, F1: 0.0083
+  Predicting class 1: 16.72691%
+
+Epoch 580 | Loss: 0.4688 | Acc: 0.8334
+  Class 1 - P: 0.0042, R: 0.8393, F1: 0.0083
+  Predicting class 1: 16.71354%
+
+Epoch 581 | Loss: 0.4904 | Acc: 0.8335
+  Class 1 - P: 0.0042, R: 0.8396, F1: 0.0083
+  Predicting class 1: 16.70847%
+
+Epoch 582 | Loss: 0.4620 | Acc: 0.8341
+  Class 1 - P: 0.0042, R: 0.8399, F1: 0.0084
+  Predicting class 1: 16.64221%
+
+Epoch 583 | Loss: 0.4702 | Acc: 0.8351
+  Class 1 - P: 0.0042, R: 0.8393, F1: 0.0084
+  Predicting class 1: 16.54360%
+  Saved best model (F1: 0.0084)
+
+Epoch 584 | Loss: 0.4641 | Acc: 0.8369
+  Class 1 - P: 0.0043, R: 0.8379, F1: 0.0085
+  Predicting class 1: 16.36709%
+  Saved best model (F1: 0.0085)
+
+Epoch 585 | Loss: 0.4704 | Acc: 0.8387
+  Class 1 - P: 0.0043, R: 0.8370, F1: 0.0086
+  Predicting class 1: 16.18962%
+  Saved best model (F1: 0.0086)
+
+Epoch 586 | Loss: 0.4612 | Acc: 0.8404
+  Class 1 - P: 0.0043, R: 0.8334, F1: 0.0086
+  Predicting class 1: 16.01681%
+  Saved best model (F1: 0.0086)
+
+Epoch 587 | Loss: 0.4608 | Acc: 0.8423
+  Class 1 - P: 0.0044, R: 0.8305, F1: 0.0087
+  Predicting class 1: 15.82272%
+  Saved best model (F1: 0.0087)
+
+Epoch 588 | Loss: 0.4624 | Acc: 0.8442
+  Class 1 - P: 0.0044, R: 0.8278, F1: 0.0088
+  Predicting class 1: 15.63433%
+  Saved best model (F1: 0.0088)
+
+Epoch 589 | Loss: 0.4736 | Acc: 0.8453
+  Class 1 - P: 0.0044, R: 0.8272, F1: 0.0088
+  Predicting class 1: 15.52563%
+  Saved best model (F1: 0.0088)
+
+Epoch 590 | Loss: 0.4618 | Acc: 0.8459
+  Class 1 - P: 0.0044, R: 0.8266, F1: 0.0088
+  Predicting class 1: 15.46350%
+  Saved best model (F1: 0.0088)
+
+Epoch 591 | Loss: 0.4573 | Acc: 0.8461
+  Class 1 - P: 0.0045, R: 0.8278, F1: 0.0089
+  Predicting class 1: 15.44541%
+  Saved best model (F1: 0.0089)
+
+Epoch 592 | Loss: 0.4603 | Acc: 0.8458
+  Class 1 - P: 0.0045, R: 0.8290, F1: 0.0089
+  Predicting class 1: 15.46980%
+
+Epoch 593 | Loss: 0.4639 | Acc: 0.8450
+  Class 1 - P: 0.0044, R: 0.8314, F1: 0.0088
+  Predicting class 1: 15.55133%
+
+Epoch 594 | Loss: 0.4535 | Acc: 0.8433
+  Class 1 - P: 0.0044, R: 0.8382, F1: 0.0088
+  Predicting class 1: 15.73017%
+
+Epoch 595 | Loss: 0.4653 | Acc: 0.8415
+  Class 1 - P: 0.0044, R: 0.8420, F1: 0.0088
+  Predicting class 1: 15.90636%
+
+Epoch 596 | Loss: 0.4620 | Acc: 0.8395
+  Class 1 - P: 0.0044, R: 0.8456, F1: 0.0087
+  Predicting class 1: 16.11115%
+
+Epoch 597 | Loss: 0.4596 | Acc: 0.8376
+  Class 1 - P: 0.0043, R: 0.8500, F1: 0.0086
+  Predicting class 1: 16.30236%
+
+Epoch 598 | Loss: 0.4514 | Acc: 0.8361
+  Class 1 - P: 0.0043, R: 0.8530, F1: 0.0086
+  Predicting class 1: 16.44795%
+
+Epoch 599 | Loss: 0.4588 | Acc: 0.8352
+  Class 1 - P: 0.0043, R: 0.8541, F1: 0.0085
+  Predicting class 1: 16.54025%
+
+Epoch 600 | Loss: 0.4498 | Acc: 0.8354
+  Class 1 - P: 0.0043, R: 0.8544, F1: 0.0086
+  Predicting class 1: 16.52029%
+
+Epoch 601 | Loss: 0.4732 | Acc: 0.8348
+  Class 1 - P: 0.0043, R: 0.8547, F1: 0.0085
+  Predicting class 1: 16.58070%
+
+Epoch 602 | Loss: 0.4550 | Acc: 0.8346
+  Class 1 - P: 0.0043, R: 0.8556, F1: 0.0085
+  Predicting class 1: 16.59879%
+
+Epoch 603 | Loss: 0.4516 | Acc: 0.8363
+  Class 1 - P: 0.0043, R: 0.8536, F1: 0.0086
+  Predicting class 1: 16.42627%
+
+Epoch 604 | Loss: 0.4512 | Acc: 0.8398
+  Class 1 - P: 0.0044, R: 0.8479, F1: 0.0087
+  Predicting class 1: 16.08199%
+
+Epoch 605 | Loss: 0.4527 | Acc: 0.8443
+  Class 1 - P: 0.0045, R: 0.8441, F1: 0.0089
+  Predicting class 1: 15.62960%
+  Saved best model (F1: 0.0089)
+
+Epoch 606 | Loss: 0.4457 | Acc: 0.8485
+  Class 1 - P: 0.0046, R: 0.8382, F1: 0.0091
+  Predicting class 1: 15.20655%
+  Saved best model (F1: 0.0091)
+
+Epoch 607 | Loss: 0.4712 | Acc: 0.8520
+  Class 1 - P: 0.0047, R: 0.8320, F1: 0.0093
+  Predicting class 1: 14.85730%
+  Saved best model (F1: 0.0093)
+
+Epoch 608 | Loss: 0.4530 | Acc: 0.8545
+  Class 1 - P: 0.0047, R: 0.8296, F1: 0.0094
+  Predicting class 1: 14.60956%
+  Saved best model (F1: 0.0094)
+
+Epoch 609 | Loss: 0.4449 | Acc: 0.8561
+  Class 1 - P: 0.0048, R: 0.8275, F1: 0.0095
+  Predicting class 1: 14.44302%
+  Saved best model (F1: 0.0095)
+
+Epoch 610 | Loss: 0.4411 | Acc: 0.8562
+  Class 1 - P: 0.0048, R: 0.8284, F1: 0.0095
+  Predicting class 1: 14.43329%
+  Saved best model (F1: 0.0095)
+
+Epoch 611 | Loss: 0.4442 | Acc: 0.8550
+  Class 1 - P: 0.0048, R: 0.8317, F1: 0.0095
+  Predicting class 1: 14.55307%
+
+Epoch 612 | Loss: 0.4512 | Acc: 0.8514
+  Class 1 - P: 0.0047, R: 0.8405, F1: 0.0093
+  Predicting class 1: 14.92002%
+
+Epoch 613 | Loss: 0.4444 | Acc: 0.8481
+  Class 1 - P: 0.0046, R: 0.8459, F1: 0.0092
+  Predicting class 1: 15.24931%
+
+Epoch 614 | Loss: 0.4554 | Acc: 0.8447
+  Class 1 - P: 0.0045, R: 0.8527, F1: 0.0091
+  Predicting class 1: 15.59319%
+
+Epoch 615 | Loss: 0.4451 | Acc: 0.8415
+  Class 1 - P: 0.0045, R: 0.8562, F1: 0.0089
+  Predicting class 1: 15.90498%
+
+Epoch 616 | Loss: 0.4471 | Acc: 0.8387
+  Class 1 - P: 0.0044, R: 0.8615, F1: 0.0088
+  Predicting class 1: 16.19514%
+
+Epoch 617 | Loss: 0.4398 | Acc: 0.8363
+  Class 1 - P: 0.0044, R: 0.8654, F1: 0.0087
+  Predicting class 1: 16.43503%
+
+Epoch 618 | Loss: 0.4487 | Acc: 0.8338
+  Class 1 - P: 0.0043, R: 0.8701, F1: 0.0086
+  Predicting class 1: 16.67812%
+
+Epoch 619 | Loss: 0.4388 | Acc: 0.8316
+  Class 1 - P: 0.0043, R: 0.8722, F1: 0.0085
+  Predicting class 1: 16.90216%
+
+Epoch 620 | Loss: 0.4326 | Acc: 0.8307
+  Class 1 - P: 0.0043, R: 0.8754, F1: 0.0085
+  Predicting class 1: 16.99163%
+
+Epoch 621 | Loss: 0.4363 | Acc: 0.8305
+  Class 1 - P: 0.0043, R: 0.8760, F1: 0.0085
+  Predicting class 1: 17.01502%
+
+Epoch 622 | Loss: 0.4309 | Acc: 0.8318
+  Class 1 - P: 0.0043, R: 0.8760, F1: 0.0086
+  Predicting class 1: 16.88264%
+
+Epoch 623 | Loss: 0.4362 | Acc: 0.8348
+  Class 1 - P: 0.0044, R: 0.8710, F1: 0.0087
+  Predicting class 1: 16.58333%
+
+Epoch 624 | Loss: 0.4288 | Acc: 0.8385
+  Class 1 - P: 0.0044, R: 0.8663, F1: 0.0088
+  Predicting class 1: 16.20973%
+
+Epoch 625 | Loss: 0.4267 | Acc: 0.8422
+  Class 1 - P: 0.0045, R: 0.8627, F1: 0.0090
+  Predicting class 1: 15.83880%
+
+Epoch 626 | Loss: 0.4290 | Acc: 0.8449
+  Class 1 - P: 0.0046, R: 0.8589, F1: 0.0091
+  Predicting class 1: 15.57176%
+
+Epoch 627 | Loss: 0.4283 | Acc: 0.8471
+  Class 1 - P: 0.0046, R: 0.8568, F1: 0.0092
+  Predicting class 1: 15.34779%
+
+Epoch 628 | Loss: 0.4290 | Acc: 0.8480
+  Class 1 - P: 0.0047, R: 0.8565, F1: 0.0093
+  Predicting class 1: 15.25544%
+
+Epoch 629 | Loss: 0.4306 | Acc: 0.8477
+  Class 1 - P: 0.0047, R: 0.8574, F1: 0.0093
+  Predicting class 1: 15.28662%
+
+Epoch 630 | Loss: 0.4354 | Acc: 0.8462
+  Class 1 - P: 0.0046, R: 0.8604, F1: 0.0092
+  Predicting class 1: 15.44258%
+
+Epoch 631 | Loss: 0.4361 | Acc: 0.8438
+  Class 1 - P: 0.0046, R: 0.8633, F1: 0.0091
+  Predicting class 1: 15.67853%
+
+Epoch 632 | Loss: 0.4517 | Acc: 0.8399
+  Class 1 - P: 0.0045, R: 0.8704, F1: 0.0090
+  Predicting class 1: 16.07490%
+
+Epoch 633 | Loss: 0.4384 | Acc: 0.8350
+  Class 1 - P: 0.0044, R: 0.8787, F1: 0.0088
+  Predicting class 1: 16.56147%
+
+Epoch 634 | Loss: 0.4241 | Acc: 0.8312
+  Class 1 - P: 0.0043, R: 0.8828, F1: 0.0086
+  Predicting class 1: 16.94671%
+
+Epoch 635 | Loss: 0.4246 | Acc: 0.8285
+  Class 1 - P: 0.0043, R: 0.8876, F1: 0.0085
+  Predicting class 1: 17.21215%
+
+Epoch 636 | Loss: 0.4283 | Acc: 0.8275
+  Class 1 - P: 0.0043, R: 0.8914, F1: 0.0085
+  Predicting class 1: 17.31657%
+
+Epoch 637 | Loss: 0.4268 | Acc: 0.8280
+  Class 1 - P: 0.0043, R: 0.8911, F1: 0.0085
+  Predicting class 1: 17.26288%
+
+Epoch 638 | Loss: 0.4225 | Acc: 0.8306
+  Class 1 - P: 0.0043, R: 0.8879, F1: 0.0086
+  Predicting class 1: 17.00067%
+
+Epoch 639 | Loss: 0.4447 | Acc: 0.8329
+  Class 1 - P: 0.0044, R: 0.8858, F1: 0.0087
+  Predicting class 1: 16.77392%
+
+Epoch 640 | Loss: 0.4195 | Acc: 0.8362
+  Class 1 - P: 0.0045, R: 0.8820, F1: 0.0089
+  Predicting class 1: 16.43990%
+
+Epoch 641 | Loss: 0.4189 | Acc: 0.8394
+  Class 1 - P: 0.0045, R: 0.8763, F1: 0.0090
+  Predicting class 1: 16.12122%
+
+Epoch 642 | Loss: 0.4221 | Acc: 0.8428
+  Class 1 - P: 0.0046, R: 0.8725, F1: 0.0092
+  Predicting class 1: 15.78241%
+
+Epoch 643 | Loss: 0.4250 | Acc: 0.8449
+  Class 1 - P: 0.0046, R: 0.8698, F1: 0.0092
+  Predicting class 1: 15.56971%
+
+Epoch 644 | Loss: 0.4122 | Acc: 0.8467
+  Class 1 - P: 0.0047, R: 0.8669, F1: 0.0093
+  Predicting class 1: 15.38877%
+
+Epoch 645 | Loss: 0.4177 | Acc: 0.8481
+  Class 1 - P: 0.0047, R: 0.8651, F1: 0.0094
+  Predicting class 1: 15.25152%
+
+Epoch 646 | Loss: 0.4116 | Acc: 0.8491
+  Class 1 - P: 0.0047, R: 0.8651, F1: 0.0094
+  Predicting class 1: 15.15511%
+
+Epoch 647 | Loss: 0.4282 | Acc: 0.8490
+  Class 1 - P: 0.0048, R: 0.8672, F1: 0.0095
+  Predicting class 1: 15.16495%
+
+Epoch 648 | Loss: 0.4156 | Acc: 0.8481
+  Class 1 - P: 0.0047, R: 0.8704, F1: 0.0094
+  Predicting class 1: 15.25559%
+
+Epoch 649 | Loss: 0.4198 | Acc: 0.8463
+  Class 1 - P: 0.0047, R: 0.8725, F1: 0.0094
+  Predicting class 1: 15.43468%
+
+Epoch 650 | Loss: 0.4184 | Acc: 0.8449
+  Class 1 - P: 0.0047, R: 0.8763, F1: 0.0093
+  Predicting class 1: 15.57043%
+
+Epoch 651 | Loss: 0.4161 | Acc: 0.8436
+  Class 1 - P: 0.0047, R: 0.8802, F1: 0.0093
+  Predicting class 1: 15.70603%
+
+Epoch 652 | Loss: 0.4160 | Acc: 0.8412
+  Class 1 - P: 0.0046, R: 0.8846, F1: 0.0092
+  Predicting class 1: 15.94196%
+
+Epoch 653 | Loss: 0.4285 | Acc: 0.8372
+  Class 1 - P: 0.0045, R: 0.8896, F1: 0.0090
+  Predicting class 1: 16.34341%
+
+Epoch 654 | Loss: 0.4108 | Acc: 0.8337
+  Class 1 - P: 0.0045, R: 0.8947, F1: 0.0089
+  Predicting class 1: 16.69963%
+
+Epoch 655 | Loss: 0.4091 | Acc: 0.8316
+  Class 1 - P: 0.0044, R: 0.8985, F1: 0.0088
+  Predicting class 1: 16.90250%
+
+Epoch 656 | Loss: 0.4096 | Acc: 0.8314
+  Class 1 - P: 0.0044, R: 0.8997, F1: 0.0088
+  Predicting class 1: 16.92771%
+
+Epoch 657 | Loss: 0.4078 | Acc: 0.8326
+  Class 1 - P: 0.0044, R: 0.8991, F1: 0.0089
+  Predicting class 1: 16.81050%
+
+Epoch 658 | Loss: 0.4040 | Acc: 0.8348
+  Class 1 - P: 0.0045, R: 0.8979, F1: 0.0090
+  Predicting class 1: 16.58983%
+
+Epoch 659 | Loss: 0.4048 | Acc: 0.8377
+  Class 1 - P: 0.0046, R: 0.8935, F1: 0.0091
+  Predicting class 1: 16.29992%
+
+Epoch 660 | Loss: 0.4091 | Acc: 0.8415
+  Class 1 - P: 0.0046, R: 0.8882, F1: 0.0092
+  Predicting class 1: 15.91576%
+
+Epoch 661 | Loss: 0.4275 | Acc: 0.8443
+  Class 1 - P: 0.0047, R: 0.8837, F1: 0.0094
+  Predicting class 1: 15.63617%
+
+Epoch 662 | Loss: 0.3991 | Acc: 0.8476
+  Class 1 - P: 0.0048, R: 0.8790, F1: 0.0095
+  Predicting class 1: 15.30476%
+  Saved best model (F1: 0.0095)
+
+Epoch 663 | Loss: 0.4066 | Acc: 0.8500
+  Class 1 - P: 0.0048, R: 0.8763, F1: 0.0096
+  Predicting class 1: 15.05869%
+  Saved best model (F1: 0.0096)
+
+Epoch 664 | Loss: 0.3994 | Acc: 0.8517
+  Class 1 - P: 0.0049, R: 0.8731, F1: 0.0097
+  Predicting class 1: 14.89370%
+  Saved best model (F1: 0.0097)
+
+Epoch 665 | Loss: 0.4027 | Acc: 0.8515
+  Class 1 - P: 0.0049, R: 0.8760, F1: 0.0097
+  Predicting class 1: 14.91143%
+  Saved best model (F1: 0.0097)
+
+Epoch 666 | Loss: 0.3979 | Acc: 0.8510
+  Class 1 - P: 0.0049, R: 0.8760, F1: 0.0097
+  Predicting class 1: 14.96366%
+
+Epoch 667 | Loss: 0.3954 | Acc: 0.8505
+  Class 1 - P: 0.0049, R: 0.8772, F1: 0.0097
+  Predicting class 1: 15.01281%
+
+Epoch 668 | Loss: 0.3989 | Acc: 0.8497
+  Class 1 - P: 0.0048, R: 0.8796, F1: 0.0096
+  Predicting class 1: 15.09421%
+
+Epoch 669 | Loss: 0.4002 | Acc: 0.8478
+  Class 1 - P: 0.0048, R: 0.8817, F1: 0.0095
+  Predicting class 1: 15.28401%
+
+Epoch 670 | Loss: 0.3964 | Acc: 0.8457
+  Class 1 - P: 0.0048, R: 0.8849, F1: 0.0095
+  Predicting class 1: 15.49695%
+
+Epoch 671 | Loss: 0.3931 | Acc: 0.8436
+  Class 1 - P: 0.0047, R: 0.8888, F1: 0.0094
+  Predicting class 1: 15.70888%
+
+Epoch 672 | Loss: 0.3965 | Acc: 0.8415
+  Class 1 - P: 0.0047, R: 0.8908, F1: 0.0093
+  Predicting class 1: 15.91244%
+
+Epoch 673 | Loss: 0.3854 | Acc: 0.8400
+  Class 1 - P: 0.0046, R: 0.8935, F1: 0.0092
+  Predicting class 1: 16.06887%
+
+Epoch 674 | Loss: 0.3990 | Acc: 0.8391
+  Class 1 - P: 0.0046, R: 0.8967, F1: 0.0092
+  Predicting class 1: 16.15184%
+
+Epoch 675 | Loss: 0.3956 | Acc: 0.8388
+  Class 1 - P: 0.0046, R: 0.8973, F1: 0.0092
+  Predicting class 1: 16.18869%
+
+Epoch 676 | Loss: 0.3919 | Acc: 0.8391
+  Class 1 - P: 0.0046, R: 0.8976, F1: 0.0092
+  Predicting class 1: 16.15349%
+
+Epoch 677 | Loss: 0.3955 | Acc: 0.8408
+  Class 1 - P: 0.0047, R: 0.8950, F1: 0.0093
+  Predicting class 1: 15.98656%
+
+Epoch 678 | Loss: 0.3828 | Acc: 0.8429
+  Class 1 - P: 0.0047, R: 0.8935, F1: 0.0094
+  Predicting class 1: 15.77064%
+
+Epoch 679 | Loss: 0.4038 | Acc: 0.8443
+  Class 1 - P: 0.0047, R: 0.8923, F1: 0.0094
+  Predicting class 1: 15.63125%
+
+Epoch 680 | Loss: 0.3979 | Acc: 0.8463
+  Class 1 - P: 0.0048, R: 0.8893, F1: 0.0095
+  Predicting class 1: 15.43145%
+
+Epoch 681 | Loss: 0.3820 | Acc: 0.8483
+  Class 1 - P: 0.0048, R: 0.8876, F1: 0.0096
+  Predicting class 1: 15.23543%
+
+Epoch 682 | Loss: 0.3896 | Acc: 0.8482
+  Class 1 - P: 0.0049, R: 0.8885, F1: 0.0096
+  Predicting class 1: 15.23998%
+
+Epoch 683 | Loss: 0.3942 | Acc: 0.8479
+  Class 1 - P: 0.0048, R: 0.8893, F1: 0.0096
+  Predicting class 1: 15.27631%
+
+Epoch 684 | Loss: 0.3860 | Acc: 0.8476
+  Class 1 - P: 0.0048, R: 0.8911, F1: 0.0096
+  Predicting class 1: 15.30562%
+
+Epoch 685 | Loss: 0.3885 | Acc: 0.8482
+  Class 1 - P: 0.0049, R: 0.8920, F1: 0.0097
+  Predicting class 1: 15.24453%
+
+Epoch 686 | Loss: 0.3798 | Acc: 0.8481
+  Class 1 - P: 0.0049, R: 0.8929, F1: 0.0097
+  Predicting class 1: 15.25871%
+
+Epoch 687 | Loss: 0.3771 | Acc: 0.8475
+  Class 1 - P: 0.0049, R: 0.8959, F1: 0.0097
+  Predicting class 1: 15.32074%
+
+Epoch 688 | Loss: 0.3859 | Acc: 0.8476
+  Class 1 - P: 0.0049, R: 0.8964, F1: 0.0097
+  Predicting class 1: 15.30562%
+
+Epoch 689 | Loss: 0.3785 | Acc: 0.8486
+  Class 1 - P: 0.0049, R: 0.8956, F1: 0.0097
+  Predicting class 1: 15.20798%
+  Saved best model (F1: 0.0097)
+
+Epoch 690 | Loss: 0.3839 | Acc: 0.8490
+  Class 1 - P: 0.0049, R: 0.8959, F1: 0.0098
+  Predicting class 1: 15.16904%
+  Saved best model (F1: 0.0098)
+
+Epoch 691 | Loss: 0.3870 | Acc: 0.8482
+  Class 1 - P: 0.0049, R: 0.8970, F1: 0.0097
+  Predicting class 1: 15.25086%
+
+Epoch 692 | Loss: 0.3788 | Acc: 0.8473
+  Class 1 - P: 0.0049, R: 0.8997, F1: 0.0097
+  Predicting class 1: 15.34041%
+
+Epoch 693 | Loss: 0.3800 | Acc: 0.8463
+  Class 1 - P: 0.0049, R: 0.9018, F1: 0.0097
+  Predicting class 1: 15.43615%
+
+Epoch 694 | Loss: 0.3772 | Acc: 0.8454
+  Class 1 - P: 0.0048, R: 0.9036, F1: 0.0096
+  Predicting class 1: 15.53001%
+
+Epoch 695 | Loss: 0.3870 | Acc: 0.8447
+  Class 1 - P: 0.0048, R: 0.9050, F1: 0.0096
+  Predicting class 1: 15.59644%
+
+Epoch 696 | Loss: 0.3705 | Acc: 0.8443
+  Class 1 - P: 0.0048, R: 0.9056, F1: 0.0096
+  Predicting class 1: 15.63900%
+
+Epoch 697 | Loss: 0.3778 | Acc: 0.8441
+  Class 1 - P: 0.0048, R: 0.9065, F1: 0.0096
+  Predicting class 1: 15.65365%
+
+Epoch 698 | Loss: 0.3998 | Acc: 0.8442
+  Class 1 - P: 0.0048, R: 0.9068, F1: 0.0096
+  Predicting class 1: 15.64415%
+
+Epoch 699 | Loss: 0.3743 | Acc: 0.8448
+  Class 1 - P: 0.0048, R: 0.9071, F1: 0.0096
+  Predicting class 1: 15.58411%
+
+Epoch 700 | Loss: 0.3803 | Acc: 0.8461
+  Class 1 - P: 0.0049, R: 0.9065, F1: 0.0097
+  Predicting class 1: 15.45715%
+
+Epoch 701 | Loss: 0.3911 | Acc: 0.8478
+  Class 1 - P: 0.0049, R: 0.9053, F1: 0.0098
+  Predicting class 1: 15.29078%
+  Saved best model (F1: 0.0098)
+
+Epoch 702 | Loss: 0.3698 | Acc: 0.8488
+  Class 1 - P: 0.0050, R: 0.9056, F1: 0.0099
+  Predicting class 1: 15.19080%
+  Saved best model (F1: 0.0099)
+
+Epoch 703 | Loss: 0.3738 | Acc: 0.8505
+  Class 1 - P: 0.0050, R: 0.9009, F1: 0.0099
+  Predicting class 1: 15.01774%
+  Saved best model (F1: 0.0099)
+
+Epoch 704 | Loss: 0.3667 | Acc: 0.8521
+  Class 1 - P: 0.0050, R: 0.8994, F1: 0.0100
+  Predicting class 1: 14.85772%
+  Saved best model (F1: 0.0100)
+
+Epoch 705 | Loss: 0.3669 | Acc: 0.8528
+  Class 1 - P: 0.0051, R: 0.8982, F1: 0.0101
+  Predicting class 1: 14.78661%
+  Saved best model (F1: 0.0101)
+
+Epoch 706 | Loss: 0.3711 | Acc: 0.8524
+  Class 1 - P: 0.0051, R: 0.9000, F1: 0.0100
+  Predicting class 1: 14.82577%
+
+Epoch 707 | Loss: 0.3740 | Acc: 0.8512
+  Class 1 - P: 0.0050, R: 0.9030, F1: 0.0100
+  Predicting class 1: 14.94754%
+
+Epoch 708 | Loss: 0.3735 | Acc: 0.8496
+  Class 1 - P: 0.0050, R: 0.9059, F1: 0.0099
+  Predicting class 1: 15.10913%
+
+Epoch 709 | Loss: 0.3688 | Acc: 0.8471
+  Class 1 - P: 0.0049, R: 0.9098, F1: 0.0098
+  Predicting class 1: 15.35810%
+
+Epoch 710 | Loss: 0.3668 | Acc: 0.8459
+  Class 1 - P: 0.0049, R: 0.9109, F1: 0.0097
+  Predicting class 1: 15.48292%
+
+Epoch 711 | Loss: 0.3627 | Acc: 0.8452
+  Class 1 - P: 0.0049, R: 0.9133, F1: 0.0097
+  Predicting class 1: 15.55056%
+
+Epoch 712 | Loss: 0.3722 | Acc: 0.8451
+  Class 1 - P: 0.0049, R: 0.9133, F1: 0.0097
+  Predicting class 1: 15.55713%
+
+Epoch 713 | Loss: 0.3573 | Acc: 0.8455
+  Class 1 - P: 0.0049, R: 0.9130, F1: 0.0097
+  Predicting class 1: 15.51549%
+
+Epoch 714 | Loss: 0.3709 | Acc: 0.8465
+  Class 1 - P: 0.0049, R: 0.9130, F1: 0.0098
+  Predicting class 1: 15.41622%
+
+Epoch 715 | Loss: 0.3637 | Acc: 0.8481
+  Class 1 - P: 0.0050, R: 0.9112, F1: 0.0099
+  Predicting class 1: 15.26292%
+
+Epoch 716 | Loss: 0.3687 | Acc: 0.8490
+  Class 1 - P: 0.0050, R: 0.9112, F1: 0.0099
+  Predicting class 1: 15.16978%
+
+Epoch 717 | Loss: 0.3628 | Acc: 0.8499
+  Class 1 - P: 0.0050, R: 0.9101, F1: 0.0100
+  Predicting class 1: 15.07861%
+
+Epoch 718 | Loss: 0.3647 | Acc: 0.8510
+  Class 1 - P: 0.0051, R: 0.9101, F1: 0.0101
+  Predicting class 1: 14.97176%
+  Saved best model (F1: 0.0101)
+
+Epoch 719 | Loss: 0.3573 | Acc: 0.8514
+  Class 1 - P: 0.0051, R: 0.9095, F1: 0.0101
+  Predicting class 1: 14.92366%
+  Saved best model (F1: 0.0101)
+
+Epoch 720 | Loss: 0.3547 | Acc: 0.8516
+  Class 1 - P: 0.0051, R: 0.9098, F1: 0.0101
+  Predicting class 1: 14.90862%
+  Saved best model (F1: 0.0101)
+
+Epoch 721 | Loss: 0.3570 | Acc: 0.8514
+  Class 1 - P: 0.0051, R: 0.9104, F1: 0.0101
+  Predicting class 1: 14.92565%
+
+Epoch 722 | Loss: 0.3815 | Acc: 0.8504
+  Class 1 - P: 0.0050, R: 0.9115, F1: 0.0100
+  Predicting class 1: 15.02830%
+
+Epoch 723 | Loss: 0.3617 | Acc: 0.8495
+  Class 1 - P: 0.0050, R: 0.9121, F1: 0.0100
+  Predicting class 1: 15.11479%
+
+Epoch 724 | Loss: 0.3538 | Acc: 0.8473
+  Class 1 - P: 0.0050, R: 0.9139, F1: 0.0099
+  Predicting class 1: 15.33659%
+
+Epoch 725 | Loss: 0.3685 | Acc: 0.8452
+  Class 1 - P: 0.0049, R: 0.9163, F1: 0.0098
+  Predicting class 1: 15.54803%
+
+Epoch 726 | Loss: 0.3501 | Acc: 0.8440
+  Class 1 - P: 0.0049, R: 0.9172, F1: 0.0097
+  Predicting class 1: 15.67048%
+
+Epoch 727 | Loss: 0.3498 | Acc: 0.8423
+  Class 1 - P: 0.0048, R: 0.9207, F1: 0.0096
+  Predicting class 1: 15.84318%
+
+Epoch 728 | Loss: 0.3516 | Acc: 0.8415
+  Class 1 - P: 0.0048, R: 0.9213, F1: 0.0096
+  Predicting class 1: 15.92495%
+
+Epoch 729 | Loss: 0.3476 | Acc: 0.8418
+  Class 1 - P: 0.0048, R: 0.9210, F1: 0.0096
+  Predicting class 1: 15.89278%
+
+Epoch 730 | Loss: 0.3462 | Acc: 0.8424
+  Class 1 - P: 0.0048, R: 0.9207, F1: 0.0096
+  Predicting class 1: 15.82826%
+
+Epoch 731 | Loss: 0.3534 | Acc: 0.8423
+  Class 1 - P: 0.0048, R: 0.9204, F1: 0.0096
+  Predicting class 1: 15.83498%
+
+Epoch 732 | Loss: 0.3423 | Acc: 0.8427
+  Class 1 - P: 0.0048, R: 0.9204, F1: 0.0096
+  Predicting class 1: 15.80451%
+
+Epoch 733 | Loss: 0.3536 | Acc: 0.8439
+  Class 1 - P: 0.0049, R: 0.9192, F1: 0.0097
+  Predicting class 1: 15.67897%
+
+Epoch 734 | Loss: 0.3512 | Acc: 0.8461
+  Class 1 - P: 0.0049, R: 0.9180, F1: 0.0098
+  Predicting class 1: 15.46052%
+
+Epoch 735 | Loss: 0.3495 | Acc: 0.8465
+  Class 1 - P: 0.0050, R: 0.9178, F1: 0.0099
+  Predicting class 1: 15.41917%
+
+Epoch 736 | Loss: 0.3400 | Acc: 0.8476
+  Class 1 - P: 0.0050, R: 0.9166, F1: 0.0099
+  Predicting class 1: 15.30718%
+
+Epoch 737 | Loss: 0.3539 | Acc: 0.8491
+  Class 1 - P: 0.0050, R: 0.9145, F1: 0.0100
+  Predicting class 1: 15.15804%
+
+Epoch 738 | Loss: 0.3428 | Acc: 0.8497
+  Class 1 - P: 0.0050, R: 0.9136, F1: 0.0100
+  Predicting class 1: 15.09421%
+
+Epoch 739 | Loss: 0.3455 | Acc: 0.8497
+  Class 1 - P: 0.0050, R: 0.9139, F1: 0.0100
+  Predicting class 1: 15.09734%
+
+Epoch 740 | Loss: 0.3402 | Acc: 0.8497
+  Class 1 - P: 0.0050, R: 0.9145, F1: 0.0100
+  Predicting class 1: 15.09813%
+
+Epoch 741 | Loss: 0.3486 | Acc: 0.8499
+  Class 1 - P: 0.0050, R: 0.9142, F1: 0.0100
+  Predicting class 1: 15.07735%
+
+Epoch 742 | Loss: 0.3487 | Acc: 0.8498
+  Class 1 - P: 0.0050, R: 0.9142, F1: 0.0100
+  Predicting class 1: 15.08804%
+
+Epoch 743 | Loss: 0.3406 | Acc: 0.8495
+  Class 1 - P: 0.0050, R: 0.9145, F1: 0.0100
+  Predicting class 1: 15.12090%
+
+Epoch 744 | Loss: 0.3468 | Acc: 0.8487
+  Class 1 - P: 0.0050, R: 0.9163, F1: 0.0100
+  Predicting class 1: 15.20003%
+
+Epoch 745 | Loss: 0.3465 | Acc: 0.8481
+  Class 1 - P: 0.0050, R: 0.9169, F1: 0.0099
+  Predicting class 1: 15.26073%
+
+Epoch 746 | Loss: 0.3432 | Acc: 0.8478
+  Class 1 - P: 0.0050, R: 0.9160, F1: 0.0099
+  Predicting class 1: 15.29238%
+
+Epoch 747 | Loss: 0.3376 | Acc: 0.8480
+  Class 1 - P: 0.0050, R: 0.9163, F1: 0.0099
+  Predicting class 1: 15.26974%
+
+Epoch 748 | Loss: 0.3445 | Acc: 0.8479
+  Class 1 - P: 0.0050, R: 0.9172, F1: 0.0099
+  Predicting class 1: 15.27894%
+
+Epoch 749 | Loss: 0.3348 | Acc: 0.8480
+  Class 1 - P: 0.0050, R: 0.9175, F1: 0.0099
+  Predicting class 1: 15.27276%
+
+Epoch 750 | Loss: 0.3304 | Acc: 0.8484
+  Class 1 - P: 0.0050, R: 0.9175, F1: 0.0100
+  Predicting class 1: 15.22688%
+
+Epoch 751 | Loss: 0.3333 | Acc: 0.8491
+  Class 1 - P: 0.0050, R: 0.9175, F1: 0.0100
+  Predicting class 1: 15.15575%
+
+Epoch 752 | Loss: 0.3424 | Acc: 0.8505
+  Class 1 - P: 0.0051, R: 0.9166, F1: 0.0101
+  Predicting class 1: 15.01552%
+  Saved best model (F1: 0.0101)
+
+Epoch 753 | Loss: 0.3412 | Acc: 0.8518
+  Class 1 - P: 0.0051, R: 0.9160, F1: 0.0102
+  Predicting class 1: 14.89334%
+  Saved best model (F1: 0.0102)
+
+Epoch 754 | Loss: 0.3398 | Acc: 0.8521
+  Class 1 - P: 0.0051, R: 0.9151, F1: 0.0102
+  Predicting class 1: 14.85720%
+  Saved best model (F1: 0.0102)
+
+Epoch 755 | Loss: 0.3344 | Acc: 0.8514
+  Class 1 - P: 0.0051, R: 0.9163, F1: 0.0102
+  Predicting class 1: 14.92492%
+
+Epoch 756 | Loss: 0.3375 | Acc: 0.8511
+  Class 1 - P: 0.0051, R: 0.9178, F1: 0.0101
+  Predicting class 1: 14.96201%
+
+Epoch 757 | Loss: 0.3322 | Acc: 0.8508
+  Class 1 - P: 0.0051, R: 0.9189, F1: 0.0101
+  Predicting class 1: 14.99344%
+
+Epoch 758 | Loss: 0.3290 | Acc: 0.8505
+  Class 1 - P: 0.0051, R: 0.9201, F1: 0.0101
+  Predicting class 1: 15.01764%
+
+Epoch 759 | Loss: 0.3270 | Acc: 0.8498
+  Class 1 - P: 0.0051, R: 0.9213, F1: 0.0101
+  Predicting class 1: 15.08870%
+
+Epoch 760 | Loss: 0.3346 | Acc: 0.8490
+  Class 1 - P: 0.0051, R: 0.9219, F1: 0.0101
+  Predicting class 1: 15.16956%
+
+Epoch 761 | Loss: 0.3308 | Acc: 0.8491
+  Class 1 - P: 0.0051, R: 0.9234, F1: 0.0101
+  Predicting class 1: 15.16532%
+
+Epoch 762 | Loss: 0.3350 | Acc: 0.8493
+  Class 1 - P: 0.0051, R: 0.9237, F1: 0.0101
+  Predicting class 1: 15.13968%
+
+Epoch 763 | Loss: 0.3309 | Acc: 0.8496
+  Class 1 - P: 0.0051, R: 0.9246, F1: 0.0101
+  Predicting class 1: 15.11063%
+
+Epoch 764 | Loss: 0.3299 | Acc: 0.8496
+  Class 1 - P: 0.0051, R: 0.9249, F1: 0.0101
+  Predicting class 1: 15.11221%
+
+Epoch 765 | Loss: 0.3234 | Acc: 0.8494
+  Class 1 - P: 0.0051, R: 0.9251, F1: 0.0101
+  Predicting class 1: 15.12850%
+
+Epoch 766 | Loss: 0.3341 | Acc: 0.8499
+  Class 1 - P: 0.0051, R: 0.9246, F1: 0.0101
+  Predicting class 1: 15.07949%
+
+Epoch 767 | Loss: 0.3294 | Acc: 0.8498
+  Class 1 - P: 0.0051, R: 0.9257, F1: 0.0101
+  Predicting class 1: 15.09338%
+
+Epoch 768 | Loss: 0.3261 | Acc: 0.8493
+  Class 1 - P: 0.0051, R: 0.9257, F1: 0.0101
+  Predicting class 1: 15.14352%
+
+Epoch 769 | Loss: 0.3303 | Acc: 0.8488
+  Class 1 - P: 0.0051, R: 0.9266, F1: 0.0101
+  Predicting class 1: 15.18932%
+
+Epoch 770 | Loss: 0.3253 | Acc: 0.8490
+  Class 1 - P: 0.0051, R: 0.9269, F1: 0.0101
+  Predicting class 1: 15.16764%
+
+Epoch 771 | Loss: 0.3263 | Acc: 0.8493
+  Class 1 - P: 0.0051, R: 0.9266, F1: 0.0101
+  Predicting class 1: 15.14076%
+
+Epoch 772 | Loss: 0.3309 | Acc: 0.8498
+  Class 1 - P: 0.0051, R: 0.9266, F1: 0.0102
+  Predicting class 1: 15.08769%
+
+Epoch 773 | Loss: 0.3351 | Acc: 0.8506
+  Class 1 - P: 0.0051, R: 0.9263, F1: 0.0102
+  Predicting class 1: 15.01464%
+  Saved best model (F1: 0.0102)
+
+Epoch 774 | Loss: 0.3271 | Acc: 0.8513
+  Class 1 - P: 0.0052, R: 0.9257, F1: 0.0102
+  Predicting class 1: 14.94562%
+  Saved best model (F1: 0.0102)
+
+Epoch 775 | Loss: 0.3220 | Acc: 0.8519
+  Class 1 - P: 0.0052, R: 0.9249, F1: 0.0103
+  Predicting class 1: 14.88514%
+  Saved best model (F1: 0.0103)
+
+Epoch 776 | Loss: 0.3340 | Acc: 0.8522
+  Class 1 - P: 0.0052, R: 0.9249, F1: 0.0103
+  Predicting class 1: 14.84960%
+  Saved best model (F1: 0.0103)
+
+Epoch 777 | Loss: 0.3229 | Acc: 0.8517
+  Class 1 - P: 0.0052, R: 0.9254, F1: 0.0103
+  Predicting class 1: 14.89819%
+
+Epoch 778 | Loss: 0.3195 | Acc: 0.8505
+  Class 1 - P: 0.0051, R: 0.9266, F1: 0.0102
+  Predicting class 1: 15.02229%
+
+Epoch 779 | Loss: 0.3248 | Acc: 0.8492
+  Class 1 - P: 0.0051, R: 0.9284, F1: 0.0101
+  Predicting class 1: 15.15494%
+
+Epoch 780 | Loss: 0.3260 | Acc: 0.8496
+  Class 1 - P: 0.0051, R: 0.9281, F1: 0.0102
+  Predicting class 1: 15.10787%
+
+Epoch 781 | Loss: 0.3171 | Acc: 0.8497
+  Class 1 - P: 0.0051, R: 0.9284, F1: 0.0102
+  Predicting class 1: 15.09825%
+
+Epoch 782 | Loss: 0.3309 | Acc: 0.8495
+  Class 1 - P: 0.0051, R: 0.9290, F1: 0.0102
+  Predicting class 1: 15.12269%
+
+Epoch 783 | Loss: 0.3208 | Acc: 0.8492
+  Class 1 - P: 0.0051, R: 0.9293, F1: 0.0102
+  Predicting class 1: 15.14881%
+
+Epoch 784 | Loss: 0.3101 | Acc: 0.8492
+  Class 1 - P: 0.0051, R: 0.9296, F1: 0.0102
+  Predicting class 1: 15.14893%
+
+Epoch 785 | Loss: 0.3146 | Acc: 0.8493
+  Class 1 - P: 0.0051, R: 0.9296, F1: 0.0102
+  Predicting class 1: 15.14334%
+
+Epoch 786 | Loss: 0.3151 | Acc: 0.8491
+  Class 1 - P: 0.0051, R: 0.9299, F1: 0.0101
+  Predicting class 1: 15.16323%
+
+Epoch 787 | Loss: 0.3106 | Acc: 0.8492
+  Class 1 - P: 0.0051, R: 0.9302, F1: 0.0102
+  Predicting class 1: 15.15011%
+
+Epoch 788 | Loss: 0.3168 | Acc: 0.8492
+  Class 1 - P: 0.0051, R: 0.9296, F1: 0.0102
+  Predicting class 1: 15.14982%
+
+Epoch 789 | Loss: 0.3209 | Acc: 0.8495
+  Class 1 - P: 0.0051, R: 0.9299, F1: 0.0102
+  Predicting class 1: 15.11811%
+
+Epoch 790 | Loss: 0.3126 | Acc: 0.8499
+  Class 1 - P: 0.0051, R: 0.9296, F1: 0.0102
+  Predicting class 1: 15.07873%
+
+Epoch 791 | Loss: 0.3131 | Acc: 0.8506
+  Class 1 - P: 0.0051, R: 0.9290, F1: 0.0102
+  Predicting class 1: 15.00929%
+
+Epoch 792 | Loss: 0.3116 | Acc: 0.8515
+  Class 1 - P: 0.0052, R: 0.9278, F1: 0.0103
+  Predicting class 1: 14.91901%
+
+Epoch 793 | Loss: 0.3101 | Acc: 0.8528
+  Class 1 - P: 0.0052, R: 0.9266, F1: 0.0104
+  Predicting class 1: 14.78678%
+  Saved best model (F1: 0.0104)
+
+Epoch 794 | Loss: 0.3093 | Acc: 0.8540
+  Class 1 - P: 0.0052, R: 0.9251, F1: 0.0104
+  Predicting class 1: 14.67533%
+  Saved best model (F1: 0.0104)
+
+Epoch 795 | Loss: 0.3094 | Acc: 0.8552
+  Class 1 - P: 0.0053, R: 0.9231, F1: 0.0105
+  Predicting class 1: 14.55521%
+  Saved best model (F1: 0.0105)
+
+Epoch 796 | Loss: 0.3184 | Acc: 0.8559
+  Class 1 - P: 0.0053, R: 0.9231, F1: 0.0105
+  Predicting class 1: 14.48201%
+  Saved best model (F1: 0.0105)
+
+Epoch 797 | Loss: 0.3142 | Acc: 0.8558
+  Class 1 - P: 0.0053, R: 0.9237, F1: 0.0105
+  Predicting class 1: 14.49158%
+
+Epoch 798 | Loss: 0.3175 | Acc: 0.8551
+  Class 1 - P: 0.0053, R: 0.9254, F1: 0.0105
+  Predicting class 1: 14.55676%
+
+Epoch 799 | Loss: 0.3062 | Acc: 0.8541
+  Class 1 - P: 0.0053, R: 0.9266, F1: 0.0105
+  Predicting class 1: 14.66039%
+
+Epoch 800 | Loss: 0.3103 | Acc: 0.8525
+  Class 1 - P: 0.0052, R: 0.9272, F1: 0.0104
+  Predicting class 1: 14.81629%
+
+Epoch 801 | Loss: 0.3055 | Acc: 0.8509
+  Class 1 - P: 0.0052, R: 0.9305, F1: 0.0103
+  Predicting class 1: 14.98241%
+
+Epoch 802 | Loss: 0.3084 | Acc: 0.8495
+  Class 1 - P: 0.0051, R: 0.9322, F1: 0.0102
+  Predicting class 1: 15.11929%
+
+Epoch 803 | Loss: 0.3093 | Acc: 0.8486
+  Class 1 - P: 0.0051, R: 0.9325, F1: 0.0101
+  Predicting class 1: 15.20769%
+
+Epoch 804 | Loss: 0.3052 | Acc: 0.8484
+  Class 1 - P: 0.0051, R: 0.9334, F1: 0.0101
+  Predicting class 1: 15.23075%
+
+Epoch 805 | Loss: 0.3095 | Acc: 0.8484
+  Class 1 - P: 0.0051, R: 0.9334, F1: 0.0101
+  Predicting class 1: 15.23176%
+
+Epoch 806 | Loss: 0.3051 | Acc: 0.8489
+  Class 1 - P: 0.0051, R: 0.9328, F1: 0.0102
+  Predicting class 1: 15.18388%
+
+Epoch 807 | Loss: 0.3050 | Acc: 0.8496
+  Class 1 - P: 0.0051, R: 0.9334, F1: 0.0102
+  Predicting class 1: 15.10787%
+
+Epoch 808 | Loss: 0.3029 | Acc: 0.8512
+  Class 1 - P: 0.0052, R: 0.9322, F1: 0.0103
+  Predicting class 1: 14.95335%
+
+Epoch 809 | Loss: 0.3118 | Acc: 0.8530
+  Class 1 - P: 0.0052, R: 0.9308, F1: 0.0104
+  Predicting class 1: 14.77460%
+
+Epoch 810 | Loss: 0.3072 | Acc: 0.8545
+  Class 1 - P: 0.0053, R: 0.9293, F1: 0.0105
+  Predicting class 1: 14.61785%
+
+Epoch 811 | Loss: 0.2980 | Acc: 0.8558
+  Class 1 - P: 0.0053, R: 0.9272, F1: 0.0106
+  Predicting class 1: 14.49431%
+  Saved best model (F1: 0.0106)
+
+Epoch 812 | Loss: 0.3036 | Acc: 0.8570
+  Class 1 - P: 0.0054, R: 0.9246, F1: 0.0106
+  Predicting class 1: 14.37439%
+  Saved best model (F1: 0.0106)
+
+Epoch 813 | Loss: 0.2985 | Acc: 0.8575
+  Class 1 - P: 0.0054, R: 0.9243, F1: 0.0107
+  Predicting class 1: 14.31576%
+  Saved best model (F1: 0.0107)
+
+Epoch 814 | Loss: 0.2941 | Acc: 0.8581
+  Class 1 - P: 0.0054, R: 0.9228, F1: 0.0107
+  Predicting class 1: 14.26001%
+  Saved best model (F1: 0.0107)
+
+Epoch 815 | Loss: 0.3025 | Acc: 0.8582
+  Class 1 - P: 0.0054, R: 0.9237, F1: 0.0107
+  Predicting class 1: 14.25376%
+  Saved best model (F1: 0.0107)
+
+Epoch 816 | Loss: 0.3014 | Acc: 0.8575
+  Class 1 - P: 0.0054, R: 0.9254, F1: 0.0107
+  Predicting class 1: 14.32154%
+
+Epoch 817 | Loss: 0.3031 | Acc: 0.8563
+  Class 1 - P: 0.0053, R: 0.9275, F1: 0.0106
+  Predicting class 1: 14.43647%
+
+Epoch 818 | Loss: 0.3037 | Acc: 0.8546
+  Class 1 - P: 0.0053, R: 0.9290, F1: 0.0105
+  Predicting class 1: 14.60902%
+
+Epoch 819 | Loss: 0.3066 | Acc: 0.8527
+  Class 1 - P: 0.0052, R: 0.9317, F1: 0.0104
+  Predicting class 1: 14.79764%
+
+Epoch 820 | Loss: 0.2992 | Acc: 0.8512
+  Class 1 - P: 0.0052, R: 0.9337, F1: 0.0103
+  Predicting class 1: 14.95002%
+
+Epoch 821 | Loss: 0.3069 | Acc: 0.8506
+  Class 1 - P: 0.0052, R: 0.9346, F1: 0.0103
+  Predicting class 1: 15.01574%
+
+Epoch 822 | Loss: 0.2966 | Acc: 0.8504
+  Class 1 - P: 0.0052, R: 0.9361, F1: 0.0103
+  Predicting class 1: 15.02803%
+
+Epoch 823 | Loss: 0.3038 | Acc: 0.8509
+  Class 1 - P: 0.0052, R: 0.9352, F1: 0.0103
+  Predicting class 1: 14.98126%
+
+Epoch 824 | Loss: 0.3003 | Acc: 0.8518
+  Class 1 - P: 0.0052, R: 0.9337, F1: 0.0104
+  Predicting class 1: 14.89644%
+
+Epoch 825 | Loss: 0.3047 | Acc: 0.8524
+  Class 1 - P: 0.0052, R: 0.9340, F1: 0.0104
+  Predicting class 1: 14.82995%
+
+Epoch 826 | Loss: 0.2969 | Acc: 0.8534
+  Class 1 - P: 0.0053, R: 0.9322, F1: 0.0105
+  Predicting class 1: 14.73127%
+
+Epoch 827 | Loss: 0.2966 | Acc: 0.8546
+  Class 1 - P: 0.0053, R: 0.9314, F1: 0.0105
+  Predicting class 1: 14.61322%
+
+Epoch 828 | Loss: 0.2959 | Acc: 0.8554
+  Class 1 - P: 0.0053, R: 0.9308, F1: 0.0106
+  Predicting class 1: 14.52776%
+
+Epoch 829 | Loss: 0.2955 | Acc: 0.8561
+  Class 1 - P: 0.0053, R: 0.9299, F1: 0.0106
+  Predicting class 1: 14.46150%
+
+Epoch 830 | Loss: 0.2940 | Acc: 0.8562
+  Class 1 - P: 0.0054, R: 0.9305, F1: 0.0107
+  Predicting class 1: 14.44996%
+
+Epoch 831 | Loss: 0.2904 | Acc: 0.8564
+  Class 1 - P: 0.0054, R: 0.9305, F1: 0.0107
+  Predicting class 1: 14.42948%
+
+Epoch 832 | Loss: 0.2914 | Acc: 0.8562
+  Class 1 - P: 0.0054, R: 0.9311, F1: 0.0107
+  Predicting class 1: 14.44703%
+
+Epoch 833 | Loss: 0.2920 | Acc: 0.8555
+  Class 1 - P: 0.0053, R: 0.9322, F1: 0.0106
+  Predicting class 1: 14.51723%
+
+Epoch 834 | Loss: 0.2895 | Acc: 0.8545
+  Class 1 - P: 0.0053, R: 0.9331, F1: 0.0106
+  Predicting class 1: 14.62593%
+
+Epoch 835 | Loss: 0.2943 | Acc: 0.8530
+  Class 1 - P: 0.0053, R: 0.9349, F1: 0.0105
+  Predicting class 1: 14.77218%
+
+Epoch 836 | Loss: 0.2986 | Acc: 0.8519
+  Class 1 - P: 0.0052, R: 0.9355, F1: 0.0104
+  Predicting class 1: 14.87864%
+
+Epoch 837 | Loss: 0.2933 | Acc: 0.8511
+  Class 1 - P: 0.0052, R: 0.9361, F1: 0.0103
+  Predicting class 1: 14.96632%
+
+Epoch 838 | Loss: 0.2910 | Acc: 0.8510
+  Class 1 - P: 0.0052, R: 0.9364, F1: 0.0104
+  Predicting class 1: 14.96971%
+
+Epoch 839 | Loss: 0.2862 | Acc: 0.8514
+  Class 1 - P: 0.0052, R: 0.9364, F1: 0.0104
+  Predicting class 1: 14.93639%
+
+Epoch 840 | Loss: 0.2974 | Acc: 0.8522
+  Class 1 - P: 0.0052, R: 0.9355, F1: 0.0104
+  Predicting class 1: 14.85371%
+
+Epoch 841 | Loss: 0.2976 | Acc: 0.8527
+  Class 1 - P: 0.0053, R: 0.9352, F1: 0.0105
+  Predicting class 1: 14.80052%
+
+Epoch 842 | Loss: 0.2851 | Acc: 0.8532
+  Class 1 - P: 0.0053, R: 0.9355, F1: 0.0105
+  Predicting class 1: 14.75306%
+
+Epoch 843 | Loss: 0.2876 | Acc: 0.8533
+  Class 1 - P: 0.0053, R: 0.9358, F1: 0.0105
+  Predicting class 1: 14.73829%
+
+Epoch 844 | Loss: 0.2847 | Acc: 0.8535
+  Class 1 - P: 0.0053, R: 0.9355, F1: 0.0105
+  Predicting class 1: 14.72234%
+
+Epoch 845 | Loss: 0.2857 | Acc: 0.8537
+  Class 1 - P: 0.0053, R: 0.9355, F1: 0.0105
+  Predicting class 1: 14.70548%
+
+Epoch 846 | Loss: 0.2873 | Acc: 0.8537
+  Class 1 - P: 0.0053, R: 0.9355, F1: 0.0105
+  Predicting class 1: 14.70740%
+
+Epoch 847 | Loss: 0.2844 | Acc: 0.8536
+  Class 1 - P: 0.0053, R: 0.9355, F1: 0.0105
+  Predicting class 1: 14.70858%
+
+Epoch 848 | Loss: 0.2783 | Acc: 0.8539
+  Class 1 - P: 0.0053, R: 0.9355, F1: 0.0105
+  Predicting class 1: 14.68212%
+
+Epoch 849 | Loss: 0.2870 | Acc: 0.8539
+  Class 1 - P: 0.0053, R: 0.9361, F1: 0.0106
+  Predicting class 1: 14.67863%
+
+Epoch 850 | Loss: 0.2857 | Acc: 0.8539
+  Class 1 - P: 0.0053, R: 0.9364, F1: 0.0106
+  Predicting class 1: 14.68301%
+
+Epoch 851 | Loss: 0.2826 | Acc: 0.8538
+  Class 1 - P: 0.0053, R: 0.9361, F1: 0.0105
+  Predicting class 1: 14.68803%
+
+Epoch 852 | Loss: 0.2821 | Acc: 0.8539
+  Class 1 - P: 0.0053, R: 0.9361, F1: 0.0106
+  Predicting class 1: 14.67759%
+
+Epoch 853 | Loss: 0.2858 | Acc: 0.8539
+  Class 1 - P: 0.0053, R: 0.9367, F1: 0.0106
+  Predicting class 1: 14.68576%
+
+Epoch 854 | Loss: 0.2823 | Acc: 0.8536
+  Class 1 - P: 0.0053, R: 0.9373, F1: 0.0105
+  Predicting class 1: 14.70971%
+
+Epoch 855 | Loss: 0.2858 | Acc: 0.8527
+  Class 1 - P: 0.0053, R: 0.9396, F1: 0.0105
+  Predicting class 1: 14.80359%
+
+Epoch 856 | Loss: 0.2816 | Acc: 0.8517
+  Class 1 - P: 0.0052, R: 0.9399, F1: 0.0104
+  Predicting class 1: 14.90062%
+
+Epoch 857 | Loss: 0.2779 | Acc: 0.8511
+  Class 1 - P: 0.0052, R: 0.9405, F1: 0.0104
+  Predicting class 1: 14.96735%
+
+Epoch 858 | Loss: 0.2814 | Acc: 0.8510
+  Class 1 - P: 0.0052, R: 0.9408, F1: 0.0104
+  Predicting class 1: 14.97695%
+
+Epoch 859 | Loss: 0.2813 | Acc: 0.8507
+  Class 1 - P: 0.0052, R: 0.9414, F1: 0.0104
+  Predicting class 1: 15.00304%
+
+Epoch 860 | Loss: 0.2794 | Acc: 0.8507
+  Class 1 - P: 0.0052, R: 0.9420, F1: 0.0104
+  Predicting class 1: 15.00009%
+
+Epoch 861 | Loss: 0.2816 | Acc: 0.8510
+  Class 1 - P: 0.0052, R: 0.9414, F1: 0.0104
+  Predicting class 1: 14.97301%
+
+Epoch 862 | Loss: 0.2789 | Acc: 0.8510
+  Class 1 - P: 0.0052, R: 0.9414, F1: 0.0104
+  Predicting class 1: 14.97503%
+
+Epoch 863 | Loss: 0.2795 | Acc: 0.8516
+  Class 1 - P: 0.0052, R: 0.9405, F1: 0.0104
+  Predicting class 1: 14.90993%
+
+Epoch 864 | Loss: 0.2827 | Acc: 0.8523
+  Class 1 - P: 0.0053, R: 0.9405, F1: 0.0105
+  Predicting class 1: 14.84086%
+
+Epoch 865 | Loss: 0.2804 | Acc: 0.8530
+  Class 1 - P: 0.0053, R: 0.9393, F1: 0.0105
+  Predicting class 1: 14.77265%
+
+Epoch 866 | Loss: 0.2893 | Acc: 0.8529
+  Class 1 - P: 0.0053, R: 0.9396, F1: 0.0105
+  Predicting class 1: 14.78693%
+
+Epoch 867 | Loss: 0.2849 | Acc: 0.8528
+  Class 1 - P: 0.0053, R: 0.9399, F1: 0.0105
+  Predicting class 1: 14.78892%
+
+Epoch 868 | Loss: 0.2776 | Acc: 0.8530
+  Class 1 - P: 0.0053, R: 0.9399, F1: 0.0105
+  Predicting class 1: 14.77228%
+
+Epoch 869 | Loss: 0.2942 | Acc: 0.8524
+  Class 1 - P: 0.0053, R: 0.9408, F1: 0.0105
+  Predicting class 1: 14.83042%
+
+Epoch 870 | Loss: 0.2747 | Acc: 0.8521
+  Class 1 - P: 0.0053, R: 0.9411, F1: 0.0105
+  Predicting class 1: 14.85984%
+
+Epoch 871 | Loss: 0.2850 | Acc: 0.8513
+  Class 1 - P: 0.0052, R: 0.9420, F1: 0.0104
+  Predicting class 1: 14.94586%
+
+Epoch 872 | Loss: 0.2821 | Acc: 0.8504
+  Class 1 - P: 0.0052, R: 0.9426, F1: 0.0104
+  Predicting class 1: 15.03531%
+
+Epoch 873 | Loss: 0.2773 | Acc: 0.8500
+  Class 1 - P: 0.0052, R: 0.9432, F1: 0.0104
+  Predicting class 1: 15.07612%
+
+Epoch 874 | Loss: 0.2810 | Acc: 0.8494
+  Class 1 - P: 0.0052, R: 0.9438, F1: 0.0103
+  Predicting class 1: 15.13537%
+
+Epoch 875 | Loss: 0.2765 | Acc: 0.8490
+  Class 1 - P: 0.0052, R: 0.9438, F1: 0.0103
+  Predicting class 1: 15.17431%
+
+Epoch 876 | Loss: 0.2741 | Acc: 0.8490
+  Class 1 - P: 0.0052, R: 0.9438, F1: 0.0103
+  Predicting class 1: 15.17591%
+
+Epoch 877 | Loss: 0.2823 | Acc: 0.8490
+  Class 1 - P: 0.0052, R: 0.9438, F1: 0.0103
+  Predicting class 1: 15.17281%
+
+Epoch 878 | Loss: 0.2881 | Acc: 0.8492
+  Class 1 - P: 0.0052, R: 0.9435, F1: 0.0103
+  Predicting class 1: 15.15730%
+
+Epoch 879 | Loss: 0.2754 | Acc: 0.8499
+  Class 1 - P: 0.0052, R: 0.9429, F1: 0.0103
+  Predicting class 1: 15.07908%
+
+Epoch 880 | Loss: 0.2754 | Acc: 0.8508
+  Class 1 - P: 0.0052, R: 0.9414, F1: 0.0104
+  Predicting class 1: 14.99549%
+
+Epoch 881 | Loss: 0.2772 | Acc: 0.8518
+  Class 1 - P: 0.0053, R: 0.9402, F1: 0.0104
+  Predicting class 1: 14.89656%
+
+Epoch 882 | Loss: 0.2794 | Acc: 0.8529
+  Class 1 - P: 0.0053, R: 0.9393, F1: 0.0105
+  Predicting class 1: 14.78730%
+
+Epoch 883 | Loss: 0.2749 | Acc: 0.8537
+  Class 1 - P: 0.0053, R: 0.9388, F1: 0.0106
+  Predicting class 1: 14.70162%
+
+Epoch 884 | Loss: 0.2779 | Acc: 0.8549
+  Class 1 - P: 0.0053, R: 0.9373, F1: 0.0106
+  Predicting class 1: 14.58182%
+
+Epoch 885 | Loss: 0.2729 | Acc: 0.8554
+  Class 1 - P: 0.0054, R: 0.9370, F1: 0.0107
+  Predicting class 1: 14.53436%
+
+Epoch 886 | Loss: 0.2750 | Acc: 0.8554
+  Class 1 - P: 0.0054, R: 0.9379, F1: 0.0107
+  Predicting class 1: 14.52868%
+
+Epoch 887 | Loss: 0.2773 | Acc: 0.8550
+  Class 1 - P: 0.0054, R: 0.9385, F1: 0.0107
+  Predicting class 1: 14.57150%
+
+Epoch 888 | Loss: 0.2700 | Acc: 0.8545
+  Class 1 - P: 0.0054, R: 0.9405, F1: 0.0106
+  Predicting class 1: 14.62226%
+
+Epoch 889 | Loss: 0.2690 | Acc: 0.8538
+  Class 1 - P: 0.0053, R: 0.9429, F1: 0.0106
+  Predicting class 1: 14.69034%
+
+Epoch 890 | Loss: 0.2717 | Acc: 0.8528
+  Class 1 - P: 0.0053, R: 0.9447, F1: 0.0106
+  Predicting class 1: 14.79355%
+
+Epoch 891 | Loss: 0.2832 | Acc: 0.8520
+  Class 1 - P: 0.0053, R: 0.9470, F1: 0.0105
+  Predicting class 1: 14.87620%
+
+Epoch 892 | Loss: 0.2711 | Acc: 0.8514
+  Class 1 - P: 0.0053, R: 0.9476, F1: 0.0105
+  Predicting class 1: 14.93786%
+
+Epoch 893 | Loss: 0.2719 | Acc: 0.8511
+  Class 1 - P: 0.0053, R: 0.9479, F1: 0.0105
+  Predicting class 1: 14.96282%
+
+Epoch 894 | Loss: 0.2726 | Acc: 0.8510
+  Class 1 - P: 0.0053, R: 0.9488, F1: 0.0105
+  Predicting class 1: 14.97205%
+
+Epoch 895 | Loss: 0.2747 | Acc: 0.8510
+  Class 1 - P: 0.0053, R: 0.9485, F1: 0.0105
+  Predicting class 1: 14.97183%
+
+Epoch 896 | Loss: 0.2722 | Acc: 0.8516
+  Class 1 - P: 0.0053, R: 0.9485, F1: 0.0105
+  Predicting class 1: 14.91418%
+
+Epoch 897 | Loss: 0.2721 | Acc: 0.8525
+  Class 1 - P: 0.0053, R: 0.9479, F1: 0.0106
+  Predicting class 1: 14.82190%
+
+Epoch 898 | Loss: 0.2657 | Acc: 0.8537
+  Class 1 - P: 0.0054, R: 0.9470, F1: 0.0107
+  Predicting class 1: 14.70843%
+
+Epoch 899 | Loss: 0.2703 | Acc: 0.8544
+  Class 1 - P: 0.0054, R: 0.9467, F1: 0.0107
+  Predicting class 1: 14.63156%
+
+Epoch 900 | Loss: 0.2694 | Acc: 0.8548
+  Class 1 - P: 0.0054, R: 0.9467, F1: 0.0107
+  Predicting class 1: 14.59484%
+  Saved best model (F1: 0.0107)
+
+Epoch 901 | Loss: 0.2796 | Acc: 0.8551
+  Class 1 - P: 0.0054, R: 0.9467, F1: 0.0108
+  Predicting class 1: 14.56141%
+  Saved best model (F1: 0.0108)
+
+Epoch 902 | Loss: 0.2708 | Acc: 0.8554
+  Class 1 - P: 0.0054, R: 0.9464, F1: 0.0108
+  Predicting class 1: 14.53372%
+  Saved best model (F1: 0.0108)
+
+Epoch 903 | Loss: 0.2690 | Acc: 0.8550
+  Class 1 - P: 0.0054, R: 0.9467, F1: 0.0107
+  Predicting class 1: 14.57298%
+
+Epoch 904 | Loss: 0.2677 | Acc: 0.8551
+  Class 1 - P: 0.0054, R: 0.9470, F1: 0.0108
+  Predicting class 1: 14.56038%
+
+Epoch 905 | Loss: 0.2686 | Acc: 0.8551
+  Class 1 - P: 0.0054, R: 0.9470, F1: 0.0108
+  Predicting class 1: 14.56407%
+
+Epoch 906 | Loss: 0.2670 | Acc: 0.8552
+  Class 1 - P: 0.0054, R: 0.9462, F1: 0.0108
+  Predicting class 1: 14.55573%
+
+Epoch 907 | Loss: 0.2693 | Acc: 0.8556
+  Class 1 - P: 0.0054, R: 0.9456, F1: 0.0108
+  Predicting class 1: 14.51228%
+  Saved best model (F1: 0.0108)
+
+Epoch 908 | Loss: 0.2701 | Acc: 0.8562
+  Class 1 - P: 0.0054, R: 0.9450, F1: 0.0108
+  Predicting class 1: 14.45466%
+  Saved best model (F1: 0.0108)
+
+Epoch 909 | Loss: 0.2663 | Acc: 0.8566
+  Class 1 - P: 0.0055, R: 0.9444, F1: 0.0108
+  Predicting class 1: 14.41284%
+  Saved best model (F1: 0.0108)
+
+Epoch 910 | Loss: 0.2622 | Acc: 0.8570
+  Class 1 - P: 0.0055, R: 0.9441, F1: 0.0109
+  Predicting class 1: 14.37730%
+  Saved best model (F1: 0.0109)
+
+Epoch 911 | Loss: 0.2651 | Acc: 0.8572
+  Class 1 - P: 0.0055, R: 0.9438, F1: 0.0109
+  Predicting class 1: 14.35482%
+  Saved best model (F1: 0.0109)
+
+Epoch 912 | Loss: 0.2664 | Acc: 0.8573
+  Class 1 - P: 0.0055, R: 0.9435, F1: 0.0109
+  Predicting class 1: 14.34338%
+  Saved best model (F1: 0.0109)
+
+Epoch 913 | Loss: 0.2646 | Acc: 0.8573
+  Class 1 - P: 0.0055, R: 0.9435, F1: 0.0109
+  Predicting class 1: 14.34786%
+
+Epoch 914 | Loss: 0.2691 | Acc: 0.8570
+  Class 1 - P: 0.0055, R: 0.9447, F1: 0.0109
+  Predicting class 1: 14.37703%
+
+Epoch 915 | Loss: 0.2671 | Acc: 0.8565
+  Class 1 - P: 0.0055, R: 0.9453, F1: 0.0108
+  Predicting class 1: 14.42559%
+
+Epoch 916 | Loss: 0.2631 | Acc: 0.8558
+  Class 1 - P: 0.0054, R: 0.9459, F1: 0.0108
+  Predicting class 1: 14.49210%
+
+Epoch 917 | Loss: 0.2633 | Acc: 0.8551
+  Class 1 - P: 0.0054, R: 0.9464, F1: 0.0108
+  Predicting class 1: 14.56589%
+
+Epoch 918 | Loss: 0.2702 | Acc: 0.8537
+  Class 1 - P: 0.0054, R: 0.9473, F1: 0.0107
+  Predicting class 1: 14.70489%
+
+Epoch 919 | Loss: 0.2686 | Acc: 0.8527
+  Class 1 - P: 0.0053, R: 0.9485, F1: 0.0106
+  Predicting class 1: 14.80861%
+
+Epoch 920 | Loss: 0.2650 | Acc: 0.8521
+  Class 1 - P: 0.0053, R: 0.9494, F1: 0.0106
+  Predicting class 1: 14.86870%
+
+Epoch 921 | Loss: 0.2670 | Acc: 0.8515
+  Class 1 - P: 0.0053, R: 0.9503, F1: 0.0105
+  Predicting class 1: 14.92022%
+
+Epoch 922 | Loss: 0.2706 | Acc: 0.8520
+  Class 1 - P: 0.0053, R: 0.9497, F1: 0.0106
+  Predicting class 1: 14.87399%
+
+Epoch 923 | Loss: 0.2724 | Acc: 0.8524
+  Class 1 - P: 0.0053, R: 0.9491, F1: 0.0106
+  Predicting class 1: 14.83227%
+
+Epoch 924 | Loss: 0.2625 | Acc: 0.8530
+  Class 1 - P: 0.0053, R: 0.9482, F1: 0.0106
+  Predicting class 1: 14.77654%
+
+Epoch 925 | Loss: 0.2639 | Acc: 0.8539
+  Class 1 - P: 0.0054, R: 0.9470, F1: 0.0107
+  Predicting class 1: 14.68926%
+
+Epoch 926 | Loss: 0.2614 | Acc: 0.8549
+  Class 1 - P: 0.0054, R: 0.9456, F1: 0.0107
+  Predicting class 1: 14.58413%
+
+Epoch 927 | Loss: 0.2645 | Acc: 0.8556
+  Class 1 - P: 0.0054, R: 0.9447, F1: 0.0108
+  Predicting class 1: 14.51762%
+
+Epoch 928 | Loss: 0.2672 | Acc: 0.8561
+  Class 1 - P: 0.0054, R: 0.9447, F1: 0.0108
+  Predicting class 1: 14.46153%
+
+Epoch 929 | Loss: 0.2642 | Acc: 0.8565
+  Class 1 - P: 0.0054, R: 0.9447, F1: 0.0108
+  Predicting class 1: 14.42315%
+
+Epoch 930 | Loss: 0.2628 | Acc: 0.8570
+  Class 1 - P: 0.0055, R: 0.9444, F1: 0.0109
+  Predicting class 1: 14.37341%
+
+Epoch 931 | Loss: 0.2673 | Acc: 0.8569
+  Class 1 - P: 0.0055, R: 0.9444, F1: 0.0109
+  Predicting class 1: 14.38067%
+
+Epoch 932 | Loss: 0.2639 | Acc: 0.8568
+  Class 1 - P: 0.0055, R: 0.9438, F1: 0.0108
+  Predicting class 1: 14.39248%
+
+Epoch 933 | Loss: 0.2652 | Acc: 0.8563
+  Class 1 - P: 0.0054, R: 0.9447, F1: 0.0108
+  Predicting class 1: 14.44683%
+
+Epoch 934 | Loss: 0.2569 | Acc: 0.8556
+  Class 1 - P: 0.0054, R: 0.9456, F1: 0.0108
+  Predicting class 1: 14.50933%
+
+Epoch 935 | Loss: 0.2582 | Acc: 0.8550
+  Class 1 - P: 0.0054, R: 0.9462, F1: 0.0107
+  Predicting class 1: 14.57241%
+
+Epoch 936 | Loss: 0.2621 | Acc: 0.8543
+  Class 1 - P: 0.0054, R: 0.9476, F1: 0.0107
+  Predicting class 1: 14.64111%
+
+Epoch 937 | Loss: 0.2571 | Acc: 0.8536
+  Class 1 - P: 0.0054, R: 0.9491, F1: 0.0107
+  Predicting class 1: 14.71072%
+
+Epoch 938 | Loss: 0.2628 | Acc: 0.8531
+  Class 1 - P: 0.0054, R: 0.9497, F1: 0.0106
+  Predicting class 1: 14.76645%
+
+Epoch 939 | Loss: 0.2596 | Acc: 0.8528
+  Class 1 - P: 0.0053, R: 0.9506, F1: 0.0106
+  Predicting class 1: 14.79973%
+
+Epoch 940 | Loss: 0.2582 | Acc: 0.8527
+  Class 1 - P: 0.0053, R: 0.9515, F1: 0.0106
+  Predicting class 1: 14.80455%
+
+Epoch 941 | Loss: 0.2584 | Acc: 0.8527
+  Class 1 - P: 0.0053, R: 0.9515, F1: 0.0106
+  Predicting class 1: 14.80490%
+
+Epoch 942 | Loss: 0.2565 | Acc: 0.8530
+  Class 1 - P: 0.0054, R: 0.9503, F1: 0.0106
+  Predicting class 1: 14.77762%
+
+Epoch 943 | Loss: 0.2613 | Acc: 0.8538
+  Class 1 - P: 0.0054, R: 0.9497, F1: 0.0107
+  Predicting class 1: 14.69726%
+
+Epoch 944 | Loss: 0.2582 | Acc: 0.8550
+  Class 1 - P: 0.0054, R: 0.9488, F1: 0.0108
+  Predicting class 1: 14.57874%
+
+Epoch 945 | Loss: 0.2645 | Acc: 0.8558
+  Class 1 - P: 0.0054, R: 0.9482, F1: 0.0108
+  Predicting class 1: 14.49837%
+
+Epoch 946 | Loss: 0.2590 | Acc: 0.8562
+  Class 1 - P: 0.0055, R: 0.9479, F1: 0.0109
+  Predicting class 1: 14.45311%
+
+Epoch 947 | Loss: 0.2559 | Acc: 0.8566
+  Class 1 - P: 0.0055, R: 0.9482, F1: 0.0109
+  Predicting class 1: 14.41183%
+  Saved best model (F1: 0.0109)
+
+Epoch 948 | Loss: 0.2532 | Acc: 0.8569
+  Class 1 - P: 0.0055, R: 0.9479, F1: 0.0109
+  Predicting class 1: 14.38042%
+  Saved best model (F1: 0.0109)
+
+Epoch 949 | Loss: 0.2561 | Acc: 0.8572
+  Class 1 - P: 0.0055, R: 0.9476, F1: 0.0109
+  Predicting class 1: 14.35741%
+  Saved best model (F1: 0.0109)
+
+Epoch 950 | Loss: 0.2576 | Acc: 0.8577
+  Class 1 - P: 0.0055, R: 0.9467, F1: 0.0109
+  Predicting class 1: 14.30894%
+  Saved best model (F1: 0.0109)
+
+Epoch 951 | Loss: 0.2665 | Acc: 0.8581
+  Class 1 - P: 0.0055, R: 0.9464, F1: 0.0110
+  Predicting class 1: 14.26653%
+  Saved best model (F1: 0.0110)
+
+Epoch 952 | Loss: 0.2541 | Acc: 0.8583
+  Class 1 - P: 0.0055, R: 0.9464, F1: 0.0110
+  Predicting class 1: 14.24211%
+  Saved best model (F1: 0.0110)
+
+Epoch 953 | Loss: 0.2557 | Acc: 0.8582
+  Class 1 - P: 0.0055, R: 0.9467, F1: 0.0110
+  Predicting class 1: 14.25383%
+
+Epoch 954 | Loss: 0.2553 | Acc: 0.8579
+  Class 1 - P: 0.0055, R: 0.9467, F1: 0.0110
+  Predicting class 1: 14.28765%
+
+Epoch 955 | Loss: 0.2551 | Acc: 0.8573
+  Class 1 - P: 0.0055, R: 0.9479, F1: 0.0109
+  Predicting class 1: 14.34505%
+
+Epoch 956 | Loss: 0.2533 | Acc: 0.8568
+  Class 1 - P: 0.0055, R: 0.9485, F1: 0.0109
+  Predicting class 1: 14.39783%
+
+Epoch 957 | Loss: 0.2521 | Acc: 0.8560
+  Class 1 - P: 0.0055, R: 0.9500, F1: 0.0109
+  Predicting class 1: 14.47588%
+
+Epoch 958 | Loss: 0.2553 | Acc: 0.8554
+  Class 1 - P: 0.0054, R: 0.9509, F1: 0.0108
+  Predicting class 1: 14.53938%
+
+Epoch 959 | Loss: 0.2535 | Acc: 0.8548
+  Class 1 - P: 0.0054, R: 0.9515, F1: 0.0108
+  Predicting class 1: 14.59974%
+
+Epoch 960 | Loss: 0.2526 | Acc: 0.8544
+  Class 1 - P: 0.0054, R: 0.9518, F1: 0.0108
+  Predicting class 1: 14.63397%
+
+Epoch 961 | Loss: 0.2543 | Acc: 0.8543
+  Class 1 - P: 0.0054, R: 0.9521, F1: 0.0108
+  Predicting class 1: 14.64675%
+
+Epoch 962 | Loss: 0.2491 | Acc: 0.8545
+  Class 1 - P: 0.0054, R: 0.9515, F1: 0.0108
+  Predicting class 1: 14.62243%
+
+Epoch 963 | Loss: 0.2631 | Acc: 0.8546
+  Class 1 - P: 0.0054, R: 0.9506, F1: 0.0108
+  Predicting class 1: 14.61409%
+
+Epoch 964 | Loss: 0.2561 | Acc: 0.8548
+  Class 1 - P: 0.0054, R: 0.9503, F1: 0.0108
+  Predicting class 1: 14.59346%
+
+Epoch 965 | Loss: 0.2543 | Acc: 0.8553
+  Class 1 - P: 0.0054, R: 0.9500, F1: 0.0108
+  Predicting class 1: 14.54984%
+
+Epoch 966 | Loss: 0.2524 | Acc: 0.8559
+  Class 1 - P: 0.0055, R: 0.9497, F1: 0.0108
+  Predicting class 1: 14.48656%
+
+Epoch 967 | Loss: 0.2565 | Acc: 0.8562
+  Class 1 - P: 0.0055, R: 0.9500, F1: 0.0109
+  Predicting class 1: 14.45456%
+
+Epoch 968 | Loss: 0.2530 | Acc: 0.8564
+  Class 1 - P: 0.0055, R: 0.9506, F1: 0.0109
+  Predicting class 1: 14.43386%
+
+Epoch 969 | Loss: 0.2538 | Acc: 0.8569
+  Class 1 - P: 0.0055, R: 0.9506, F1: 0.0109
+  Predicting class 1: 14.38909%
+
+Epoch 970 | Loss: 0.2506 | Acc: 0.8575
+  Class 1 - P: 0.0055, R: 0.9503, F1: 0.0110
+  Predicting class 1: 14.32691%
+
+Epoch 971 | Loss: 0.2499 | Acc: 0.8582
+  Class 1 - P: 0.0055, R: 0.9497, F1: 0.0110
+  Predicting class 1: 14.25797%
+  Saved best model (F1: 0.0110)
+
+Epoch 972 | Loss: 0.2488 | Acc: 0.8588
+  Class 1 - P: 0.0056, R: 0.9491, F1: 0.0111
+  Predicting class 1: 14.19697%
+  Saved best model (F1: 0.0111)
+
+Epoch 973 | Loss: 0.2506 | Acc: 0.8590
+  Class 1 - P: 0.0056, R: 0.9479, F1: 0.0111
+  Predicting class 1: 14.17563%
+  Saved best model (F1: 0.0111)
+
+Epoch 974 | Loss: 0.2479 | Acc: 0.8593
+  Class 1 - P: 0.0056, R: 0.9476, F1: 0.0111
+  Predicting class 1: 14.14142%
+  Saved best model (F1: 0.0111)
+
+Epoch 975 | Loss: 0.2549 | Acc: 0.8595
+  Class 1 - P: 0.0056, R: 0.9473, F1: 0.0111
+  Predicting class 1: 14.12022%
+  Saved best model (F1: 0.0111)
+
+Epoch 976 | Loss: 0.2491 | Acc: 0.8595
+  Class 1 - P: 0.0056, R: 0.9476, F1: 0.0111
+  Predicting class 1: 14.12384%
+  Saved best model (F1: 0.0111)
+
+Epoch 977 | Loss: 0.2549 | Acc: 0.8587
+  Class 1 - P: 0.0056, R: 0.9485, F1: 0.0110
+  Predicting class 1: 14.20111%
+
+Epoch 978 | Loss: 0.2533 | Acc: 0.8579
+  Class 1 - P: 0.0055, R: 0.9497, F1: 0.0110
+  Predicting class 1: 14.28344%
+
+Epoch 979 | Loss: 0.2503 | Acc: 0.8573
+  Class 1 - P: 0.0055, R: 0.9509, F1: 0.0110
+  Predicting class 1: 14.34311%
+
+Epoch 980 | Loss: 0.2594 | Acc: 0.8571
+  Class 1 - P: 0.0055, R: 0.9512, F1: 0.0110
+  Predicting class 1: 14.36590%
+
+Epoch 981 | Loss: 0.2470 | Acc: 0.8570
+  Class 1 - P: 0.0055, R: 0.9521, F1: 0.0110
+  Predicting class 1: 14.37259%
+
+Epoch 982 | Loss: 0.2520 | Acc: 0.8570
+  Class 1 - P: 0.0055, R: 0.9521, F1: 0.0110
+  Predicting class 1: 14.37136%
+
+Epoch 983 | Loss: 0.2508 | Acc: 0.8570
+  Class 1 - P: 0.0055, R: 0.9521, F1: 0.0110
+  Predicting class 1: 14.37395%
+
+Epoch 984 | Loss: 0.2503 | Acc: 0.8568
+  Class 1 - P: 0.0055, R: 0.9521, F1: 0.0109
+  Predicting class 1: 14.39246%
+
+Epoch 985 | Loss: 0.2577 | Acc: 0.8569
+  Class 1 - P: 0.0055, R: 0.9521, F1: 0.0110
+  Predicting class 1: 14.38271%
+
+Epoch 986 | Loss: 0.2492 | Acc: 0.8571
+  Class 1 - P: 0.0055, R: 0.9518, F1: 0.0110
+  Predicting class 1: 14.36757%
+
+Epoch 987 | Loss: 0.2481 | Acc: 0.8573
+  Class 1 - P: 0.0055, R: 0.9518, F1: 0.0110
+  Predicting class 1: 14.34461%
+
+Epoch 988 | Loss: 0.2504 | Acc: 0.8575
+  Class 1 - P: 0.0055, R: 0.9509, F1: 0.0110
+  Predicting class 1: 14.32383%
+
+Epoch 989 | Loss: 0.2462 | Acc: 0.8577
+  Class 1 - P: 0.0055, R: 0.9509, F1: 0.0110
+  Predicting class 1: 14.30518%
+
+Epoch 990 | Loss: 0.2459 | Acc: 0.8578
+  Class 1 - P: 0.0055, R: 0.9506, F1: 0.0110
+  Predicting class 1: 14.29341%
+
+Epoch 991 | Loss: 0.2484 | Acc: 0.8576
+  Class 1 - P: 0.0055, R: 0.9509, F1: 0.0110
+  Predicting class 1: 14.31980%
+
+Epoch 992 | Loss: 0.2526 | Acc: 0.8573
+  Class 1 - P: 0.0055, R: 0.9518, F1: 0.0110
+  Predicting class 1: 14.34638%
+
+Epoch 993 | Loss: 0.2476 | Acc: 0.8570
+  Class 1 - P: 0.0055, R: 0.9521, F1: 0.0110
+  Predicting class 1: 14.37823%
+
+Epoch 994 | Loss: 0.2497 | Acc: 0.8563
+  Class 1 - P: 0.0055, R: 0.9527, F1: 0.0109
+  Predicting class 1: 14.44090%
+
+Epoch 995 | Loss: 0.2505 | Acc: 0.8557
+  Class 1 - P: 0.0055, R: 0.9533, F1: 0.0109
+  Predicting class 1: 14.50165%
+
+Epoch 996 | Loss: 0.2475 | Acc: 0.8553
+  Class 1 - P: 0.0055, R: 0.9544, F1: 0.0109
+  Predicting class 1: 14.54207%
+
+Epoch 997 | Loss: 0.2482 | Acc: 0.8550
+  Class 1 - P: 0.0054, R: 0.9541, F1: 0.0108
+  Predicting class 1: 14.57286%
+
+Epoch 998 | Loss: 0.2437 | Acc: 0.8550
+  Class 1 - P: 0.0054, R: 0.9541, F1: 0.0108
+  Predicting class 1: 14.57086%
+
+Epoch 999 | Loss: 0.2487 | Acc: 0.8550
+  Class 1 - P: 0.0054, R: 0.9541, F1: 0.0108
+  Predicting class 1: 14.57876%
+
+============================================================
+TRAINING COMPLETE
+============================================================
+Class 0: 1013872 (99.82%)
+Class 1: 1797 (0.18%)
+
+============================================================
+TEST SET RESULTS
+============================================================
+Overall Accuracy: 0.7560
+AUC-ROC: 0.9569
+
+Confusion Matrix:
+  TN:  766138  FP:  247734
+  FN:      40  TP:    1757
+
+Class 0 (Legitimate):
+  Precision: 0.9999
+  Recall: 0.7557
+
+Class 1 (Laundering):
+  Precision: 0.0070
+  Recall: 0.9777
+  F1 Score: 0.0140
+============================================================
+
+============================================================
+EVALUATION COMPLETE
+============================================================
+==========================================
+Training completed successfully!
+Output saved to: ./saved_models/
+==========================================
+Job completed at: Sat Nov 15 03:51:45 PM +08 2025
+==========================================

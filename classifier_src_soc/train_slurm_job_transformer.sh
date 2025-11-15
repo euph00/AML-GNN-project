@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=dgl_gnn_train
-#SBATCH --partition=gpu --gres=gpu:h100-96:1
+#SBATCH --partition=gpu --gres=gpu:h200-141:1
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
@@ -68,7 +68,7 @@ OUTPUT_DIR="./saved_models/"
 mkdir -p $OUTPUT_DIR
 
 # Training parameters
-NUM_EPOCHS=500
+NUM_EPOCHS=1000
 LEARNING_RATE=1e-4
 
 # Run the training script

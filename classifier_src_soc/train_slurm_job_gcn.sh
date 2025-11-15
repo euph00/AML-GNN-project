@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G
-#SBATCH --time=00:45:00
+#SBATCH --time=01:30:00
 #SBATCH --output=logs/gcn_train_%j.out
 #SBATCH --error=logs/gcn_train_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL
@@ -68,7 +68,7 @@ OUTPUT_DIR="./saved_models/"
 mkdir -p $OUTPUT_DIR
 
 # Training parameters
-NUM_EPOCHS=100
+NUM_EPOCHS=1000
 LEARNING_RATE=1e-4
 
 # Run the training script

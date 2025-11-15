@@ -402,7 +402,7 @@ def main(output_dir='./saved_models/', num_epochs=500, learning_rate=0.001):
     print(f"Class 1: {(test_labels==1).sum()} ({100*(test_labels==1).float().mean():.2f}%)")
 
     # Evaluate
-    model.load_state_dict(torch.load(output_dir + 'best_transformer_model.pt'))
+    model.load_state_dict(torch.load(output_dir + 'best_transformer_edge_model.pt'))
     model.eval()
     with torch.no_grad():
         test_logits = model(test_graph)

@@ -78,52 +78,39 @@ def add_rwpe_features(graph, k_steps=[1,2,3,4,5,6,7,8]):
     src, dst = graph.edges()
     num_nodes = graph.num_nodes()
     
-    # Create sparse adjacency matrix in COO format
+    # Create sparse adjacency matrix
     indices = torch.stack([src, dst], dim=0).to(device)
     values = torch.ones(indices.shape[1], dtype=torch.float32, device=device)
     A = torch.sparse_coo_tensor(indices, values, (num_nodes, num_nodes))
     
-    # Compute out-degrees
+    # Compute out-degrees and D^(-1)
     out_deg = torch.sparse.sum(A, dim=1).to_dense()
-    out_deg[out_deg == 0] = 1  # avoid division by zero
-    
-    # Create D^(-1) as sparse diagonal matrix
+    out_deg[out_deg == 0] = 1
     inv_deg = 1.0 / out_deg
+    
+    # D^(-1) as sparse diagonal
     diag_indices = torch.arange(num_nodes, device=device).unsqueeze(0).repeat(2, 1)
     D_inv = torch.sparse_coo_tensor(diag_indices, inv_deg, (num_nodes, num_nodes))
     
     # Transition matrix P = D^(-1) @ A
     P = torch.sparse.mm(D_inv, A)
     
-    # Compute RWPE: diagonal of P^k for each k
+    # Compute RWPE
     rwpe = torch.zeros(num_nodes, len(k_steps), device=device)
     P_k = P
     
     for idx, k in enumerate(sorted(k_steps)):
         if k > 1 and idx > 0:
-            # Multiply to get from P^(previous_k) to P^k
             for _ in range(k - k_steps[idx-1]):
                 P_k = torch.sparse.mm(P_k, P)
         
-        # Extract diagonal from sparse matrix
+        # Extract diagonal
         indices = P_k.indices()
         values = P_k.values()
-        
-        # Find where row == col (diagonal elements)
         diag_mask = indices[0] == indices[1]
-        diag_indices = indices[0][diag_mask]
-        diag_values = values[diag_mask]
-        
-        # Scatter into result (nodes not in diagonal have 0 probability)
-        rwpe[diag_indices, idx] = diag_values
+        rwpe[indices[0][diag_mask], idx] = values[diag_mask]
     
-    # Normalize: log transform + standardize
-    rwpe = torch.log(rwpe + 1e-10)
-    mean = rwpe.mean(dim=0, keepdim=True)
-    std = rwpe.std(dim=0, keepdim=True)
-    rwpe = (rwpe - mean) / (std + 1e-10)
-    
-    # Add to existing node features
+    # Add to node features (no transformation!)
     existing_feats = graph.ndata['node_feats']
     graph.ndata['node_feats'] = torch.cat([existing_feats, rwpe], dim=1)
     print("Added RWPE feats")

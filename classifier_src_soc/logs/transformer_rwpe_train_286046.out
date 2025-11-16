@@ -1,3 +1,38 @@
+==========================================
+Job ID: 286046
+Job Name: transformer_rwpe
+Node: xgpk0
+Start Time: Mon Nov 17 06:11:28 AM +08 2025
+GPU Information:
+Mon Nov 17 06:11:28 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 575.57.08              Driver Version: 575.57.08      CUDA Version: 12.9     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA H200 NVL                On  |   00000000:71:00.0 Off |                    0 |
+| N/A   51C    P0            109W /  600W |       0MiB / 143771MiB |    100%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+==========================================
+Conda environment 'aml_project_new' already exists. Activating it...
+Working directory: /home/l/linchieh/AML-GNN-project/classifier_src_soc
+==========================================
+Starting fine-tuning...
+Output directory: ./saved_models/
+Epochs: 1000
+Learning rate: 1e-4
+==========================================
 Preparing dataset
 Warning: Looks like you're using an outdated `kagglehub` version, please consider updating (latest version: 0.3.13)
 Path to dataset files: /home/l/linchieh/.cache/kagglehub/datasets/ealtman2019/ibm-transactions-for-anti-money-laundering-aml/versions/8
@@ -4131,3 +4166,9 @@ Class 1 (Laundering):
 ============================================================
 EVALUATION COMPLETE
 ============================================================
+==========================================
+Training completed successfully!
+Output saved to: ./saved_models/
+==========================================
+Job completed at: Mon Nov 17 07:50:27 AM +08 2025
+==========================================

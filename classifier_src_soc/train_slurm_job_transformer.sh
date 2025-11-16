@@ -5,7 +5,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=128G
-#SBATCH --time=01:30:00
+#SBATCH --time=02:30:00
 #SBATCH --output=logs/transformer_train_%j.out
 #SBATCH --error=logs/transformer_train_%j.err
 #SBATCH --mail-type=BEGIN,END,FAIL

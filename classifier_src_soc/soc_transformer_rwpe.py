@@ -226,7 +226,7 @@ class GraphTransformer_layer(nn.Module):
         return h
 
 class GraphTransformer_net(nn.Module):
-    def __init__(self, input_dim=2+8, hidden_dim=128, output_dim=2, transformer_layers=7):
+    def __init__(self, input_dim=2+8, hidden_dim=128, output_dim=2, transformer_layers=12):
         super().__init__()
         self.embedding_h = nn.Linear(input_dim, hidden_dim)
         self.GraphTransformer_layers = nn.ModuleList([GraphTransformer_layer(hidden_dim=hidden_dim) for _ in range(transformer_layers)])
